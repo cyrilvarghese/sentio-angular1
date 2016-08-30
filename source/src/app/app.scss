@@ -1,0 +1,52 @@
+$sidenav-mobile-width: 260px;
+$sidenav-desktop-width: 300px;
+// import angular material scss
+@import "angular-material/angular-material.scss";
+body {
+    color: #212121;
+}
+
+// set template font family
+button,
+select,
+html,
+textarea,
+input {
+    font-family: RobotoDraft, Roboto, 'Helvetica Neue', sans-serif;
+}
+
+// import app scss
+@import "scss/material-backgrounds";
+// Add your CSS here
+.clickable {
+    cursor: pointer;
+}
+
+.clickable:hover {
+    background-color: rgba(158, 158, 158, 0.2);
+}
+
+.md-margin-5p {
+    margin: 7.5px !important;
+    margin-bottom: 15px !important;
+}
+
+.fab-add-fixed {
+    position: fixed;
+    bottom: 35px;
+    right: 23px;
+}
+
+.triangular-loader{
+	z-index: 101 !important;
+}
+.select-box{
+    width: 35px;
+}
+/**
+ *  Do not remove this comments bellow. It's the markers used by gulp-inject to inject
+ *  all your sass files automatically
+ */
+
+// injector
+// endinjector

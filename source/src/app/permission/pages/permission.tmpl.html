@@ -1,0 +1,55 @@
+<div class="md-padding">
+    
+    <div layout="row" layout-xs="column" layout-margin layout-align="space-between stretch">
+        <div class="md-whiteframe-1dp" flex layout="column">
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <span translate>Users</span>
+                </div>
+            </md-toolbar>
+            <md-content>
+                <md-list flex>
+                    <md-list-item class="md-primary" ng-repeat="user in vm.userList" ng-click="vm.selectUser(user)">
+                        <img ng-src="{{user.avatar}}" class="md-avatar" alt="{{user.displayName}}" />
+                        <p>{{user.displayName}}</p>
+                        <md-icon md-font-icon="zmdi zmdi-circle" ng-show="vm.selectedUser == user"></md-icon>
+                    </md-list-item>
+                </md-list>
+            </md-content>
+        </div>
+        <div class="md-whiteframe-1dp" flex layout="column">
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <span translate>Roles</span>
+                </div>
+            </md-toolbar>
+            <md-content>
+                <md-list flex>
+                    <md-list-item ng-repeat="role in vm.roleList">
+                        <p>{{role.roleName}}</p>
+                    </md-list-item>
+                </md-list>
+            </md-content>
+        </div>
+        <div class="md-whiteframe-1dp" flex layout="column">
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <span translate>Permissions</span>
+                </div>
+            </md-toolbar>
+            <md-content>
+                <md-list flex>
+                    <md-list-item ng-repeat="permission in vm.permissionList">
+                        <p>{{permission}}</p>
+                    </md-list-item>
+                </md-list>
+            </md-content>
+        </div>
+    </div>
+
+   <!--  <md-button class="md-primary md-raised" ng-click="vm.loginClick()">Login as {{vm.selectedUser.displayName}}</md-button>
+
+    <p>Go ahead and log in as one of the users to see it's effect on the side menu items and routes</p>
+
+    <p>For more details on how to set this up read about permissions for routes and permissions for views.</p> -->
+</div>

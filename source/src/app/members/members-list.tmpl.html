@@ -1,0 +1,9 @@
+<md-list>
+   
+     
+    <md-list-item ng-repeat="item in ::vm.members" class="clickable">
+        <img ng-src="{{::item.from.image}}" class="md-avatar" alt="{{::item.from.name}}" />
+        <p >{{::item.from.name}}</p>
+      
+    </md-list-item>
+</md-list>

@@ -1,0 +1,9 @@
+node_modules
+node_modules_old
+dist
+bower_components
+.tmp
+.DS_Store
+npm-debug.log
+src/app/examples
+src/app/seed-module

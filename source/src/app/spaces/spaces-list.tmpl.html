@@ -1,0 +1,117 @@
+<ui-view>
+    <div class="md-padding">
+        <h2 class="md-subhead">Created By You</h2>
+        <div class="md-padding" layout-gt-sm="row" layout-sm="column">
+            <div flex="33" flex-xs="100" class="md-margin-5p" ng-repeat="(key, value) in [1,2,3]">
+                <md-toolbar>
+                    <div class="md-toolbar-tools">
+                        <p class="md-title">space 1</p>
+                        <span flex></span>
+                        <md-menu>
+                            <md-button class="md-icon-button" aria-label="open menu" ng-click="$mdOpenMenu()">
+                                <md-icon md-font-icon="zmdi zmdi-more-vert"></md-icon>
+                            </md-button>
+                            <md-menu-content width="3">
+                                <md-menu-item>
+                                    <md-button ng-click="$mdCloseMenu">
+                                        <md-icon md-font-icon="zmdi zmdi-link"></md-icon>
+                                        Link
+                                    </md-button>
+                                </md-menu-item>
+                                <md-menu-item>
+                                    <md-button ng-click="$mdCloseMenu">
+                                        <md-icon md-font-icon="zmdi zmdi-edit"></md-icon>
+                                        Edit
+                                    </md-button>
+                                </md-menu-item>
+                                <md-menu-divider></md-menu-divider>
+                                <md-menu-item>
+                                    <md-button ng-click="$mdCloseMenu
+">
+                                        <md-icon md-font-icon="zmdi zmdi-delete"></md-icon>
+                                        Delete
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+                    </div>
+                </md-toolbar>
+                <md-card style="margin:1px !important">
+                    <div layout="row" layout-align="space-between" flex ng-cloak>
+                    </div>
+                    <md-card-content class="clickable" ng-click="vm.navigateToDetail('123')">
+                        <p class="md-body-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, distinctio minus nostrum aut magni ipsam, eius ipsa eos voluptate natus excepturi qui numquam velit non explicabo molestias quasi sunt veniam.</p>
+                    </md-card-content>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <!-- <invite-btn></invite-btn> -->
+                        <md-button class="md-primary" ng-click="vm.showMembers('members-list-right-menu')">
+                            <md-icon md-font-icon="zmdi zmdi-account-add"></md-icon>Members</md-button>
+                    </md-card-actions>
+                </md-card>
+            </div>
+        </div>
+        <md-divider></md-divider>
+        <h2 class="md-subhead">Created By Others</h2>
+        <div class="md-padding" layout-gt-sm="row" layout-sm="column">
+            <div flex="33" flex-xs="100" class="md-margin-5p" ng-repeat="(key, value) in [1,2,3]">
+                <md-toolbar>
+                    <div class="md-toolbar-tools">
+                        <p class="md-title">space 1</p>
+                        <span flex></span>
+                        <md-menu>
+                            <md-button class="md-icon-button" aria-label="open menu" ng-click="$mdOpenMenu()">
+                                <md-icon md-font-icon="zmdi zmdi-more-vert"></md-icon>
+                            </md-button>
+                            <md-menu-content width="3">
+                                <md-menu-item>
+                                    <md-button ng-click="$mdCloseMenu">
+                                        <md-icon md-font-icon="zmdi zmdi-link"></md-icon>
+                                        Link
+                                    </md-button>
+                                </md-menu-item>
+                                <md-menu-item>
+                                    <md-button ng-click="$mdCloseMenu">
+                                        <md-icon md-font-icon="zmdi zmdi-edit"></md-icon>
+                                        Edit
+                                    </md-button>
+                                </md-menu-item>
+                                <md-menu-divider></md-menu-divider>
+                                <md-menu-item>
+                                    <md-button ng-click="$mdCloseMenu
+">
+                                        <md-icon md-font-icon="zmdi zmdi-delete"></md-icon>
+                                        Delete
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+                    </div>
+                </md-toolbar>
+                <md-card style="margin:1px !important">
+                    <div layout="row" layout-align="space-between" flex ng-cloak>
+                    </div>
+                    <md-card-content class="clickable" ng-click="vm.navigateToDetail('123')">
+                        <p class="md-body-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, distinctio minus nostrum aut magni ipsam, eius ipsa eos voluptate natus excepturi qui numquam velit non explicabo molestias quasi sunt veniam.</p>
+                    </md-card-content>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <!-- <invite-btn></invite-btn> -->
+                        <md-button class="md-primary" ng-click="vm.showMembers('members-list-right-menu')">
+                            <md-icon md-font-icon="zmdi zmdi-accounts-alt"></md-icon>Members</md-button>
+                    </md-card-actions>
+                </md-card>
+            </div>
+        </div>
+    </div>
+    <!-- left sidebar -->
+    <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="members-list-right-menu">
+        <md-toolbar class="md-theme-light">
+            <h1 class="md-toolbar-tools">Members</h1>
+        </md-toolbar>
+        <md-content class="md-padding">
+            <div layout="row" layout-padding layout-align="space-around start" ng-include="'app/members/members-list.tmpl.html'"></div>
+        </md-content>
+    </md-sidenav>
+   <md-button class="md-fab fab-add-fixed "  aria-label="fab button">
+    <md-icon md-font-icon="zmdi zmdi-plus"></md-icon>
+</md-button
+</ui-view>
