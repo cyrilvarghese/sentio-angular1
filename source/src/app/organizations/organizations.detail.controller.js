@@ -8,9 +8,7 @@
     /* @ngInject */
     function organizationsDetailController($mdSidenav, userService,organizationService, $state, $stateParams, members) {
         var vm = this;
-        vm.deleteProject = deleteProject;
-        vm.showProject = showProject;
-        vm.selectProject = selectProject;
+       
         vm.navigateToProjects = navigateToProjects;
         vm.updateOrCreate = updateOrCreate;
         vm.leaveOrg = leaveOrg;
@@ -52,54 +50,15 @@
             }
             userService.leaveOrg(paramObj);
         }
-        vm.projects = [{
-            name: 'Project 1',
-            createdBy: 'John',
-            doc: '17/11/2015',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et d'
-        }, {
-            name: 'Project 1',
-            createdBy: 'Jane',
-            doc: '17/11/2015',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et d'
-
-        }, {
-            name: 'Project 1',
-            createdBy: 'Cyril',
-            doc: '17/11/2015',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et d'
-
-        }, {
-            name: 'Project 1',
-            createdBy: 'Jack',
-            doc: '17/11/2015',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et d'
-
-        }, {
-            name: 'Project 1',
-            createdBy: 'Will',
-            doc: '17/11/2015',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et d'
-
-        }]
-
-        function deleteProject() {
-            console.log('delete');
-        }
-
-        function showProject() {
-            $state.go('triangular.projects.detail', {
-                id: 123
-            });
-        }
-
+        
         function selectProject() {
             console.log('select');
         }
 
         function navigateToProjects() {
             $state.go('triangular.organizations.detail.projects', {
-                id: 123
+                id: 123,
+                projects:vm.selectedOrg.projects
             });
         }
     }

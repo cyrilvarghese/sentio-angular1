@@ -24,7 +24,7 @@
 
         }
 
-        function getOrgList() {
+        function getProjectList() {
             var dfd = $q.defer();
             var req = {
                 method: 'GET',
@@ -41,7 +41,7 @@
             return dfd.promise;
         }
 
-        function getOrg(paramObj) {
+        function getProject(paramObj) {
             var dfd = $q.defer();
             var req = {
                 method: 'GET',
@@ -55,11 +55,11 @@
             return dfd.promise;
         }
 
-        function createOrganization(paramObj) {
+        function createProject(paramObj) {
             var dfd = $q.defer();
             var req = {
                 method: 'POST',
-                url: API_CONFIG.baseUrl + API_CONFIG.organizationsUrl + 'create?' + $.param(paramObj),
+                url: API_CONFIG.baseUrl + API_CONFIG.ProjectsUrl + 'create?' + $.param(paramObj),
                 headers: utilService.getHeaders(),
                 data: paramObj
             }
@@ -73,11 +73,11 @@
 
         }
 
-        function updateOrganization(paramObj) {
+        function updateProject(paramObj) {
             var dfd = $q.defer();
             var req = {
                 method: 'POST',
-                url: API_CONFIG.baseUrl + API_CONFIG.organizationsUrl + 'edit/' + paramObj.id + '?' + $.param(paramObj),
+                url: API_CONFIG.baseUrl + API_CONFIG.ProjectsUrl + 'edit/' + paramObj.id + '?' + $.param(paramObj),
                 headers: utilService.getHeaders(),
                 data: paramObj
             }
@@ -90,7 +90,7 @@
 
         }
 
-        function leaveOrganization() {
+        function leaveProject() {
 
         }
 

@@ -37,6 +37,7 @@
         'authenticationUrl': 'api/v1/user/',
         'organizationsUrl': 'api/v1/org/',
         'sharedUrl':'api/v1/sentio/',
+        'ProjectsUrl':'api/v1/project/',
         'apiKey':'7nZOLvhjP21/XqzuQCb0uylmBnbAtcPMil+6momlp5E='
     });
     //         C:\Program Files (x86)\Google\Chrome\Application>chrome.exe --user-data-dir="C:/

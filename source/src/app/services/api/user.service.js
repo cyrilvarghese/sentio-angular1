@@ -28,6 +28,7 @@
             signUp: signUp,
             forgotPass: forgotPass,
             leaveOrg: leaveOrg,
+            leaveProject: leaveProject,
             login: login
         };
 
@@ -146,6 +147,22 @@
             var req = {
                 method: 'GET',
                 url: API_CONFIG.baseUrl + API_CONFIG.authenticationUrl + 'leave_org?' + $.param(paramObj),
+                headers: getHeaders()
+            }
+            $http(req).then(function(response) {
+                toastService.show(response.data.message)
+                dfd.resolve();
+            }, handleError);
+
+            return dfd.promise;
+
+        }
+
+        function leaveProject(paramObj) {
+            var dfd = $q.defer();
+            var req = {
+                method: 'GET',
+                url: API_CONFIG.baseUrl + API_CONFIG.authenticationUrl + 'leave_proj/'+paramObj.id+'?' + $.param(paramObj),
                 headers: getHeaders()
             }
             $http(req).then(function(response) {

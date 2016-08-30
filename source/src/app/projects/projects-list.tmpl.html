@@ -39,7 +39,7 @@
 </md-toolbar>
 <div layout="column" class="md-padding" md-whiteframe="1">
     <md-list>
-        <md-list-item class="md-3-line" ng-repeat="project in ::vm.projects track by $index" ng-click="vm.showProject()">
+        <md-list-item class="md-3-line" ng-repeat="project in ::vm.projects track by $index" ng-click="vm.navigateToProject(project.id)">
             <md-checkbox class="s"  ng-model="project.selected"  ng-click="vm.selectProject(project.selected)"></md-checkbox>
             <div class="md-list-item-text">
                 <h3>{{::project.name}} </h3>
@@ -51,7 +51,7 @@
     </md-list>
     
 </div>
-  <md-button class="md-fab fab-add-fixed"  aria-label="fab button">
-    <md-icon md-font-icon="zmdi zmdi-plus"></md-icon>
+  <md-button class="md-fab fab-add-fixed" ng-click="vm.navigateToProject(0)"  aria-label="fab button">
+    <md-icon md-font-icon="zmdi zmdi-plus" ></md-icon>
 </md-button
 </ui-view>

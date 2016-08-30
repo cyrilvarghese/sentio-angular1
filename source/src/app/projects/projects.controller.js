@@ -6,12 +6,14 @@
         .controller('projectsController', projectsController);
 
     /* @ngInject */
-    function projectsController($mdSidenav, $state, members, triBreadcrumbsService) {
+    function projectsController($mdSidenav, $state, $stateParams,members, triBreadcrumbsService) {
         var vm = this;
         vm.deleteProject = deleteProject;
         vm.showProject = showProject;
         vm.selectProject = selectProject;
         vm.isProjectSelected = false;
+        vm.projects = $stateParams.projects||[];
+
         var crumb = {
             // give the menu a name to show (should be translatable and in the il8n folder json)
             name: 'project detail',
@@ -29,48 +31,27 @@
         triBreadcrumbsService.reset();
       
         triBreadcrumbsService.addCrumb({ name: 'Project' });
-        vm.projects = [{
-            name: 'Project 1',
-            createdBy: 'John',
-            doc: '17/11/2015',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et d'
+        function deleteProject() {
+            console.log('delete');
+        }
 
-        }, {
-            name: 'Project 1',
-            createdBy: 'Jane',
-            doc: '17/11/2015',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et d'
-
-        }, {
-            name: 'Project 1',
-            createdBy: 'Cyril',
-            doc: '17/11/2015',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et d'
-
-        }, {
-            name: 'Project 1',
-            createdBy: 'Jack',
-            doc: '17/11/2015',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et d'
-
-        }, {
-            name: 'Project 1',
-            createdBy: 'Will',
-            doc: '17/11/2015',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et d'
-
-        }]
+        function navigateToProject(id) {
+            var id=id||0;
+            $state.go('triangular.organizations.detail.projects.detail', {
+                id: parseInt(id)
+            });
+        }
+        
 
         function deleteProject() {
             console.log('delete');
         }
 
         function showProject() {
-            $state.go('triangular.organizations.detail.projects.detail', {
+            $state.go('triangular.projects.detail', {
                 id: 123
             });
         }
-
         function selectProject(flag) {
             console.log('select');
             vm.isProjectSelected = !flag;
