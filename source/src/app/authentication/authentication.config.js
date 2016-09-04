@@ -21,13 +21,18 @@
                         only: ['viewAuthentication']
                     }
                 },
-                 resolve: {
-                    csrf: function($http, API_CONFIG) {
+                resolve: {
+                    csrf: function($http, API_CONFIG,toastService) {
                         return $http({
                             method: 'GET',
-                            url: API_CONFIG.baseUrl + 'csrf'/*sample data*/
-                        }).then(function(resp){
-                             localStorage.setItem('csrf', resp.data);
+                            url: API_CONFIG.baseUrl + 'csrf' /*sample data*/
+                        }).then(function(resp) {
+
+                            if (resp.status === 200) {
+                                localStorage.setItem('csrf', resp.data);
+                            } else {
+                                toastService.show('unable to load site properly please retry in some time.')
+                            }
                         });
                     }
                 }
@@ -39,7 +44,7 @@
                 controllerAs: 'vm'
             })
             .state('authentication.signup', {
-                url: '/signup?org=',
+                url: '/signup?invitation_code=',
                 templateUrl: 'app/authentication/signup/signup.tmpl.html',
                 controller: 'SignupController',
                 controllerAs: 'vm'

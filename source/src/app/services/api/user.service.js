@@ -6,7 +6,7 @@
         .factory('userService', userService);
 
     /* @ngInject */
-    function userService($q, $http, RoleStore, toastService, API_CONFIG) {
+    function userService($q, $http, RoleStore,Upload,utilService, toastService, API_CONFIG) {
         var userInfo = {
             name: 'guest',
             username: '-'
@@ -29,6 +29,7 @@
             forgotPass: forgotPass,
             leaveOrg: leaveOrg,
             leaveProject: leaveProject,
+            uploadProfilePic: uploadProfilePic,
             login: login
         };
 
@@ -75,17 +76,6 @@
             return deferred.promise;
         }
 
-        // function login(userDetails) {
-        //     var dfd = $q.defer();
-        //     $http.get('').then(function(user) {
-        //         currentUser = user;
-        //         localStorage.setItem('userInfo', JSON.stringify(user));
-        //         dfd.resolve();
-        //     }, handleError('login'));
-
-        //     return dfd.promise;
-
-        // }
 
         function login(paramObj) {
             var dfd = $q.defer();
@@ -162,7 +152,7 @@
             var dfd = $q.defer();
             var req = {
                 method: 'GET',
-                url: API_CONFIG.baseUrl + API_CONFIG.authenticationUrl + 'leave_proj/'+paramObj.id+'?' + $.param(paramObj),
+                url: API_CONFIG.baseUrl + API_CONFIG.authenticationUrl + 'leave_proj/' + paramObj.id + '?' + $.param(paramObj),
                 headers: getHeaders()
             }
             $http(req).then(function(response) {
@@ -217,6 +207,37 @@
             return dfd.promise;
 
         }
+
+        function uploadProfilePic(paramObj) {
+            var dfd = $q.defer();
+            if (paramObj.file !== null) {
+
+                Upload.upload({
+                    url: API_CONFIG.baseUrl + API_CONFIG.authenticationUrl + 'update_profile/'+paramObj.user_id+'?' + $.param({ api_token: localStorage.getItem('apiToken') }),
+                    data: {
+                        image: paramObj.image,
+                        info: Upload.json({
+                            user_id: paramObj.user_id
+                        })
+                    },
+                    headers: utilService.getHeaders()
+                }).then(function(response) {
+                    dfd.resolve(response);
+                    // console.log('Success? ' + response.config.data.file.name + 'uploaded. responseonse: ' + response.data);
+                }, function(response) {
+                    dfd.reject(response);
+                    // console.log('Error status: ' + response.status);
+                }, function(evt) {
+                    var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                    console.log('progress: ' + progressPercentage + '% ' + evt.config.data.image[0].name);
+                    // console.log('progress: ' + progressPercentage + '% ' + evt.config.data.image[1].name);
+                });;
+
+
+            }
+            return dfd.promise;
+        }
+
     }
 })();
 // cd C:\Program Files (x86)\Google\Chrome\Application\chrome.exe --disable-web-security)

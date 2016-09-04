@@ -10,12 +10,18 @@
         $stateProvider
             .state('triangular.organizations.detail.projects.detail.spaces', {
                 url: '/spaces',
-                templateUrl: 'app/spaces/spaces-list.tmpl.html',
-                // set the controller to load for this page
-                controller: 'spacesController',
-                controllerAs: 'vm',
-                // layout-column class added to make footer move to
-                // bottom of the page on short pages
+                views: {
+                    'toolbar@triangular': {
+                        templateUrl: 'app/spaces/layout/toolbar/toolbar.tmpl.html',
+                        controller: 'spacesToolbarController',
+                        controllerAs: 'vm'
+                    },
+                    '@triangular': {
+                        templateUrl: 'app/spaces/spaces-list.tmpl.html',
+                        controller: 'spacesController',
+                        controllerAs: 'vm'
+                    }
+                },
                 data: {
                     layout: {
                         contentClass: 'layout-column'
@@ -28,10 +34,13 @@
                             url: API_CONFIG.url + 'email/inbox'/*sample data*/
                         });
                     }
+                },
+                params:{
+                    spaceList:null
                 }
 
             }).state('triangular.organizations.detail.projects.detail.spaces.detail', {
-                url: '/:id',
+                url: '/:spaceId',
 
                 // set the controller to load for this page
 
@@ -39,8 +48,8 @@
                 // bottom of the page on short pages
                 views: {
                     'toolbar@triangular': {
-                        templateUrl: 'app/examples/email/layout/toolbar/toolbar.tmpl.html',
-                        controller: 'EmailToolbarController',
+                        templateUrl: 'app/spaces/layout/toolbar/toolbar.tmpl.html',
+                        controller: 'spacesToolbarController',
                         controllerAs: 'vm'
                     },
                     '@triangular': {

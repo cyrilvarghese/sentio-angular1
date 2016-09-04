@@ -6,14 +6,24 @@
         .controller('projectsController', projectsController);
 
     /* @ngInject */
-    function projectsController($mdSidenav, $state, $stateParams,members, triBreadcrumbsService) {
+    function projectsController($mdSidenav, $state, $stateParams, members, triBreadcrumbsService, projectService, toastService) {
         var vm = this;
         vm.deleteProject = deleteProject;
         vm.showProject = showProject;
         vm.selectProject = selectProject;
+        vm.navigateToProject = navigateToProject;
         vm.isProjectSelected = false;
-        vm.projects = $stateParams.projects||[];
-
+        vm.projects = $stateParams.projects;
+        // init();
+        function init() {
+            var paramObj = {
+                orgId: $stateParams.id,
+                api_token: localStorage.getItem('apiToken')
+            }
+            projectService.getProjectList(paramObj).then(function(data) {
+                vm.projects = data;
+            });
+        }
         var crumb = {
             // give the menu a name to show (should be translatable and in the il8n folder json)
             name: 'project detail',
@@ -29,22 +39,30 @@
         }
 
         triBreadcrumbsService.reset();
-      
-        triBreadcrumbsService.addCrumb({ name: 'Project' });
-        function deleteProject() {
-            console.log('delete');
-        }
 
-        function navigateToProject(id) {
-            var id=id||0;
+        triBreadcrumbsService.addCrumb({ name: 'Project' });
+
+
+        function navigateToProject(id, project) {
+            var id = id || 0;
             $state.go('triangular.organizations.detail.projects.detail', {
-                id: parseInt(id)
+                projectId: parseInt(id),
+                selectedProject: project
             });
         }
-        
+
 
         function deleteProject() {
-            console.log('delete');
+            var message = 'confirm deleting project - ' + vm.selectedProject.name;
+            toastService.showCustomToast(message, 'yes', 'no').then(function(response) {
+                console.log(response);
+                var paramObj = {
+                    project_id: vm.selectedProject.id,
+                    api_token: localStorage.getItem('apiToken')
+                }
+                projectService.deleteProject(paramObj);
+            });
+
         }
 
         function showProject() {
@@ -52,9 +70,11 @@
                 id: 123
             });
         }
-        function selectProject(flag) {
+
+        function selectProject(flag, project) {
             console.log('select');
             vm.isProjectSelected = !flag;
+            vm.selectedProject = project;
         }
 
     }

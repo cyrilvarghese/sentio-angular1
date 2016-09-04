@@ -3,11 +3,11 @@
 
     angular
         .module('app.gallery')
-        .controller('galleryController', galleryController);
+        .controller('editGalleryController', editGalleryController);
 
     /* @ngInject */
-    function galleryController($mdDialog) {
-        var vm = this;
+    function editGalleryController($mdDialog) {
+         var vm = this;
         vm.feed = [];
         vm.openImage = openImage;
 
@@ -19,7 +19,7 @@
 
         function randomImage(title) {
             var randImage = Math.floor((Math.random() * 10) + 1);
-            var randomCategory = loremPixelCategories[Math.floor((Math.random() * (loremPixelCategories.length - 1)) + 1)];
+            var randomCategory = loremPixelCategories[Math.floor((Math.random() * (loremPixelCategories.length-1)) + 1)];
 
             var width = [300, 640];
             var height = [225, 480];
@@ -31,12 +31,13 @@
             };
 
 
-            if (Math.random() < 0.7) {
+            if(Math.random() < 0.7) {
                 image.url += width[0] + '/' + height[0];
                 image.urlFull += width[1] + '/' + height[1];
                 image.rowspan = 2;
                 image.colspan = 2;
-            } else {
+            }
+            else {
                 image.url += height[0] + '/' + width[0];
                 image.urlFull += height[1] + '/' + width[1];
                 image.rowspan = 2;
@@ -56,8 +57,8 @@
             };
 
             var numberOfImages = Math.floor((Math.random() * 4) + 6);
-            for (var i = 0; i < numberOfImages; i++) {
-                dayFeed.images.push(randomImage('Photo ' + (i + 1)));
+            for(var i = 0; i < numberOfImages; i++) {
+                dayFeed.images.push(randomImage('Photo ' + (i+1)));
             }
 
             return dayFeed;
@@ -79,7 +80,7 @@
         }
 
         function createFeed() {
-            for (var day = 0; day < numberOfFeedDays; day++) {
+            for(var day = 0; day < numberOfFeedDays; day++) {
                 vm.feed.push(createDayOfImages(day));
             }
         }
@@ -87,17 +88,9 @@
         // init
 
         createFeed();
-        getGalleryDetails();
-
-        function getGalleryDetails() {
-            var paramObj = {
-                api_token: localStorage.getItem('apiToken'),
-                gallery_id: JSON.parse(localStorage.getItem('userInfo')).gallery_id || 0,
-
-            }
-            galleryService.getGallery(paramObj);
-        }
-
+         
+ 
+       
     }
 
 })();

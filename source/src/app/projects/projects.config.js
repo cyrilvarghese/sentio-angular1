@@ -34,7 +34,7 @@
                 }
 
             }).state('triangular.organizations.detail.projects.detail', {
-                url: '/:id',
+                url: '/:projectId',
 
                 // set the controller to load for this page
 

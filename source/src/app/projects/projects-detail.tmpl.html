@@ -1,28 +1,28 @@
 <ui-view>
-<md-content class="padded-content-page">
-    <div layout="column " class="md-padding" md-whiteframe="1">
-        <p class="md-title">Project Info</p>
-        <md-input-container class="md-block">
-            <label>Project Name</label>
-            <input type="text" ng-model="vm.selectedProject.name">
-        </md-input-container>
-        <md-input-container class="md-block">
-            <label>Description</label>
-            <textarea ng-model="vm.selectedProject.description"></textarea>
-        </md-input-container>
-        <div layout="row" layout-align="end center">
-            <md-button class="md-primary">Save</md-button>
+    <md-content class="padded-content-page">
+        <div layout="column " class="md-padding" md-whiteframe="1">
+            <p class="md-title">Project Info</p>
+            <md-input-container class="md-block">
+                <label>Project Name</label>
+                <input type="text" ng-model="vm.selectedProject.name">
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Description</label>
+                <textarea ng-model="vm.selectedProject.description"></textarea>
+            </md-input-container>
+            <div layout="row" layout-align="end center">
+                <md-button class="md-primary" ng-click="vm.createOrUpdate()">Save</md-button>
+            </div>
         </div>
-      
-    </div>
-    <div class="md-padding">
-          <div layout="column " layout-align="center center">
-            <md-button class="md-raised md-primary full-width" ng-click="vm.showSpaces()">View Spaces</md-button>
+        <div class="md-padding">
+            <div layout="column " layout-align="center center">
+                <md-button class="md-raised md-primary full-width" ng-click="vm.showSpaces()">View Spaces</md-button>
+                <md-button class="md-primary md-raised" ngf-select="vm.addLogo($files)" ng-disabled="vm.status != 'idle'" ngf-multiple="true" aria-label="upload">
+                    <md-icon md-font-icon ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon>Add Logo
+                </md-button>
+            </div>
         </div>
-  
-    </div>   
-    
-     <!-- 
+        <!-- 
       -->
-</md-content>
+    </md-content>
 </ui-view>

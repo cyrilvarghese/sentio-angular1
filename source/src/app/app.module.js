@@ -27,6 +27,7 @@
             // also remove 'permission' from the first line of dependencies
             // https://github.com/Narzerus/angular-permission see here for why
             'app.examples',
+            'ngFileUpload'
 
         ])
 
@@ -37,9 +38,12 @@
         'authenticationUrl': 'api/v1/user/',
         'organizationsUrl': 'api/v1/org/',
         'sharedUrl':'api/v1/sentio/',
-        'ProjectsUrl':'api/v1/project/',
+        'projectsUrl':'api/v1/project/',
+        'spacesUrl':'api/v1/space/',
+        'logoUrl':'api/v1/logo/',
+        'themeUrl':'api/v1/theme/',
+        'galleryUrl':'api/v1/gallery/',
         'apiKey':'7nZOLvhjP21/XqzuQCb0uylmBnbAtcPMil+6momlp5E='
     });
-    //         C:\Program Files (x86)\Google\Chrome\Application>chrome.exe --user-data-dir="C:/
-    // Chrome dev session" --disable-web-security
+    //         C:\Program Files (x86)\Google\Chrome\Application>chrome.exe --user-data-dir="C:/ Chrome dev session" --disable-web-security
 })();

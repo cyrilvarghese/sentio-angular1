@@ -30,7 +30,7 @@
         function updateOrCreate() {
             var paramObj = {
                 'name': vm.selectedOrg.name,
-                'id': vm.selectedOrg.org_id,
+                'id': vm.id,
                 'description': vm.selectedOrg.description,
                 'api_token': localStorage.getItem('apiToken')
             }
@@ -57,7 +57,7 @@
 
         function navigateToProjects() {
             $state.go('triangular.organizations.detail.projects', {
-                id: 123,
+                id: vm.selectedOrg.org_id,
                 projects:vm.selectedOrg.projects
             });
         }

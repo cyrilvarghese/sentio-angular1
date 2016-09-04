@@ -41,7 +41,7 @@
                         </md-content>
                     </md-tab-body>
                 </md-tab>
-                <md-tab id="upload" ng-disabled="infoForm.$invalid">
+                <md-tab ng-if="vm.id===0" id="upload" ng-disabled="infoForm.$invalid">
                     <md-tab-label>
                         <span class="oxy-step-label">2</span>
                         <span translate>Upload Images</span>
@@ -51,20 +51,22 @@
                             <form name="fileUploadForm" tri-wizard-form>
                                 <div>
                                     <div layout="row" layout-align="space-around center">
-                                      
-                                        <md-button class="md-primary md-raised md-fab" ngf-select="vm.upload($files)" ngf-multiple="true" aria-label="upload">
-                                            <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>
+                                        <md-button class="md-primary md-raised md-fab" ngf-select="vm.createSpace($files)" ng-disabled="vm.status != 'idle'" ngf-multiple="true" aria-label="upload">
+                                            <md-icon md-font-icon ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon>
                                         </md-button>
+                                        <!--   <md-button class="md-primary md-raised md-fab" ngf-select="vm.upload($files)" ngf-multiple="true" aria-label="upload">
+                                            <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>
+                                        </md-button> -->
                                     </div>
                                 </div>
                             </form>
                         </md-content>
                     </md-tab-body>
                 </md-tab>
-                 <md-tab id="edit-connection" ng-disabled="editConnection.$invalid">
+                <!-- <md-tab id="edit-connection" ng-disabled="editConnection.$invalid">
                     <md-tab-label>
                         <span class="oxy-step-label">3</span>
-                        <span translate>Edit Connections</span>
+                        <span translate>Finish</span>
                     </md-tab-label>
                     <md-tab-body>
                         <md-content class="md-padding">
@@ -74,26 +76,27 @@
                             </div>
                         </md-content>
                     </md-tab-body>
-                </md-tab>
-                <md-tab id="confirm" ng-disabled="billingForm.$invalid">
+                </md-tab> -->
+                <md-tab id="confirm" ng-if="vm.id===0" ng-disabled="vm.uploadIncomplete">
                     <md-tab-label>
-                        <span class="oxy-step-label">4</span>
+                        <span class="oxy-step-label">3</span>
                         <span translate>Finish</span>
                     </md-tab-label>
                     <md-tab-body>
                         <md-content class="md-padding">
                             <div class="padding-40" flex layout="column" layout-align="center center">
                                 <md-icon class="big-icon" md-font-icon="zmdi zmdi-cake"></md-icon>
-                                <h2 class="md-title" translate>Congratulations -You can now <a href="/#/spaces/123/edit-connections">edit connections</a> for this space</h2>
+                                <h2 class="md-title" translate>Congratulations -You can now add and edit scenes for this space </h2><span><a href="{{vm.spaceUrl}}">here</a></span>
                             </div>
                         </md-content>
                     </md-tab-body>
                 </md-tab>
             </md-tabs>
             <md-card-actions layout="row" layout-align="end center">
-                <md-button class="md-primary md-raised" ng-click="triWizard.prevStep()" ng-hide="triWizard.currentStep > 2" ng-disabled="triWizard.prevStepDisabled()" translate="Previous"></md-button>
-                <md-button class="md-primary md-raised" ng-click="triWizard.nextStep()" ng-hide="triWizard.progress == 100 && triWizard.currentStep > 1" ng-disabled="triWizard.nextStepDisabled()" translate="Next"></md-button>
-                <md-button class="md-accent md-raised" ng-click="triWizard.currentStep = 3" ng-show="triWizard.progress == 100 && triWizard.currentStep < 3" translate="Send"></md-button>
+                <md-button class="md-primary md-raised" ng-if="vm.id!==0" ng-click="vm.updateSpace()">Save</md-button>
+                <md-button ng-if="vm.id===0"  class="md-primary md-raised" ng-click="triWizard.prevStep()" ng-hide="triWizard.currentStep > 2" ng-disabled="triWizard.prevStepDisabled()" translate="Previous"></md-button>
+                <md-button  ng-if="vm.id===0"  class="md-primary md-raised" ng-click="triWizard.nextStep()" ng-hide="triWizard.progress == 100 && triWizard.currentStep > 1" ng-disabled="triWizard.nextStepDisabled()" translate="Next"></md-button>
+                 <md-button  ng-if="vm.id===0"  class="md-primary md-raised" ng-click="triWizard.nextStep()" ng-hide=" triWizard.currentStep < 2" ng-disabled="triWizard.nextStepDisabled()" translate="Done"></md-button>
             </md-card-actions>
     </div>
     </md-card>

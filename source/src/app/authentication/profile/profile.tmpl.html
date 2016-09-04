@@ -1,9 +1,9 @@
 <div class="full-image-background mb-bg-01 padding-20 padding-top-200 overlay-gradient-30" layout="row" layout-align="center start">
     <div class="margin-right-20">
-        <img src="assets/images/avatars/avatar-5.png" alt="girl-avatar" class="make-round" width="100"/>
+        <img ng-src="{{user.image}} || assets/images/avatars/avatar-5.png" alt="girl-avatar" class="make-round" width="100"/>
     </div>
     <div class="text-light">
-        <h3 class="font-weight-600 margin-bottom-0 text-light">Christos / Profile</h3>
+        <h3 class="font-weight-600 margin-bottom-0 text-light">{{user.name}}</h3>
         <p class="font-weight-300 margin-top-0">Edit your name, avatar etc</p>
      </div>
 </div>
@@ -34,26 +34,11 @@
                             </div>
                         </md-input-container>
 
-                       <!--  <md-input-container class="md-block">
-                            <label for="location" translate>location</label>
-                            <input id="location" label="location" name="location" type="text" ng-model="vm.user.location"/>
-                        </md-input-container>
-
-                        <md-input-container class="md-block">
-                            <label for="website" translate>website</label>
-                            <input id="website" label="website" name="website" type="text" ng-model="vm.user.website"/>
-                        </md-input-container>
-
-                        <md-input-container class="md-block">
-                            <label for="twitter" translate>twitter</label>
-                            <input id="twitter" label="twitter" name="twitter" type="text" ng-model="vm.user.twitter"/>
-                        </md-input-container>
-
-                        <md-input-container class="md-block">
-                            <label for="bio" translate>bio</label>
-                            <textarea id="bio" label="bio" name="bio" ng-model="vm.user.bio"/>
-                        </md-input-container> -->
-
+                         <md-button class="md-primary md-raised  " ngf-select="vm.uploadProfilePic(value.id,$file)" ng-disabled="vm.status != 'idle'"  aria-label="upload">
+                                            <md-icon md-font-icon ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon>
+                                        Upload Profile Pic
+                                        </md-button>
+                       
                         <md-button class="md-raised md-primary margin-left-0" ng-disabled="profile.$invalid" translate="Update Settings"></md-button>
                     </form>
                 </md-content>
