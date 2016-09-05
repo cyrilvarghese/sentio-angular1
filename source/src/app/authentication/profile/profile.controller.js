@@ -6,10 +6,11 @@
         .controller('ProfileController', ProfileController);
 
     /* @ngInject */
-    function ProfileController(userService, utilService) {
+    function ProfileController(userService,$stateParams, utilService) {
         var vm = this;
         uploadReset();
         vm.uploadProfilePic = uploadProfilePic;
+        vm.resetPass = resetPass;
         vm.settingsGroups = [{
             name: 'Account Settings',
             settings: [{
@@ -57,6 +58,14 @@
             userService.uploadProfilePic(paramObj).then(function() {
                 uploadReset();
             }, utilService.handleError);
+        }
+        function resetPass() {
+            var paramObj={
+                api_token:localStorage.getItem('apiToken'),
+                email:vm.user.email,
+                code:$stateParams.code
+            }
+            userService.resetPass(paramObj,vm.user.password);
         }
 
         function uploadStarted() {

@@ -17,7 +17,8 @@
             deleteProject: deleteProject,
             addLogo: addLogo,
             removeLogo: removeLogo,
-            leaveProject: leaveProject
+            addMember:addMember,
+            removeMember:removeMember
         };
 
         return service;
@@ -155,6 +156,59 @@
             }, utilService.handleError);
 
             return dfd.promise;
+        }
+
+        function createProject(paramObj) {
+            var dfd = $q.defer();
+            var req = {
+                method: 'POST',
+                url: API_CONFIG.baseUrl + API_CONFIG.projectsUrl + 'create?' + $.param(paramObj),
+                headers: utilService.getHeaders(),
+                data: paramObj
+            }
+            $http(req).then(function(response) {
+                // currentUser = user;
+                toastService.show(response.data.message);
+                dfd.resolve();
+            }, utilService.handleError);
+
+            return dfd.promise;
+
+        }
+
+        function addMember(paramObj) {
+            var dfd = $q.defer();
+            var req = {
+                method: 'POST',
+                url: API_CONFIG.baseUrl + API_CONFIG.projectsUrl + 'create?' + $.param(paramObj),
+                headers: utilService.getHeaders(),
+                data: paramObj
+            }
+            $http(req).then(function(response) {
+                // currentUser = user;
+                toastService.show(response.data.message);
+                dfd.resolve();
+            }, utilService.handleError);
+
+            return dfd.promise;
+
+        }
+        function removeMember(paramObj) {
+            var dfd = $q.defer();
+            var req = {
+                method: 'POST',
+                url: API_CONFIG.baseUrl + API_CONFIG.projectsUrl + 'create?' + $.param(paramObj),
+                headers: utilService.getHeaders(),
+                data: paramObj
+            }
+            $http(req).then(function(response) {
+                // currentUser = user;
+                toastService.show(response.data.message);
+                dfd.resolve();
+            }, utilService.handleError);
+
+            return dfd.promise;
+
         }
 
     }

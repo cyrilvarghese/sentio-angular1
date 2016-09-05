@@ -42,8 +42,8 @@
                 // bottom of the page on short pages
                 views: {
                     'toolbar@triangular': {
-                        templateUrl: 'app/examples/email/layout/toolbar/toolbar.tmpl.html',
-                        controller: 'EmailToolbarController',
+                        templateUrl: 'app/projects/layout/toolbar/toolbar.tmpl.html',
+                        controller: 'projectToolbarController',
                         controllerAs: 'vm'
                     },
                     '@triangular': {

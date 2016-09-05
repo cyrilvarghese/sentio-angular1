@@ -36,7 +36,7 @@
             var dfd = $q.defer();
             var req = {
                 method: 'GET',
-                url: API_CONFIG.baseUrl + API_CONFIG.gallery + 'getDetails/' + paramObj.id + '?' + $.param(paramObj),
+                url: API_CONFIG.baseUrl + API_CONFIG.gallery + 'edit/?' + $.param(paramObj),
                 headers: utilService.getHeaders()
             }
             $http(req).then(function(response) {
@@ -50,7 +50,7 @@
             var dfd = $q.defer();
             var req = {
                 method: 'POST',
-                url: API_CONFIG.baseUrl + API_CONFIG.spacesUrl + 'addToGallery/' + paramObj.id + '?' + $.param(paramObj),
+                url: API_CONFIG.baseUrl + API_CONFIG.spacesUrl +'removeFromGallery/' + paramObj.id + '?' + $.param(paramObj),
                 headers: utilService.getHeaders(),
                 data: paramObj
             }
@@ -66,7 +66,7 @@
             var dfd = $q.defer();
             var req = {
                 method: 'POST',
-                url: API_CONFIG.baseUrl + API_CONFIG.spacesUrl + 'removeFromGallery/' + paramObj.id + '?' + $.param(paramObj),
+                url: API_CONFIG.baseUrl + API_CONFIG.spacesUrl + 'addToGallery/' + paramObj.id + '?' + $.param(paramObj),
                 headers: utilService.getHeaders(),
                 data: paramObj
             }

@@ -6,7 +6,7 @@
         .factory('userService', userService);
 
     /* @ngInject */
-    function userService($q, $http, RoleStore,Upload,utilService, toastService, API_CONFIG) {
+    function userService($q, $http, RoleStore, Upload, utilService, toastService, API_CONFIG) {
         var userInfo = {
             name: 'guest',
             username: '-'
@@ -30,6 +30,7 @@
             leaveOrg: leaveOrg,
             leaveProject: leaveProject,
             uploadProfilePic: uploadProfilePic,
+            resetPass: resetPass,
             login: login
         };
 
@@ -213,7 +214,7 @@
             if (paramObj.file !== null) {
 
                 Upload.upload({
-                    url: API_CONFIG.baseUrl + API_CONFIG.authenticationUrl + 'update_profile/'+paramObj.user_id+'?' + $.param({ api_token: localStorage.getItem('apiToken') }),
+                    url: API_CONFIG.baseUrl + API_CONFIG.authenticationUrl + 'update_profile/' + paramObj.user_id + '?' + $.param({ api_token: localStorage.getItem('apiToken') }),
                     data: {
                         image: paramObj.image,
                         info: Upload.json({
@@ -238,6 +239,24 @@
             return dfd.promise;
         }
 
+
+        function resetPass(paramObj, password) {
+            var dfd = $q.defer();
+            var req = {
+                method: 'POST',
+                url: API_CONFIG.baseUrl + API_CONFIG.sharedUrl + 'reset_password?' + $.param(paramObj),
+                headers: getHeaders(),
+                data: { password: password }
+            }
+            $http(req).then(function(response) {
+                currentUser = response.data.user_id;
+                localStorage.setItem('userInfo', JSON.stringify(response.data));
+                localStorage.setItem('apiToken', response.data.auth_key);
+                dfd.resolve();
+            }, handleError);
+
+            return dfd.promise;
+        }
     }
 })();
 // cd C:\Program Files (x86)\Google\Chrome\Application\chrome.exe --disable-web-security)

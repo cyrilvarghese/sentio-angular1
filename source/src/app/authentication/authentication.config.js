@@ -63,10 +63,11 @@
                 controllerAs: 'vm'
             })
             .state('triangular.profile', {
-                url: '/profile',
+                url: '/profile?code',
                 templateUrl: 'app/authentication/profile/profile.tmpl.html',
                 controller: 'ProfileController',
                 controllerAs: 'vm'
+               
             });
 
     }

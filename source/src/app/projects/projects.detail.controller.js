@@ -11,10 +11,11 @@
         vm.showSpaces = showSpaces;
         vm.addLogo = addLogo;
         vm.removeLogo = removeLogo;
+       
         triBreadcrumbsService.reset();
         triBreadcrumbsService.addCrumb({ name: 'Project Detail' });
         triBreadcrumbsService.addCrumb({ name: 'Project' });
-        uploadReset();
+       
         vm.createOrUpdate = createOrUpdate;
         vm.leaveProject = leaveProject;
         vm.id = parseInt($stateParams.projectId, 10) || 0;
@@ -72,12 +73,15 @@
             });
         }
 
+       
+ uploadReset();
+        /////////////////
         function addLogo(files) {
             uploadStarted();
             var paramObj = {
                 api_token: localStorage.getItem('apiToken'),
                 files: files,
-                project_id: vm.selectedProject.project_id
+                project_id: $stateParams.projectId
             }
             projectService.addLogo(paramObj).then(function() {
                 uploadComplete();
