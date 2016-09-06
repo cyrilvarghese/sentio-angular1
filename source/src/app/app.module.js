@@ -1,4 +1,4 @@
-(function() {
+// (function() {
     'use strict';
 
     angular
@@ -26,7 +26,7 @@
             // comment out or remove the 'app.permission', line above
             // also remove 'permission' from the first line of dependencies
             // https://github.com/Narzerus/angular-permission see here for why
-            'app.examples',
+            // 'app.examples',
             'ngFileUpload'
 
         ])
