@@ -1,4 +1,4 @@
-// (function() {
+(function() {
     'use strict';
 
     angular
@@ -21,7 +21,6 @@
             'app.projects',
             'app.spaces',
             'app.gallery',
-
             // dont need permissions?  if you want to turn off permissions
             // comment out or remove the 'app.permission', line above
             // also remove 'permission' from the first line of dependencies

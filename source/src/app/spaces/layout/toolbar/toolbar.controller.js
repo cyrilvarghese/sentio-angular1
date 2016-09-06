@@ -6,7 +6,7 @@
         .controller('spacesToolbarController', spacesToolbarController);
 
     /* @ngInject */
-    function spacesToolbarController($rootScope, $mdMedia, $filter, Upload,$mdUtil, $mdSidenav, $state, triBreadcrumbsService, triLayout, EMAIL_ROUTES) {
+    function spacesToolbarController($rootScope, $mdMedia, $filter, Upload,$mdUtil, $mdSidenav, $state, triBreadcrumbsService, triLayout) {
         var vm = this;
         vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
         vm.filterEmailList = filterEmailList;
@@ -45,12 +45,12 @@
 
         // init
 
-        for(var i = 0; i < EMAIL_ROUTES.length; i++) {
-            vm.toolbarMenu.push({
-                name: $filter('triTranslate')(EMAIL_ROUTES[i].name),
-                state: EMAIL_ROUTES[i].state,
-                icon: EMAIL_ROUTES[i].icon
-            });
-        }
+        // for(var i = 0; i < EMAIL_ROUTES.length; i++) {
+        //     vm.toolbarMenu.push({
+        //         name: $filter('triTranslate')(EMAIL_ROUTES[i].name),
+        //         state: EMAIL_ROUTES[i].state,
+        //         icon: EMAIL_ROUTES[i].icon
+        //     });
+        // }
     }
 })();
