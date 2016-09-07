@@ -60,12 +60,12 @@
 
         function linkSpaces(paramObj) {
             var dfd = $q.defer();
-            if (paramObj.selectedSpaceFile !== null  ) {
+            if (paramObj.xml_file !== null  ) {
 
                 Upload.upload({
                     url: API_CONFIG.baseUrl + API_CONFIG.spacesUrl + 'link_space/' + paramObj.space_id + '?' + $.param({ api_token: localStorage.getItem('apiToken') ,space_id:paramObj.space_id}),
                     data: {
-                        xml_file: paramObj.selectedSpaceFile
+                        xml_file: paramObj.xml_file
                     },
                     headers: utilService.getHeaders()
                 }).then(function(response) {

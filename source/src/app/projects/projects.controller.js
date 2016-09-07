@@ -6,22 +6,22 @@
         .controller('projectsController', projectsController);
 
     /* @ngInject */
-    function projectsController($mdSidenav, $state, $stateParams, members, triBreadcrumbsService, projectService, toastService) {
+    function projectsController($mdSidenav, $state, $stateParams, triBreadcrumbsService, projectService, toastService) {
         var vm = this;
         vm.deleteProject = deleteProject;
         vm.showProject = showProject;
         vm.selectProject = selectProject;
         vm.navigateToProject = navigateToProject;
         vm.isProjectSelected = false;
-        vm.projects = $stateParams.projects;
-        // init();
+        // vm.projects = $stateParams.projects;
+        init();
         function init() {
             var paramObj = {
                 orgId: $stateParams.id,
                 api_token: localStorage.getItem('apiToken')
             }
             projectService.getProjectList(paramObj).then(function(data) {
-                vm.projects = data;
+                vm.projects = data.project_list;
             });
         }
         var crumb = {

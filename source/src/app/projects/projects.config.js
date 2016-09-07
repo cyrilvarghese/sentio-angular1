@@ -23,35 +23,15 @@
                     layout: {
                         contentClass: 'layout-column'
                     }
-                },
-                resolve: {
-                    members: function($http, API_CONFIG) {
-                        return $http({
-                            method: 'GET',
-                            url: API_CONFIG.url + 'email/inbox' /*sample data*/
-                        });
-                    }
                 }
+
 
             }).state('triangular.organizations.detail.projects.detail', {
                 url: '/:projectId',
-
-                // set the controller to load for this page
-
-                // layout-column class added to make footer move to
-                // bottom of the page on short pages
-                views: {
-                    'toolbar@triangular': {
-                        templateUrl: 'app/projects/layout/toolbar/toolbar.tmpl.html',
-                        controller: 'projectToolbarController',
-                        controllerAs: 'vm'
-                    },
-                    '@triangular': {
-                        templateUrl: 'app/projects/projects-detail.tmpl.html',
-                        controller: 'projectsDetailController',
-                        controllerAs: 'vm'
-                    }
-                }, params: {
+                templateUrl: 'app/projects/projects-detail.tmpl.html',
+                controller: 'projectsDetailController',
+                controllerAs: 'vm',
+                params: {
                     selectedProject: null
                 },
                 data: {

@@ -27,7 +27,7 @@
                     data: {
                         image: paramObj.files,
                         info: Upload.json({
-                            project_id: paramObj.projectId,
+                            project_id: paramObj.project_id,
 
                         })
                     },
@@ -140,4 +140,4 @@
             return dfd.promise;
         }
     }
-});
+})();

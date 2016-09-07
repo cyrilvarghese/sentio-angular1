@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.examples.email')
+        .module('app.spaces')
         .controller('spacesToolbarController', spacesToolbarController);
 
     /* @ngInject */

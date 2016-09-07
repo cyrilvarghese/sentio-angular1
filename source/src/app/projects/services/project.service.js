@@ -31,7 +31,7 @@
             var dfd = $q.defer();
             var req = {
                 method: 'GET',
-                url: API_CONFIG.baseUrl + API_CONFIG.organizationsUrl + 'project_list/' + paramObj.orgId + '?' + $.param(paramObj),
+                url: API_CONFIG.baseUrl + API_CONFIG.organizationsUrl  + paramObj.orgId + '/project_list?' + $.param(paramObj),
                 headers: utilService.getHeaders()
             }
             $http(req).then(function(response) {

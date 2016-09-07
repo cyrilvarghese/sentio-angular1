@@ -20,14 +20,6 @@
                     layout: {
                         contentClass: 'layout-column'
                     }
-                },
-                resolve: {
-                    members: function($http, API_CONFIG) {
-                        return $http({
-                            method: 'GET',
-                            url: API_CONFIG.url + 'email/inbox' /*sample data*/
-                        });
-                    }
                 }
 
             }).state('triangular.organizations.detail', {

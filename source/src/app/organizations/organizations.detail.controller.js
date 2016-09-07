@@ -6,7 +6,7 @@
         .controller('organizationsDetailController', organizationsDetailController);
 
     /* @ngInject */
-    function organizationsDetailController($mdSidenav, userService,organizationService, $state, $stateParams, members) {
+    function organizationsDetailController($mdSidenav, userService,organizationService, $state, $stateParams) {
         var vm = this;
        
         vm.navigateToProjects = navigateToProjects;

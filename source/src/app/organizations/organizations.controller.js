@@ -6,9 +6,9 @@
         .controller('organizationsController', organizationsController);
 
     /* @ngInject */
-    function organizationsController($state, $mdSidenav, members, organizationService, $scope, $element, $myElementInkRipple) {
+    function organizationsController($state, $mdSidenav, organizationService, $scope, $element, $myElementInkRipple) {
         var vm = this;
-        vm.members = members.data.splice(0, 5);
+        // vm.members = members.data.splice(0, 5);
         vm.navigateToDetail = navigateToDetail;
         vm.showMembers = showMembers;
         vm.selectMember = selectMember;

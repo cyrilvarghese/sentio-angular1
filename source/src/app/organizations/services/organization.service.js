@@ -31,7 +31,7 @@
                 headers: utilService.getHeaders()
             }
             $http(req).then(function(response) {
-                var parsedData = _.groupBy(response.data, function(org) {
+                var parsedData = _.groupBy(response.data.org_list, function(org) {
                     return org.role;
                 })
                 dfd.resolve(parsedData);

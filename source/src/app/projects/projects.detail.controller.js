@@ -6,7 +6,7 @@
         .controller('projectsDetailController', projectsDetailController);
 
     /* @ngInject */
-    function projectsDetailController($mdSidenav, $state, projectService, $stateParams, members, userService, triBreadcrumbsService) {
+    function projectsDetailController($mdSidenav, $state, projectService, $stateParams,logoAndThemeService, userService, triBreadcrumbsService) {
         var vm = this;
         vm.showSpaces = showSpaces;
         vm.addLogo = addLogo;
@@ -83,7 +83,7 @@
                 files: files,
                 project_id: $stateParams.projectId
             }
-            projectService.addLogo(paramObj).then(function() {
+            logoAndThemeService.addLogo(paramObj).then(function() {
                 uploadComplete();
             }, function() {
                 uploadReset();
@@ -97,7 +97,7 @@
                     logo_id: vm.selectedLogo.id,
                     user_id: JSON.parse(localStorage.getItem('userInfo')).user_id
                 }
-                projectService.addLogo(paramObj);
+                logoAndThemeService.removeLogo(paramObj);
             }
         }
 
