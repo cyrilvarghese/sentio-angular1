@@ -19,7 +19,9 @@
         vm.fullScreenIcon = 'zmdi zmdi-fullscreen';
         vm.toggleFullScreen = toggleFullScreen;
         vm.logOut = logOut;
-
+         $rootScope.$on('updateBreadCrumbs', function(){
+            vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
+        });
 
         var userInfo = JSON.parse(localStorage.getItem('userInfo'));
         vm.currentUser = {

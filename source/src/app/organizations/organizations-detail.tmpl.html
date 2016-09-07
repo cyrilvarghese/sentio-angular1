@@ -1,7 +1,35 @@
 <ui-view>
 <md-content class="padded-content-page">
+ <md-toolbar>
+            <div class="md-toolbar-tools">
+                <div layout="row" layout-align="space-between" class="full-width">
+                    <h2>
+                       Organization Info
+                    </h2>
+                </div>
+                <span flex></span>
+                <div hide-xs  class="md-padding no-left-padding" layout="row" layout-xs="column" layout-align="start-start">
+                     <md-button class="md-default" ng-click="vm.leaveOrg()">Leave Organization</md-button>
+                      <md-button class="md-default" ng-click="vm.inviteMember()">Invite</md-button>
+                      <md-button class="md-default" ng-click="vm.showMembers('members-list-right-menu')">View Members</md-button>
+                </div>
+                <md-menu hide-gt-xs>
+                    <md-button class="md-icon-button" aria-label="open menu" ng-click="$mdOpenMenu()">
+                        <md-icon md-font-icon="zmdi zmdi-more-vert"></md-icon>
+                    </md-button>
+                    <md-menu-content width="3">
+                        <md-menu-item>
+                               <md-button class="md-default" ng-click="vm.leaveOrg()">Leave Organization</md-button>
+                    </md-button>
+                        </md-menu-item>
+                      
+                         
+                  
+                </md-menu>
+            </div>
+        </md-toolbar>
     <div layout="column " class="md-padding" md-whiteframe="1">
-        <p class="md-title">Organization Info</p>
+      
         <md-input-container class="md-block">
             <label>Organization Name</label>
             <input type="text" ng-model="vm.selectedOrg.name" required>
@@ -11,12 +39,13 @@
             <textarea ng-model="vm.selectedOrg.description" required>></textarea>
         </md-input-container>
         <div layout="row" layout-align="space-between">
-           <md-button class="md-default" ng-click="vm.leaveOrg()">Leave Organization</md-button>
+              <md-button class="md-raised md-primary"  ng-click="vm.navigateToProjects()">View Projects</md-button>
             <md-button class="md-primary md-raised" ng-click="vm.updateOrCreate()">Save</md-button>
         </div>
-    </div>  <div class="md-padding">
+    </div>  <div class="md-padding" ng-if="vm.id!==0">
           <div layout="column " layout-align="start start">
-            <md-button class="md-raised md-primary"  ng-click="vm.navigateToProjects()">View Projects</md-button>
+         
+          
         </div>
   
     </div> 
@@ -27,4 +56,13 @@
     </div>
     <div layout="column" ng-include="'app/projects/projects-list.tmpl.html'"></div>
 </md-content> -->
+<!-- left sidebar -->
+<md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="members-list-right-menu">
+    <md-toolbar class="md-theme-light">
+        <h1 class="md-toolbar-tools">Members</h1>
+    </md-toolbar>
+    <md-content >
+         <div layout="row" layout-align="center center"  ng-include="'app/members/members-list.tmpl.html'"></div>
+    </md-content>
+</md-sidenav>
 </ui-view>

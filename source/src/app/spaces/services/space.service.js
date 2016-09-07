@@ -85,18 +85,19 @@
             return dfd.promise;
         }
 
-        function getSpaceList() {
+        function getSpaceList(paramObj) {
             var dfd = $q.defer();
             var req = {
                 method: 'GET',
-                url: API_CONFIG.baseUrl + API_CONFIG.authenticationUrl + 'space_list?' + $.param({ 'api_token': localStorage.getItem('apiToken') }),
+                url: API_CONFIG.baseUrl + API_CONFIG.projectsUrl+paramObj.projectId+'/space_list?' + $.param({ 'api_token': localStorage.getItem('apiToken') }),
                 headers: utilService.getHeaders()
             }
             $http(req).then(function(response) {
-                var parsedData = _.groupBy(response.data, function(org) {
-                    return org.role;
+                var parsedData=_.map(response.data.space_list,function(item){
+                    item.editorUrl=item.url.replace('tour.html','tour_editor.html');
+                    return item;
                 })
-                dfd.resolve(parsedData);
+                dfd.resolve(response.data.space_list);
             }, utilService.handleError);
 
             return dfd.promise;

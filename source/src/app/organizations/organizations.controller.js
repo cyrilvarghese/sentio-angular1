@@ -1,4 +1,5 @@
-(function() {
+ 
+    (function() {
     'use strict';
 
     angular
@@ -6,17 +7,21 @@
         .controller('organizationsController', organizationsController);
 
     /* @ngInject */
-    function organizationsController($state, $mdSidenav, organizationService, $scope, $element, $myElementInkRipple) {
+    function organizationsController($state, $mdSidenav,triBreadcrumbsService, organizationService, $scope, $element, $myElementInkRipple) {
         var vm = this;
         // vm.members = members.data.splice(0, 5);
         vm.navigateToDetail = navigateToDetail;
         vm.showMembers = showMembers;
         vm.selectMember = selectMember;
+        triBreadcrumbsService.reset();
+        triBreadcrumbsService.addCrumb({ name: 'Organizations' })
+    
         init();
-
+        console.log($state.current);
         function init() {
 
             organizationService.getOrgList().then(function(data){
+               vm.orgList=data;
                vm.orgList=data;
             });
         }

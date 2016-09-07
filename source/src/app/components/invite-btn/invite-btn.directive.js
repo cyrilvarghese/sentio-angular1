@@ -14,11 +14,22 @@
         //  </div>
         //
         var directive = {
-            template:"<md-button>  <md-icon md-font-icon='zmdi zmdi-accounts-add'></md-icon>Invite Member</md-button>",
+            template: "<md-button ng-click='inviteMember()'>  <md-icon md-font-icon='zmdi zmdi-accounts-add'></md-icon>Invite Member</md-button>",
             link: link,
+            controller: ['$scope', '$mdDialog', inviteButtonController],
+            scope:{
+                'showMembers': '&showMembers'
+            },
             restrict: 'EAC'
         };
         return directive;
+
+        function inviteButtonController($scope, $mdDialog,projectService) {
+            $scope.inviteMember = function() {
+                console.log('asdas');
+            }
+
+        }
 
         function link(scope, element, attrs, require) {
             

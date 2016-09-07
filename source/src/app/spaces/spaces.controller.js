@@ -25,9 +25,14 @@
         function init() {
             vm.spaceList = $stateParams.spaceList;
             vm.members = $stateParams.members;
-            // spaceService.getSpaceList().then(function(data) {
-            //     vm.spaceList = data;
-            // });
+            var paramObj={
+                api_token: localStorage.getItem('apiToken'),
+                projectId:$stateParams.projectId
+
+            }
+            spaceService.getSpaceList(paramObj).then(function(data) {
+                vm.spaceList = data;
+            });
         }
 
         function showMembers(componentId) {
@@ -51,6 +56,7 @@
         function deleteSpace(id) {
             var paramObj = {
                 api_token: localStorage.getItem('apiToken'),
+       pi_token: localStorage.getItem('apiToken'),
                 space_id: id
             }
             spaceService.deleteSpace(paramObj);

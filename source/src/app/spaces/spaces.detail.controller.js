@@ -18,6 +18,8 @@
         vm.status = 'idle'; // idle | uploading | complete
         vm.createSpace = createSpace;
         vm.updateSpace = updateSpace;
+        vm.addToGallery = addToGallery;
+        vm.removeFromGallery = removeFromGallery;
         vm.uploadIncomplete = true;
         if (vm.id !== 0) {
             init();
@@ -50,7 +52,7 @@
             }
             spaceService.upload($files, paramObj).then(function() {
                 uploadComplete();
-                vm.uploadIncomplete=false;
+                vm.uploadIncomplete = false;
             });
             // fileList=$files;
 
@@ -82,6 +84,21 @@
                 vm.spaceUrl = data.space_url;
 
             });
+        }
+
+        function addToGallery() {
+            // var paramObj = {
+            //     user_id:
+            //      gallery_id: space_id:
+            // }
+            galleryService.addToGallery();
+        }
+        function removeFromGallery() {
+            // var paramObj = {
+            //     user_id:
+            //      gallery_id: space_id:
+            // }
+            galleryService.removeFromGallery();
         }
     }
 })();

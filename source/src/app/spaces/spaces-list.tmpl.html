@@ -2,32 +2,49 @@
     <div class="md-padding">
         <!-- <h2 class="md-subhead">Created By You</h2> -->
         <div class="md-padding" layout-align="space-around" layout-gt-sm="row" layout-wrap layout-sm="column">
-            <div flex="45" flex-xs="100"  class="md-margin-5p" ng-repeat="(key, value) in vm.spaceList">
+            <div flex="30" flex-xs="100" class="md-margin-5p" ng-repeat="(key, value) in vm.spaceList">
                 <md-card>
-                    <md-card-title>
-                        <md-card-title-text>
-                            <span class="md-headline">{{value.name}}</span>
-                            <span class="md-subhead">{{value.desc}}</span>
-                        </md-card-title-text>
-                    </md-card-title>
-                    <md-card-content layout="row" layout-align="space-between">
-                        <div class="md-media-xl card-media">
-                        <a  ng-href='http://{{value.url}}'>
-                            <img ng-src="http://{{value.thumbnail}}" alt="{{value.name}}">
-                            </a>
+                    <md-toolbar>
+                        <div class="md-toolbar-tools">
+                            <div layout="row" layout-align="space-between" class="full-width">
+                                <h2>
+                                     <span class="md-headline">{{value.name}}</span>
+                                    </h2>
+                            </div>
+                            <span flex></span>
+                            <md-menu>
+                                <md-button class="md-icon-button" aria-label="open menu" ng-click="$mdOpenMenu()">
+                                    <md-icon md-font-icon="zmdi zmdi-more-vert"></md-icon>
+                                </md-button>
+                                <md-menu-content width="3">
+                                    <md-menu-item>
+                                        <md-button ng-click="vm.navigateToDetail(value.id)">Edit Space details</md-button>
+                                    </md-menu-item>
+                                    <md-menu-item>
+                                        <md-button ng-click="vm.addSpaceToGallery(value.id)">Add to Gallery</md-button>
+                                    </md-menu-item>
+                                    <md-menu-item>
+                                        <md-button ng-click="vm.removeSpacefromGallery(value.id)">Remove From Gallery</md-button>
+                                    </md-menu-item>
+                                    <md-menu-item>
+                                        <md-button ng-click="vm.deleteSpace(value.id)">Delete</md-button>
+                                    </md-menu-item>
+                            </md-menu>
                         </div>
-                        <md-card-actions layout="column">
-                           
-                           
-                        <md-button ng-click="vm.navigateToDetail(value.id)">Edit Space details</md-button>
-                            <md-button ng-click="vm.addSpaceToGallery(value.id)">Add to Gallery</md-button>
-                            <md-button ng-click="vm.removeSpacefromGallery(value.id)">Remove From Gallery</md-button>
-                            <md-button ng-href='http://{{value.url}}'>Open space Editor Mode</md-button>
-                            <md-button class="md-primary md-raised  " ngf-select="vm.uploadForLinking(value.id,$file)" ng-disabled="vm.status != 'idle'" ngf-multiple="true" aria-label="upload">
-                                            <md-icon md-font-icon ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon>
-                                        upload and link space
-                                        </md-button>
-                             <md-button ng-click="vm.deleteSpace(value.id)">Delete</md-button>
+                    </md-toolbar>
+                    <a ng-href="http://{{value.url}}">
+                        <div layout="row"> <img style="max-height:200px" ng-src="http://{{value.thumbnail}}" alt="{{value.name}}">
+                        </div>
+                    </a>
+                    <md-card-content>
+                        <p style="max-height: 100px; overflow: auto;">{{value.desc}}</p>
+                        <md-divider></md-divider>
+                        <md-card-actions layout="column" layout-align="center center">
+                            <md-button ng-href='http://{{value.editorUrl}}'>Open space Editor Mode</md-button>
+                            <md-button class="md-primary md-raised " ngf-select="vm.uploadForLinking(value.id,$file)" ng-disabled="vm.status != 'idle'" ngf-multiple="true" aria-label="upload">
+                                <md-icon md-font-icon ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon>
+                                upload & link space
+                            </md-button>
                         </md-card-actions>
                     </md-card-content>
                 </md-card>

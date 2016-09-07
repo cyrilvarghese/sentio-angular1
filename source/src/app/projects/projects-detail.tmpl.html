@@ -1,30 +1,140 @@
 <ui-view>
     <md-content class="padded-content-page">
-        <div layout="column " class="md-padding" md-whiteframe="1">
-            <p class="md-title">Project Info</p>
-            <md-input-container class="md-block">
-                <label>Project Name</label>
-                <input type="text" ng-model="vm.selectedProject.name">
-            </md-input-container>
-            <md-input-container class="md-block">
-                <label>Description</label>
-                <textarea ng-model="vm.selectedProject.description"></textarea>
-            </md-input-container>
-            <div layout="row" layout-xs="column" layout-align="space-between">
-                <md-button class="md-raised md-primary " ng-click="vm.showSpaces()">View Spaces</md-button>
-                <md-button class="md-primary" ng-click="vm.createOrUpdate()">Save</md-button>
+        <!--  <md-toolbar>
+            <div class="md-toolbar-tools">
+                <div layout="row" layout-align="space-between" class="full-width">
+                    <h2>
+                       Projects Info
+                    </h2>
+                </div>
+                <span flex></span>
+                <div hide-xs  class="md-padding no-left-padding" layout="row" layout-xs="column" layout-align="start-start">
+                    <md-button class="md-primary md-raised" ngf-select="vm.addLogo($files)" ng-disabled="vm.status != 'idle'" ngf-multiple="true" aria-label="upload">
+                        <md-icon md-font-icon ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon> Logo
+                    </md-button>
+                    <md-button class="md-primary md-raised" ngf-select="vm.addLogo($files)" ng-disabled="vm.status != 'idle'" ngf-multiple="true" aria-label="upload">
+                        <md-icon md-font-icon ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon> Theme
+                    </md-button>
+                </div>
+                <md-menu hide-gt-xs>
+                    <md-button class="md-icon-button" aria-label="open menu" ng-click="$mdOpenMenu()">
+                        <md-icon md-font-icon="zmdi zmdi-more-vert"></md-icon>
+                    </md-button>
+                    <md-menu-content width="3">
+                        <md-menu-item>
+                              <md-button  ngf-select="vm.addLogo($files)" ng-disabled="vm.status != 'idle'" ngf-multiple="true" aria-label="upload">
+                        <md-icon md-font-icon ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon> Logo
+                    </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                             <md-button   ngf-select="vm.addLogo($files)" ng-disabled="vm.status != 'idle'" ngf-multiple="true" aria-label="upload">
+                        <md-icon md-font-icon ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon> Theme
+                    </md-button>
+                        </md-menu-item>
+                         
+                  
+                </md-menu>
             </div>
-        </div>
-        <div class="md-padding no-left-padding"  layout="row" layout-xs="column" layout-align="start-start">
-            <md-button class="md-primary md-raised" ngf-select="vm.addLogo($files)" ng-disabled="vm.status != 'idle'" ngf-multiple="true" aria-label="upload">
-            <md-icon md-font-icon ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon>Upload Logo
-        </md-button>
-        <md-button class="md-primary md-raised" ngf-select="vm.addLogo($files)" ng-disabled="vm.status != 'idle'" ngf-multiple="true" aria-label="upload">
-            <md-icon md-font-icon ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon>Upload Theme
-        </md-button>
-        </div>
-        
-        <!-- 
+        </md-toolbar> -->
+        <md-tabs md-dynamic-height md-border-bottom>
+            <md-tab label="Project Info">
+                <md-content class="md-padding">
+                    <div layout="column " class="md-padding" md-whiteframe="1">
+                        <md-input-container class="md-block">
+                            <label>Project Name</label>
+                            <input type="text" ng-model="vm.selectedProject.name">
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>Description</label>
+                            <textarea ng-model="vm.selectedProject.description"></textarea>
+                        </md-input-container>
+                        <div layout="row" layout-xs="column" layout-align="space-between">
+                        <div layout="row" flex="50" flex-xs="100" layout-xs="column" layout-align="start start">
+                               <md-button class="md-raised md-primary full-width" ng-click="vm.showSpaces()">View Spaces</md-button>
+                            <md-button flex-xs="100" class="md-raised md-primary  full-width" ng-click="vm.showMembers('members-list-right-menu')">View Members</md-button>
+                        </div>
+                         
+
+                            <md-button class="md-primary md-raised" ng-click="vm.createOrUpdate()">Save</md-button>
+                        </div>
+                    </div>
+                </md-content>
+            </md-tab>
+            <md-tab label="Project Logo">
+                <md-content class="md-padding">
+                    <md-list>
+                        <div ng-repeat="day in ::vm.feed">
+                            <div layout="row" class="md-padding" layout-align="end end">
+                                <md-button class="md-primary md-raised" ngf-select="vm.addLogo($files)" ng-disabled="vm.status != 'idle'" ngf-multiple="true" aria-label="upload">
+                                    <md-icon md-font-icon ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon>Upload Logo
+                                </md-button>
+                            </div>
+                            <md-list-item>
+                                <md-grid-list flex md-cols="6" md-cols-xs="4" md-row-height="4:3" md-gutter="4px">
+                                    <md-grid-tile ng-click="vm.openImage(day, image, $event)" md-rowspan="{{::image.rowspan}}" md-colspan="{{::image.colspan}}" ng-repeat="image in ::day.images" ng-style="::{ 'background-image': 'url(' + image.url + ')', 'background-size' : 'cover' }">
+                                        <md-grid-tile-footer>
+                                            <h3>{{::image.title}}</h3>
+                                        </md-grid-tile-footer>
+                                    </md-grid-tile>
+                                </md-grid-list>
+                            </md-list-item>
+                        </div>
+                    </md-list>
+                </md-content>
+            </md-tab>
+            <md-tab label="Project Theme">
+                <md-content class="md-padding">
+                    <md-list>
+                        <div ng-repeat="day in ::vm.feed">
+                            <div layout="row" class="md-padding" layout-align="end end">
+                                <md-button class="md-primary md-raised" ngf-select="vm.addTheme($files)" ng-disabled="vm.status != 'idle'" ngf-multiple="true" aria-label="upload">
+                                    <md-icon md-font-icon ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon>Upload Theme
+                                </md-button>
+                            </div>
+                            <md-list-item>
+                                <md-grid-list flex md-cols="6" md-cols-xs="4" md-row-height="4:3" md-gutter="4px">
+                                    <md-grid-tile ng-click="vm.openImage(day, image, $event)" md-rowspan="{{::image.rowspan}}" md-colspan="{{::image.colspan}}" ng-repeat="image in ::day.images" ng-style="::{ 'background-image': 'url(' + image.url + ')', 'background-size' : 'cover' }">
+                                        <md-grid-tile-footer>
+                                            <h3>{{::image.title}}</h3>
+                                        </md-grid-tile-footer>
+                                    </md-grid-tile>
+                                </md-grid-list>
+                            </md-list-item>
+                        </div>
+                    </md-list>
+                </md-content>
+            </md-tab>
+                <md-tab label="Gallery">
+                <md-content class="md-padding">
+                    <md-list>
+                        <div ng-repeat="day in ::vm.feed">
+                            <div layout="row" class="md-padding" layout-align="end end">
+                                <md-button class="md-primary md-raised" ngf-select="vm.addTheme($files)" ng-disabled="vm.status != 'idle'" ngf-multiple="true" aria-label="upload">
+                                    <md-icon md-font-icon="zmdi zmdi-edit"></md-icon>Edit Gallery
+                                </md-button>
+                            </div>
+                            <md-list-item>
+                                <md-grid-list flex md-cols="6" md-cols-xs="4" md-row-height="4:3" md-gutter="4px">
+                                    <md-grid-tile ng-click="vm.openImage(day, image, $event)" md-rowspan="{{::image.rowspan}}" md-colspan="{{::image.colspan}}" ng-repeat="image in ::day.images" ng-style="::{ 'background-image': 'url(' + image.url + ')', 'background-size' : 'cover' }">
+                                        <md-grid-tile-footer>
+                                            <h3>{{::image.title}}</h3>
+                                        </md-grid-tile-footer>
+                                    </md-grid-tile>
+                                </md-grid-list>
+                            </md-list-item>
+                        </div>
+                    </md-list>
+                </md-content>
+            </md-tab>
+            <!-- 
       -->
     </md-content>
+    <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="members-list-right-menu">
+    <md-toolbar class="md-theme-light">
+        <h1 class="md-toolbar-tools">Members</h1>
+    </md-toolbar>
+    <md-content >
+         <div layout="row" layout-align="center center"  ng-include="'app/members/members-list.tmpl.html'"></div>
+    </md-content>
+</md-sidenav>
 </ui-view>

@@ -7,6 +7,7 @@
 
     /* @ngInject */
     function moduleConfig($stateProvider, triMenuProvider) {
+         
         $stateProvider
             .state('triangular.organizations.detail.projects', {
                 url: '/projects',
@@ -23,7 +24,7 @@
                     layout: {
                         contentClass: 'layout-column'
                     }
-                }
+                } 
 
 
             }).state('triangular.organizations.detail.projects.detail', {

@@ -9,7 +9,7 @@
     function galleryService($q, $http, RoleStore, Upload, toastService, API_CONFIG, utilService) {
 
         var service = {
-            addSpaceFromGallery: addSpaceFromGalleryremoveSpaceFromGallery,
+            addSpaceToGallery: addSpaceToGallery,
             removeSpaceFromGallery: removeSpaceFromGallery,
             getGallery: getGallery,
             updateGallery: updateGallery

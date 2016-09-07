@@ -7,6 +7,15 @@
 
     /* @ngInject */
     function moduleConfig($stateProvider, triMenuProvider) {
+        triMenuProvider.addMenu({
+            name: 'Organizations',
+            icon: 'fa fa-tree',
+            state: 'triangular.organizations',
+            type: 'link',
+
+            priority: 1.1
+        });
+
         $stateProvider
             .state('triangular.organizations', {
                 url: '/organizations',
@@ -41,14 +50,6 @@
                 }
             });
 
-        triMenuProvider.addMenu({
-            name: 'Organizations',
-            icon: 'fa fa-tree',
-            state: 'triangular.organizations',
-            type: 'link',
-
-            priority: 1.1
-        });
 
     }
 })();
