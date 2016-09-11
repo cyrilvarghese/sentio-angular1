@@ -1,3 +1,4 @@
+
 (function() {
     'use strict';
 
@@ -6,8 +7,8 @@
         .controller('projectsController', projectsController);
 
     /* @ngInject */
-    function projectsController($mdSidenav, $state, $stateParams, triBreadcrumbsService, projectService, toastService) {
-        if(!$stateParams.id){
+    function projectsController($mdSidenav, $state, $stateParams,organizationService, triBreadcrumbsService, projectService, toastService) {
+        if(!organizationService.getCurrentOrganization().org_id){
             toastService.show('Select An Orgnization First');
             $state.go('triangular.organizations');
             return;
@@ -16,13 +17,14 @@
         vm.deleteProject = deleteProject;
         vm.showProject = showProject;
         vm.selectProject = selectProject;
+        vm.navigateToSpaces = navigateToSpaces;
         vm.navigateToProject = navigateToProject;
         vm.isProjectSelected = false;
         // vm.projects = $stateParams.projects;
         init();
         function init() {
             var paramObj = {
-                orgId: $stateParams.id,
+                orgId:organizationService.getCurrentOrganization().org_id,
                 api_token: localStorage.getItem('apiToken')
             }
             projectService.getProjectList(paramObj).then(function(data) {
@@ -39,6 +41,13 @@
         function navigateToProject(id, project) {
             var id = id || 0;
             $state.go('triangular.organizations.detail.projects.detail', {
+                projectId: parseInt(id),
+                selectedProject: project
+            });
+        }
+        function navigateToSpaces(id, project) {
+            var id = id || 0;
+            $state.go('triangular.organizations.detail.projects.detail.spaces', {
                 projectId: parseInt(id),
                 selectedProject: project
             });

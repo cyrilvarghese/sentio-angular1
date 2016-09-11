@@ -6,7 +6,7 @@
         .run(runFunction);
 
     /* @ngInject */
-    function runFunction($rootScope, $state) {
+    function runFunction($rootScope, $state, triLayout) {
 
         // default redirect if access is denied
         function redirectError() {
@@ -22,8 +22,15 @@
         $rootScope.$on('$destroy', function() {
             errorHandle();
         });
+        $rootScope.$on('$stateChangeSuccess',
+            function(event, toState, toParams, fromState, fromParams, options) {
+                if (toState.name === 'triangular.organizations') {
+                    triLayout.setOption('sideMenuSize', 'off');
+
+                }
+            })
     }
-/*global services usedby app*/
+    /*global services usedby app*/
     angular
         .module('app').factory('$myElementInkRipple', function($mdInkRipple) {
             return {

@@ -7,16 +7,29 @@
 
     /* @ngInject */
     function moduleConfig($stateProvider, triMenuProvider) {
-         
+        triMenuProvider.addMenu({
+            name: 'Projects',
+            icon: 'fa fa-tree',
+            state: 'triangular.organizations.detail.projects',
+            type: 'link',
+
+            priority: 1.1
+        });
+
         $stateProvider
             .state('triangular.organizations.detail.projects', {
                 url: '/projects',
-                templateUrl: 'app/projects/projects-list.tmpl.html',
-                // set the controller to load for this page
-                controller: 'projectsController',
-                controllerAs: 'vm',
-                params: {
-                    projects: null
+                views: {
+                    '@triangular': {
+                        templateUrl: 'app/projects/projects-list.tmpl.html',
+                        controller: 'projectsController',
+                        controllerAs: 'vm'
+                    },
+                    'toolbar@triangular': {
+                        templateUrl: 'app/projects/layout/toolbar/toolbar.tmpl.html',
+                        controller: 'projectsToolbarController',
+                        controllerAs: 'vm'
+                    }
                 },
                 // layout-column class added to make footer move to
                 // bottom of the page on short pages
@@ -24,7 +37,7 @@
                     layout: {
                         contentClass: 'layout-column'
                     }
-                } 
+                }
 
 
             }).state('triangular.organizations.detail.projects.detail', {

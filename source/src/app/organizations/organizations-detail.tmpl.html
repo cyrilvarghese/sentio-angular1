@@ -10,7 +10,7 @@
                 <span flex></span>
                 <div hide-xs  class="md-padding no-left-padding" layout="row" layout-xs="column" layout-align="start-start">
                      <md-button class="md-default" ng-click="vm.leaveOrg()">Leave Organization</md-button>
-                      <md-button class="md-default" ng-click="vm.inviteMember()">Invite</md-button>
+
                       <md-button class="md-default" ng-click="vm.showMembers('members-list-right-menu')">View Members</md-button>
                 </div>
                 <md-menu hide-gt-xs>
@@ -62,7 +62,7 @@
         <h1 class="md-toolbar-tools">Members</h1>
     </md-toolbar>
     <md-content >
-         <div layout="row" layout-align="center center"  ng-include="'app/members/members-list.tmpl.html'"></div>
+         <div layout="row" layout-align="start center" class="md-padding"  ng-include="'app/members/members-list-no-invite.tmpl.html'"></div>
     </md-content>
 </md-sidenav>
 </ui-view>

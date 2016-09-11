@@ -6,9 +6,9 @@
         .controller('spacesController', spacesController);
 
     /* @ngInject */
-    function spacesController($state, $mdSidenav, members, $stateParams, spaceService, $scope, $element, $myElementInkRipple, triBreadcrumbsService) {
+    function spacesController($state, $mdSidenav,galleryService, $stateParams, spaceService, $scope, $element, $myElementInkRipple, triBreadcrumbsService) {
         var vm = this;
-        vm.members = members.data.splice(0, 5);
+        // vm.members = members.data.splice(0, 5);
         vm.navigateToDetail = navigateToDetail;
         vm.showMembers = showMembers;
         vm.selectMember = selectMember;
@@ -91,12 +91,10 @@
         function addSpaceToGallery(id) {
             if (localStorage.getItem('userInfo')) {
                 var paramObj = {
-                    api_token: localStorage.getItem('apiToken'),
-                    gallery_id: JSON.parse(localStorage.getItem('userInfo')).gallery_id || 0,
-                    user_id: JSON.parse(localStorage.getItem('userInfo')).user_id || 0,
-                    space_id: id
+                     api_token: localStorage.getItem('apiToken'),
+                     id: id
                 }
-                galleryService.addSpaceFromGallery(paramObj);
+                galleryService.addSpaceToGallery(paramObj);
             }
         }
 
@@ -104,9 +102,7 @@
             if (localStorage.getItem('userInfo')) {
                 var paramObj = {
                     api_token: localStorage.getItem('apiToken'),
-                    gallery_id: JSON.parse(localStorage.getItem('userInfo')).gallery_id || 0,
-                    user_id: JSON.parse(localStorage.getItem('userInfo')).user_id || 0,
-                    space_id: id
+                     id: id
                 }
                 galleryService.removeSpaceFromGallery(paramObj);
             }

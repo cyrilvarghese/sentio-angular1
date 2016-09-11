@@ -214,7 +214,7 @@
             if (paramObj.file !== null) {
 
                 Upload.upload({
-                    url: API_CONFIG.baseUrl + API_CONFIG.authenticationUrl + 'update_profile/' + paramObj.user_id + '?' + $.param({ api_token: localStorage.getItem('apiToken') }),
+                    url: API_CONFIG.baseUrl + API_CONFIG.authenticationUrl + 'update_profile_pic?' + $.param({ api_token: localStorage.getItem('apiToken') }),
                     data: {
                         image: paramObj.image,
                         info: Upload.json({
@@ -230,7 +230,7 @@
                     // console.log('Error status: ' + response.status);
                 }, function(evt) {
                     var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                    console.log('progress: ' + progressPercentage + '% ' + evt.config.data.image[0].name);
+                    console.log('progress: ' + progressPercentage + '% ' + evt.config.data.image.name);
                     // console.log('progress: ' + progressPercentage + '% ' + evt.config.data.image[1].name);
                 });;
 

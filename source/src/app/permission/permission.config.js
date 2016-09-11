@@ -52,13 +52,6 @@
                 }
             });
 
-        triMenuProvider.addMenu({
-            name: 'Users',
-            icon: 'zmdi zmdi-lock',
-            priority: 4.1,
-            state: 'triangular.permission',
-            type: 'link'
-
-        });
+       
     }
 })();

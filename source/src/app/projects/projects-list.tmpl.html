@@ -1,49 +1,31 @@
 <ui-view>
     <md-content class="padded-content-page">
-        <md-toolbar>
-            <div class="md-toolbar-tools">
-                <div layout="row" layout-align="space-between" class="full-width">
-                    <h2>
-                       Projects List
-                    </h2>
-                </div>
-                <span flex></span>
-                <div hide-xs ng-if="vm.isProjectSelected" class="md-padding no-left-padding" layout="row" layout-xs="column" layout-align="start-start">
-                    <md-button class="md-primary md-raised" ngf-click="vm.deleteProject()" aria-label="delete project">
-                        <md-icon md-font-icon="zmdi zmdi-delete" ></md-icon> Delete Project
-                    </md-button>
-                </div>
-                <md-menu hide-gt-xs ng-if="vm.isProjectSelected">
-                    <md-button class="md-icon-button" aria-label="open menu" ng-click="$mdOpenMenu()">
-                        <md-icon md-font-icon="zmdi zmdi-more-vert"></md-icon>
-                    </md-button>
-                    <md-menu-content width="3">
-                        <md-menu-item>
-                            <md-button ng-click="vm.deleteProject()">
-                                <md-icon md-font-icon="zmdi zmdi-delete"></md-icon>
-                                Delete
-                            </md-button>
-                        </md-menu-item>
-                        <md-menu-item>
-                            <md-button ng-click="$mdCloseMenu">
-                                <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
-                                Action 2
-                            </md-button>
-                        </md-menu-item>
-                        <md-menu-divider></md-menu-divider>
-                        <md-menu-item>
-                            <md-button ng-click="$mdCloseMenu">
-                                <md-icon md-font-icon="zmdi zmdi-sign-in"></md-icon>
-                                Action 3
-                            </md-button>
-                        </md-menu-item>
-                    </md-menu-content>
-                </md-menu>
+        <div class="md-padding" layout-gt-sm="row" layout-sm="column">
+            <div flex="33" class="flex-grow" ng-repeat="project in ::vm.projects track by $index" flex-xs="100">
+                <md-card>
+                    <md-card-header>
+                        <md-card-avatar>
+                            <img class="md-user-avatar" src="assets/images/avatars/avatar-4.png" />
+                        </md-card-avatar>
+                        <md-card-header-text>
+                            <span class="md-headline">{{project.name}}</span>
+                        </md-card-header-text>
+                    </md-card-header>
+                    <md-card-content>
+                        <p class="md-body-1">{{::project.description}}</p>
+                        <!-- <a href="#" editable-textarea="value.description" e-rows="7" e-cols="40">
+                                        <pre>{{ value.description || 'no description' }}</pre>
+                                      </a> -->
+                    </md-card-content>
+                    <md-card-actions layout="row" layout-align="start start">
+                        <!--   <invite-btn></invite-btn> -->
+                        <md-button class="md-primary" ng-click="vm.navigateToSpaces(project.id,project)">View Spaces</md-button>
+                    </md-card-actions>
+                </md-card>
             </div>
-        </md-toolbar>
-        <div layout="column" class="md-padding" md-whiteframe="1">
-            <md-list>
-                <md-list-item class="md-3-line" ng-repeat="project in ::vm.projects track by $index" ng-click="vm.navigateToProject(project.id,project)">
+        </div>
+        <!--   <md-list>
+                <md-list-item class="md-3-line" ng-repeat="project in ::vm.projects track by $index" ng-click="vm.navigateToSpaces(project.id,project)">
                     <md-checkbox  ng-model="project.selected" ng-click="vm.selectProject(project.selected,project)"></md-checkbox>
                     <div class="md-list-item-text">
                         <h3>{{::project.name}} </h3>
@@ -52,8 +34,7 @@
                     </div>
                     <md-divider ng-if="!$last"></md-divider>
                 </md-list-item>
-            </md-list>
-        </div>
+            </md-list> -->
         <md-button class="md-fab fab-add-fixed" ng-click="vm.navigateToProject(0,null)" aria-label="fab button">
             <md-icon md-font-icon="zmdi zmdi-plus"></md-icon>
         </md-button>

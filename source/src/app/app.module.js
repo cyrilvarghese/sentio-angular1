@@ -26,7 +26,8 @@
             // also remove 'permission' from the first line of dependencies
             // https://github.com/Narzerus/angular-permission see here for why
             // 'app.examples',
-            'ngFileUpload'
+            'ngFileUpload',
+            "xeditable"
 
         ])
 

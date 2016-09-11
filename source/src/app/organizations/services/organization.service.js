@@ -6,10 +6,11 @@
         .factory('organizationService', organizationService);
 
     /* @ngInject */
-    function organizationService($q, $http, RoleStore, toastService, API_CONFIG, utilService) {
+    function organizationService($q, $http, RoleStore, $state, toastService, API_CONFIG, utilService) {
 
         var service = {
             getCurrentOrganization: getCurrentOrganization,
+            setCurrentOrganization: setCurrentOrganization,
             getOrgList: getOrgList,
             getOrg: getOrg,
             createOrganization: createOrganization,
@@ -20,7 +21,15 @@
         return service;
 
         function getCurrentOrganization() {
+            if (localStorage.getItem('currentOrg')) {
+                return JSON.parse(localStorage.getItem('currentOrg')) || {};
+            } else {
+                return {};
+            }
+        }
 
+        function setCurrentOrganization(org) {
+            localStorage.setItem('currentOrg', JSON.stringify(org));
         }
 
         function getOrgList() {
@@ -49,6 +58,7 @@
             }
             $http(req).then(function(response) {
                 dfd.resolve(response.data);
+
             }, utilService.handleError);
 
             return dfd.promise;
@@ -66,6 +76,7 @@
                 // currentUser = user;
                 toastService.show('organisation created successfully');
                 dfd.resolve();
+                navigateToList();
             }, utilService.handleError);
 
             return dfd.promise;
@@ -81,7 +92,8 @@
                 data: paramObj
             }
             $http(req).then(function(response) {
-                toastService.show('Organisation updated successfully');
+                toastService.show(response.data.message);
+                navigateToList();
                 dfd.resolve();
             }, utilService.handleError);
 
@@ -90,6 +102,11 @@
         }
 
 
+        function navigateToList() {
+            $state.go('triangular.organizations', {}, { reload: true })
+
+        }
     }
+
 })();
 // cd C:\Program Files (x86)\Google\Chrome\Application\chrome.exe --disable-web-security)

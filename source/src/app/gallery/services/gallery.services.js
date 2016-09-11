@@ -49,7 +49,7 @@
         function removeSpaceFromGallery(paramObj) {
             var dfd = $q.defer();
             var req = {
-                method: 'POST',
+                method: 'GET',
                 url: API_CONFIG.baseUrl + API_CONFIG.spacesUrl +'removeFromGallery/' + paramObj.id + '?' + $.param(paramObj),
                 headers: utilService.getHeaders(),
                 data: paramObj
@@ -62,13 +62,12 @@
             return dfd.promise;
         }
 
-        function AddSpaceToGallery(paramObj) {
+        function addSpaceToGallery(paramObj) {
             var dfd = $q.defer();
             var req = {
-                method: 'POST',
+                method: 'GET',
                 url: API_CONFIG.baseUrl + API_CONFIG.spacesUrl + 'addToGallery/' + paramObj.id + '?' + $.param(paramObj),
-                headers: utilService.getHeaders(),
-                data: paramObj
+                headers: utilService.getHeaders()
             }
             $http(req).then(function(response) {
                 toastService.show(response.data.message);
@@ -79,4 +78,4 @@
         }
 
     }
-});
+})();

@@ -6,15 +6,86 @@
         .controller('galleryController', galleryController);
 
     /* @ngInject */
-    function galleryController($mdDialog) {
+    function galleryController($mdDialog, galleryService) {
         var vm = this;
         vm.feed = [];
         vm.openImage = openImage;
-
+        vm.addLogo = addLogo;
+        vm.removeLogo = removeLogo;
+        vm.addTheme = addTheme;
+        vm.removeTheme = removeTheme;
+        uploadReset();
         ////////////////
+        function addLogo(files) {
+            uploadStarted();
+            var paramObj = {
+                api_token: localStorage.getItem('apiToken'),
+                files: files,
+                project_id: $stateParams.projectId
+            }
+            logoAndThemeService.addLogo(paramObj).then(function() {
+                uploadComplete();
+            }, function() {
+                uploadReset();
+            })
+        }
 
+
+        function removeLogo(files) {
+            if (localStorage.getItem('userInfo')) {
+                var paramObj = {
+                    api_token: localStorage.getItem('apiToken'),
+                    logo_id: vm.selectedLogo.id,
+                    user_id: JSON.parse(localStorage.getItem('userInfo')).user_id
+                }
+                logoAndThemeService.removeLogo(paramObj);
+            }
+        }
+
+        function addTheme(files) {
+            if (localStorage.getItem('userInfo')) {
+                var paramObj = {
+                    api_token: localStorage.getItem('apiToken'),
+                    logo_id: vm.selectedLogo.id,
+                    user_id: JSON.parse(localStorage.getItem('userInfo')).user_id
+                }
+                logoAndThemeService.addTheme(paramObj);
+            }
+        }
+
+        function removeTheme(files) {
+            if (localStorage.getItem('userInfo')) {
+                var paramObj = {
+                    api_token: localStorage.getItem('apiToken'),
+                    logo_id: vm.selectedLogo.id,
+                    user_id: JSON.parse(localStorage.getItem('userInfo')).user_id
+                }
+                logoAndThemeService.removeTheme(paramObj);
+            }
+        }
+
+        function uploadStarted() {
+            vm.status = 'uploading';
+        }
+
+        function showMembers(componentId) {
+            $mdSidenav(componentId)
+                .open()
+                .then(function() {
+
+                });
+        }
+
+        function uploadComplete() {
+            vm.status = 'complete';
+
+        }
+
+        function uploadReset() {
+            vm.status = 'idle';
+        }
         // number of days of dummy data to show
-        var numberOfFeedDays = 5;
+        var numberOfFeedDays = 1;
         var loremPixelCategories = ['abstract', 'city', 'people', 'nature', 'food', 'fashion', 'nightlife'];
 
         function randomImage(title) {
@@ -55,7 +126,7 @@
                 images: []
             };
 
-            var numberOfImages = Math.floor((Math.random() * 4) + 6);
+            var numberOfImages = 5;
             for (var i = 0; i < numberOfImages; i++) {
                 dayFeed.images.push(randomImage('Photo ' + (i + 1)));
             }

@@ -29,7 +29,7 @@
                     layout: {
                         contentClass: 'layout-column'
                     }
-                }
+                }  
 
             }).state('triangular.organizations.detail', {
                 url: '/:id',

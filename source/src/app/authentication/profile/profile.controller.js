@@ -46,7 +46,8 @@
 
         vm.user = {
             name: userInfo.name,
-            email: userInfo.email
+            email: userInfo.email,
+            image:userInfo.image
         };
 
         function uploadProfilePic(id, file) {

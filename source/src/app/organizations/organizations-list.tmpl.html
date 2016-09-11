@@ -1,63 +1,61 @@
-
 <ui-view>
-<md-content>
-<div class="md-padding">
-    <h2 class="md-subhead">Created By You</h2>
-    <div class="md-padding" layout-gt-sm="row" layout-sm="column">
-        <div flex="33" ng-repeat="(key, value) in vm.orgList.admin" flex-xs="100">
-            <md-card  >
-                <md-card-header>
-                    <md-card-avatar>
-                        <img class="md-user-avatar" src="assets/images/avatars/avatar-4.png" />
-                    </md-card-avatar>
-                    <md-card-header-text>
-                        <span class="md-headline">{{value.org_name}}</span>
-                        <span class="md-subhead">Created by {{value.owner}}</span>
-                    </md-card-header-text>
-                </md-card-header>
-                <md-card-content class="clickable md-ink-ripple"  ng-click="vm.navigateToDetail(value.org_id)">
- <p class="md-body-1">{{value.description}}</p>
-                </md-card-content>
-                <!-- <md-card-actions layout="row" layout-align="start start"> -->
-                  <!--   <invite-btn></invite-btn> -->
-                  <!--   <md-button class="md-primary" ng-click="vm.showMembers('members-list-right-menu')">Members</md-button>
-                </md-card-actions> -->
-            </md-card>
-        </div>
-         
-    </div>
-       <md-divider ></md-divider>
-    <h2 class="md-subhead">Created By Others</h2>
-    <div class="md-padding" layout-gt-sm="row" layout-sm="column">
-    <div class="md-headline" ng-if="!vm.orgList.member">No Organizations Found</div>
-         <div flex="33"  ng-repeat="(key, value) in vm.orgList.member" flex-xs="100">
-            <md-card  >
-                <md-card-header>
-                    <md-card-avatar>
-                        <img class="md-user-avatar" src="assets/images/avatars/avatar-4.png" />
-                    </md-card-avatar>
-                    <md-card-header-text>
-                        <span class="md-title">{{value.org_name}}</span>
-                        <span class="md-subhead">Created by you</span>
-                    </md-card-header-text>
-                </md-card-header>
-                <md-card-content class="clickable md-ink-ripple"  ng-click="vm.navigateToDetail(value.org_id)">
+    <md-content>
+        <div class="md-padding">
+            <h2 class="md-subhead">Created By You</h2>
+            <div class="md-padding" layout-gt-sm="row" layout-sm="column">
+                <div flex="33" ng-repeat="(key, value) in vm.orgList.admin" flex-xs="100">
+                    <md-card>
+                        <md-card-header>
+                            <md-card-avatar>
+                                <img class="md-user-avatar" src="assets/images/avatars/avatar-4.png" />
+                            </md-card-avatar>
+                            <md-card-header-text>
+                                <span class="md-headline">{{value.org_name}}</span>
+                                <span class="md-subhead">Created by {{value.creator}}</span>
+                            </md-card-header-text>
+                        </md-card-header>
+                        <md-card-content>
+                            <p class="md-body-1">{{value.description}}</p>
+                            <!-- <a href="#" editable-textarea="value.description" e-rows="7" e-cols="40">
+                                        <pre>{{ value.description || 'no description' }}</pre>
+                                      </a> -->
+                        </md-card-content>
+                      <md-card-actions layout="row" layout-align="start start">
 
-                    <p class="md-body-1">{{value.description}}</p>
-                </md-card-content>
-                <!-- <md-card-actions layout="row" layout-align="start start">
+                        <!--   <invite-btn></invite-btn> -->
+                        <md-button class="md-primary" ng-click="vm.navigateToProjects(value,value.org_id)">View Projects</md-button>
+                      </md-card-actions>
+                    </md-card>
+                </div>
+            </div>
+            <md-divider></md-divider>
+            <h2 class="md-subhead">Created By Others</h2>
+            <div class="md-padding" layout-gt-sm="row" layout-sm="column">
+                <div class="md-headline" ng-if="!vm.orgList.member">No Organizations Found</div>
+                <div flex="33" ng-repeat="(key, value) in vm.orgList.member" flex-xs="100">
+                    <md-card>
+                        <md-card-header>
+                            <md-card-avatar>
+                                <img class="md-user-avatar" src="assets/images/avatars/avatar-4.png" />
+                            </md-card-avatar>
+                            <md-card-header-text>
+                                <span class="md-title">{{value.org_name}}</span>
+                                <span class="md-subhead">Created by you</span>
+                            </md-card-header-text>
+                        </md-card-header>
+                        <md-card-content class="clickable md-ink-ripple" ng-click="vm.navigateToDetail(value.org_id)">
+                            <p class="md-body-1">{{value.description}}</p>
+                        </md-card-content>
+                        <!-- <md-card-actions layout="row" layout-align="start start">
                     <md-button>Invite Member</md-button>
                     <md-button class="md-primary" ng-click="vm.showMembers('members-list-right-menu')">Members</md-button>
                 </md-card-actions> -->
-            </md-card>
+                    </md-card>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-
-<md-button class="md-fab fab-add-fixed "  ng-click="vm.navigateToDetail(0)" aria-label="fab button">
-    <md-icon md-font-icon="zmdi zmdi-plus"></md-icon>
-</md-button>
-
-</md-content>
-
+        <md-button class="md-fab fab-add-fixed " ng-click="vm.navigateToDetail(0)" aria-label="fab button">
+            <md-icon md-font-icon="zmdi zmdi-plus"></md-icon>
+        </md-button>
+    </md-content>
 </ui-view>

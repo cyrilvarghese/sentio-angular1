@@ -6,7 +6,7 @@
         .controller('spacesDetailController', spacesDetailController);
 
     /* @ngInject */
-    function spacesDetailController($mdSidenav, spaceService, Upload, utilService, $stateParams, members, triBreadcrumbsService) {
+    function spacesDetailController($mdSidenav, spaceService,galleryService, Upload, utilService, $stateParams, members, triBreadcrumbsService) {
         var vm = this;
         vm.isOpen = false;
         if ($stateParams.spaceId) {
@@ -87,12 +87,13 @@
         }
 
         function addToGallery() {
-            // var paramObj = {
-            //     user_id:
-            //      gallery_id: space_id:
-            // }
-            galleryService.addToGallery();
+            var paramObj = {
+                space_id: vm.id,
+                api_token: localStorage.getItem('apiToken')
+            }
+            galleryService.addToGallery(paramObj);
         }
+
         function removeFromGallery() {
             // var paramObj = {
             //     user_id:

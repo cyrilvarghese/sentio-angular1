@@ -3,21 +3,32 @@
 
     angular
         .module('app.projects')
-        .controller('projectToolbarController', projectToolbarController);
+        .controller('projectsToolbarController', projectsToolbarController);
 
     /* @ngInject */
-    function projectToolbarController($rootScope, $stateParams,projectService,$mdMedia, $filter, Upload, $mdUtil, $mdSidenav, $state, triBreadcrumbsService, triLayout) {
+    function projectsToolbarController($rootScope, $stateParams, projectService, $mdMedia, $filter, Upload, $mdUtil, $mdSidenav, $state, triBreadcrumbsService, triLayout) {
         var vm = this;
         vm.breadcrumbs = ['Projects'];
 
         vm.hideMenuButton = hideMenuButton;
+        vm.navigateToProjects = navigateToProjects;
         vm.openSideNav = openSideNav;
-
+        var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+        vm.currentUser = {
+            displayName: userInfo.name,
+            username: userInfo.email,
+            avatar: 'assets/images/avatars/avatar-5.png',
+            roles: ['admin']
+        }
         vm.toolbarMenu = [];
-         function hideMenuButton() {
+
+        function hideMenuButton() {
             return triLayout.layout.sideMenuSize !== 'hidden' && $mdMedia('gt-sm');
         }
 
+        function navigateToProjects() {
+            $state.go('triangular.organizations.detail.projects');
+        }
         /**
          * Build handler to open/close a SideNav;
          */
