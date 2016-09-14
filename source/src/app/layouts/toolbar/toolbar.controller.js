@@ -19,17 +19,15 @@
         vm.fullScreenIcon = 'zmdi zmdi-fullscreen';
         vm.toggleFullScreen = toggleFullScreen;
         vm.logOut = logOut;
-         $rootScope.$on('updateBreadCrumbs', function(){
-            vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
-        });
-
+        
         var userInfo = JSON.parse(localStorage.getItem('userInfo'));
         vm.currentUser = {
-                displayName: userInfo.name,
-                username: userInfo.email,
-                avatar: 'assets/images/avatars/avatar-5.png',
-                roles: ['admin']
-            }
+            displayName: userInfo.name,
+            username: userInfo.email,
+            avatar: userInfo.image,
+            roles: ['admin']
+        }
+        vm.toolbarMenu = [];
             ////////////////
 
         function openSideNav(navID) {

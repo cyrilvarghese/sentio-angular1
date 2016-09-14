@@ -1,67 +1,136 @@
 <ui-view>
-    <div class="md-padding">
-        <!-- <h2 class="md-subhead">Created By You</h2> -->
-        <div class="md-padding" layout-align="space-around" layout-gt-sm="row" layout-wrap layout-sm="column">
-            <div flex="30" flex-xs="100" class="md-margin-5p" ng-repeat="(key, value) in vm.spaceList">
-                <md-card>
-                    <md-toolbar>
-                        <div class="md-toolbar-tools">
-                            <div layout="row" layout-align="space-between" class="full-width">
-                                <h2>
+    <md-tabs md-dynamic-height md-border-bottom md-selected="vm.selectedTabIndex" class="md-padding" md-center-tabs>
+        <md-tab label="Spaces">
+            <md-content>
+                <div class="md-padding">
+                    <!-- <h2 class="md-subhead">Created By You</h2> -->
+                    <div class="md-padding" layout-align="start start" layout-gt-sm="row" layout-wrap layout-sm="column">
+                        <div flex="30" flex-xs="100" class="flex-basis" class="md-margin-5p" ng-repeat="(key, value) in vm.spaceList">
+                            <md-card>
+                                <md-toolbar>
+                                    <div class="md-toolbar-tools">
+                                        <div layout="row" layout-align="space-between" class="full-width">
+                                            <h2>
                                      <span class="md-headline">{{value.name}}</span>
                                     </h2>
-                            </div>
-                            <span flex></span>
-                            <md-menu>
-                                <md-button class="md-icon-button" aria-label="open menu" ng-click="$mdOpenMenu()">
-                                    <md-icon md-font-icon="zmdi zmdi-more-vert"></md-icon>
-                                </md-button>
-                                <md-menu-content width="3">
-                                    <md-menu-item>
-                                        <md-button ng-click="vm.navigateToDetail(value.id)">Edit Space details</md-button>
-                                    </md-menu-item>
-                                    <md-menu-item>
-                                        <md-button ng-click="vm.addSpaceToGallery(value.id)">Add to Gallery</md-button>
-                                    </md-menu-item>
-                                    <md-menu-item>
-                                        <md-button ng-click="vm.removeSpacefromGallery(value.id)">Remove From Gallery</md-button>
-                                    </md-menu-item>
-                                    <md-menu-item>
-                                        <md-button ng-click="vm.deleteSpace(value.id)">Delete</md-button>
-                                    </md-menu-item>
-                            </md-menu>
+                                        </div>
+                                        <span flex></span>
+                                        <md-menu>
+                                            <md-button class="md-icon-button" aria-label="open menu" ng-click="$mdOpenMenu()">
+                                                <md-icon md-font-icon="zmdi zmdi-more-vert"></md-icon>
+                                            </md-button>
+                                            <md-menu-content width="3">
+                                                <md-menu-item>
+                                                    <md-button ng-click="vm.navigateToDetail(value.id)">
+                                                        <md-icon md-font-icon='zmdi zmdi-edit'></md-icon>Edit Space details</md-button>
+                                                </md-menu-item>
+                                                <md-menu-item>
+                                                    <md-button ng-click="vm.addSpaceToGallery(value.id)">
+                                                        <md-icon md-font-icon='fa fa-plus-circle'></md-icon>Add to Gallery</md-button>
+                                                </md-menu-item>
+                                                <md-menu-item>
+                                                    <md-button ng-click="vm.removeSpacefromGallery(value.id)">
+                                                        <md-icon md-font-icon='zmdi zmdi-minus-circle'></md-icon>Remove From Gallery</md-button>
+                                                </md-menu-item>
+                                                <md-menu-item>
+                                                    <md-button ng-click="vm.deleteSpace(value.id)">
+                                                        <md-icon md-font-icon='zmdi zmdi-delete'></md-icon>Delete</md-button>
+                                                </md-menu-item>
+                                            </md-menu-content>
+                                        </md-menu>
+                                    </div>
+                                </md-toolbar>
+                                <a ng-href="http://{{value.url}}">
+                                    <div layout="row"> <img style="max-height:200px" ng-src="http://{{value.thumbnail}}" alt="{{value.name}}">
+                                    </div>
+                                </a>
+                                <md-card-content>
+                                    <p style="height: 100px; overflow: auto;">{{value.desc}}</p>
+                                    <md-divider></md-divider>
+                                    <md-card-actions layout="column" layout-align="center center">
+                                        <md-button ng-href='http://{{value.editorUrl}}'>Open space Editor Mode</md-button>
+                                        <md-button class="md-primary md-raised " ngf-select="vm.uploadForLinking(value.id,$file)" ng-disabled="vm.status != 'idle'" ngf-multiple="true" aria-label="upload">
+                                            <md-icon md-font-icon ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon>
+                                            upload & link space
+                                        </md-button>
+                                    </md-card-actions>
+                                </md-card-content>
+                            </md-card>
                         </div>
-                    </md-toolbar>
-                    <a ng-href="http://{{value.url}}">
-                        <div layout="row"> <img style="max-height:200px" ng-src="http://{{value.thumbnail}}" alt="{{value.name}}">
-                        </div>
-                    </a>
-                    <md-card-content>
-                        <p style="max-height: 100px; overflow: auto;">{{value.desc}}</p>
-                        <md-divider></md-divider>
-                        <md-card-actions layout="column" layout-align="center center">
-                            <md-button ng-href='http://{{value.editorUrl}}'>Open space Editor Mode</md-button>
-                            <md-button class="md-primary md-raised " ngf-select="vm.uploadForLinking(value.id,$file)" ng-disabled="vm.status != 'idle'" ngf-multiple="true" aria-label="upload">
-                                <md-icon md-font-icon ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon>
-                                upload & link space
-                            </md-button>
-                        </md-card-actions>
-                    </md-card-content>
-                </md-card>
-            </div>
-        </div>
-    </div>
-    </div>
+                    </div>
+                </div>
+            </md-content>
+        </md-tab>
+        <md-tab label="Members">
+
+            <div layout="row"  md-whiteframe="1" layout-padding layout-align="space-around" ng-include="'app/members/members-list-no-invite.tmpl.html'"></div>
+        </md-tab>
+        <md-tab label="Edit Logo">
+            <md-content class="md-padding">
+                 
+                <md-list>
+                    <div>
+                        <md-list-item>
+                            <md-grid-list flex md-cols="6" md-cols-xs="4" md-row-height="4:3" md-gutter="4px">
+                                <md-grid-tile md-colspan="2" md-rowspan="2" ng-click="vm.openImage( logo, $event)" ng-repeat="logo in ::vm.logos" ng-style="::{ 'background-image': 'url(http://' + logo.thumb_url + ')', 'background-size' : 'cover' }">
+                                    <md-grid-tile-footer layout="row" layout-align="end center">
+                                        <md-button class="md-primary md-raised" ng-click="vm.updateGallery(logo.id,null)">
+                                            <md-icon md-font-icon class="zmdi zmdi-check "></md-icon>Select
+                                        </md-button>
+                                        <md-button class="md-icon-button ">
+                                            <md-icon md-font-icon class="zmdi zmdi-delete "></md-icon>
+                                        </md-button>
+                                    </md-grid-tile-footer>
+                            </md-grid-list>
+                        </md-list-item>
+                    </div>
+                </md-list>
+            </md-content>
+        </md-tab>
+        <md-tab label="Edit Theme ">
+            <md-content class="md-padding ">
+                
+                <md-list>
+                    <div>
+                        <md-list-item>
+                            <md-grid-list flex md-cols="6 " md-cols-xs="4 " md-row-height="4:3 " md-gutter="4px ">
+                                <md-grid-tile md-colspan="2 " md-rowspan="2 " ng-click="vm.openTheme( theme, $event) " ng-repeat="theme in ::vm.themes " ng-style="::{ 'background-image': 'url(http://' + theme.thumb_url + ')', 'background-size' : 'cover' } ">
+                                <md-grid-tile-footer layout="row" layout-align="end center">
+                                        <md-button class="md-primary md-raised" ng-click="vm.updateGallery(null,theme.id)">
+                                            <md-icon md-font-icon class="zmdi zmdi-check "></md-icon>Select
+                                        </md-button>
+                                        <md-button class="md-icon-button ">
+                                            <md-icon md-font-icon class="zmdi zmdi-delete "></md-icon>
+                                        </md-button>
+                                    </md-grid-tile-footer>
+                                </md-grid-tile>
+
+                            </md-grid-list>
+                        </md-list-item>
+                    </div>
+                </md-list>
+            </md-content>
+        </md-tab>
+    </md-tabs>
     <!-- left sidebar -->
-    <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="members-list-right-menu">
-        <md-toolbar class="md-theme-light">
-            <h1 class="md-toolbar-tools">Members</h1>
+    <md-sidenav class="md-sidenav-right md-whiteframe-z2 " md-component-id="members-list-right-menu ">
+        <md-toolbar class="md-theme-light ">
+            <h1 class="md-toolbar-tools ">Members</h1>
         </md-toolbar>
-        <md-content class="md-padding">
-            <div layout="row" layout-padding layout-align="space-around start" ng-include="'app/members/members-list.tmpl.html'"></div>
+        <md-content class="md-padding ">
         </md-content>
     </md-sidenav>
-    <md-button class="md-fab fab-add-fixed " ng-click="vm.navigateToDetail(0)" aria-label="fab button">
-        <md-icon md-font-icon="zmdi zmdi-plus"></md-icon>
+    <md-button class="md-fab fab-add-fixed " ng-if="vm.selectedTabIndex===0 " ng-click="vm.navigateToDetail(0) " aria-label="fab button ">
+        <md-icon md-font-icon="zmdi zmdi-plus "></md-icon>
     </md-button>
+     <md-button class="md-fab fab-add-fixed " ng-if="vm.selectedTabIndex===1 " ng-click="vm.addMember() " aria-label="fab button ">
+        <md-icon md-font-icon="zmdi zmdi-plus "></md-icon>
+    </md-button>
+        <md-button class="md-fab fab-add-fixed " ngf-select="vm.addLogo($file)" ng-disabled="vm.status != 'idle'" aria-label="upload" ng-if="vm.selectedTabIndex===2 "   aria-label="fab button ">
+         <md-icon md-font-icon ng-class="{ 'zmdi zmdi-cloud-upload': vm.status=='idle' , 'fa fa-spinner fa-pulse': vm.status=='uploading' , 'zmdi zmdi-check': vm.status=='complete' } "></md-icon> 
+    </md-button>
+        <md-button class="md-fab fab-add-fixed " ngf-select="vm.addTheme($file)" ng-disabled="vm.status != 'idle'" aria-label="upload" ng-if="vm.selectedTabIndex===3 "  aria-label="fab button ">
+        <md-icon md-font-icon ng-class="{ 'zmdi zmdi-cloud-upload': vm.status=='idle' , 'fa fa-spinner fa-pulse': vm.status=='uploading' , 'zmdi zmdi-check': vm.status=='complete' } "></md-icon> 
+    </md-button>
+        
 </ui-view>

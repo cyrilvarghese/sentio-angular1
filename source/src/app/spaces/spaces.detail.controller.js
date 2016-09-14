@@ -6,7 +6,7 @@
         .controller('spacesDetailController', spacesDetailController);
 
     /* @ngInject */
-    function spacesDetailController($mdSidenav, spaceService,galleryService, Upload, utilService, $stateParams, members, triBreadcrumbsService) {
+    function spacesDetailController($mdSidenav, spaceService,galleryService, Upload, utilService, $stateParams, triBreadcrumbsService) {
         var vm = this;
         vm.isOpen = false;
         if ($stateParams.spaceId) {

@@ -49,7 +49,9 @@
             var id = id || 0;
             $state.go('triangular.organizations.detail.projects.detail.spaces', {
                 projectId: parseInt(id),
-                selectedProject: project
+                selectedProject: project,
+                // members:project.members,
+                // galleryId:project.galleryId
             });
         }
 

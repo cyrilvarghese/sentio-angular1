@@ -13,11 +13,12 @@
         vm.hideMenuButton = hideMenuButton;
         vm.navigateToProjects = navigateToProjects;
         vm.openSideNav = openSideNav;
+        vm.logOut = logOut;
         var userInfo = JSON.parse(localStorage.getItem('userInfo'));
         vm.currentUser = {
             displayName: userInfo.name,
             username: userInfo.email,
-            avatar: 'assets/images/avatars/avatar-5.png',
+            avatar: userInfo.image,
             roles: ['admin']
         }
         vm.toolbarMenu = [];
@@ -25,7 +26,10 @@
         function hideMenuButton() {
             return triLayout.layout.sideMenuSize !== 'hidden' && $mdMedia('gt-sm');
         }
-
+  function logOut(){
+            localStorage.clear();
+            $state.go('authentication.login');
+        }
         function navigateToProjects() {
             $state.go('triangular.organizations.detail.projects');
         }

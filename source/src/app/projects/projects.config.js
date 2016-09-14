@@ -9,12 +9,29 @@
     function moduleConfig($stateProvider, triMenuProvider) {
         triMenuProvider.addMenu({
             name: 'Projects',
-            icon: 'fa fa-tree',
+            icon: 'fa fa-list',
             state: 'triangular.organizations.detail.projects',
             type: 'link',
 
             priority: 1.1
         });
+         triMenuProvider.addMenu({
+            name: 'Current Project',
+            icon: 'fa fa-list',
+            state: 'triangular.organizations.detail.projects.detail',
+            type: 'link',
+
+            priority: 1.2
+        });
+        triMenuProvider.addMenu({
+            name: 'Billing Info',
+            icon: 'fa fa-dollar',
+            state: 'triangular.organizations.detail',
+            type: 'link',
+
+            priority: 1.3
+        });
+        
 
         $stateProvider
             .state('triangular.organizations.detail.projects', {

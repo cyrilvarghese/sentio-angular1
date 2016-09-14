@@ -6,12 +6,14 @@
         .factory('logoAndThemeService', logoAndThemeService);
 
     /* @ngInject */
-    function logoAndThemeService($q, $http, RoleStore, Upload, toastService, API_CONFIG, utilService) {
+    function logoAndThemeService($q, $http, RoleStore, $state, Upload, toastService, API_CONFIG, utilService) {
 
         var service = {
             addLogo: addLogo,
             removeLogo: removeLogo,
             getLogo: getLogo,
+            getLogoList: getLogoList,
+            getThemeList: getThemeList,
             addTheme: addTheme,
             getTheme: getTheme,
             removeTheme: removeTheme
@@ -33,7 +35,11 @@
                     },
                     headers: utilService.getHeaders()
                 }).then(function(response) {
+                toastService.show(response.data.message);
+
                     dfd.resolve(response);
+                    $state.go($state.current, {}, { reload: true });
+
                     // console.log('Success? ' + response.config.data.file.name + 'uploaded. responseonse: ' + response.data);
                 }, function(response) {
                     dfd.reject(response);
@@ -49,16 +55,48 @@
             return dfd.promise;
         }
 
+        function getLogoList(paramObj) {
+            var dfd = $q.defer();
+            var req = {
+                method: 'GET',
+                url: API_CONFIG.baseUrl + API_CONFIG.projectsUrl + paramObj.projectId + '/logo_list?' + $.param(paramObj),
+                headers: utilService.getHeaders()
+            }
+            $http(req).then(function(response) {
+                dfd.resolve(response.data.logo_list);
+                
+            }, utilService.handleError);
+
+            return dfd.promise;
+        }
+
+        function getThemeList(paramObj) {
+            var dfd = $q.defer();
+            var req = {
+                method: 'GET',
+                url: API_CONFIG.baseUrl + API_CONFIG.projectsUrl + paramObj.projectId + '/theme_list?' + $.param(paramObj),
+                headers: utilService.getHeaders()
+            }
+            $http(req).then(function(response) {
+
+                dfd.resolve(response.data.theme_list);
+            }, utilService.handleError);
+
+            return dfd.promise;
+        }
+
         function removeLogo(paramObj) {
             var dfd = $q.defer();
             var req = {
-                method: 'POST',
-                url: API_CONFIG.baseUrl + API_CONFIG.logoUrl + 'delete?' + $.param(paramObj),
-                headers: utilService.getHeaders(),
-                data: paramObj
+                method: 'GET',
+                url: API_CONFIG.baseUrl + API_CONFIG.logoUrl + 'delete/' + paramObj.logo_id + '?' + $.param(paramObj),
+                headers: utilService.getHeaders()
+
             }
             $http(req).then(function(response) {
                 toastService.show(response.data.message);
+                $state.go($state.current, {}, { reload: true });
+
                 dfd.resolve();
             }, utilService.handleError);
 
@@ -87,13 +125,16 @@
                     data: {
                         image: paramObj.files,
                         info: Upload.json({
-                            project_id: paramObj.projectId,
-                            name: paramObj.name,
-                            user_id: paramObj.userId
+                            project_id: paramObj.project_id,
+
                         })
                     },
                     headers: utilService.getHeaders()
                 }).then(function(response) {
+                toastService.show(response.data.message);
+                    
+                    $state.go($state.current, {}, { reload: true });
+
                     dfd.resolve(response);
                     // console.log('Success? ' + response.config.data.file.name + 'uploaded. responseonse: ' + response.data);
                 }, function(response) {
@@ -113,13 +154,14 @@
         function removeTheme(paramObj) {
             var dfd = $q.defer();
             var req = {
-                method: 'POST',
-                url: API_CONFIG.baseUrl + API_CONFIG.themeUrl + 'delete/'+paramObj.id+'?' + $.param(paramObj),
-                headers: utilService.getHeaders(),
-                data: paramObj
+                method: 'GET',
+                url: API_CONFIG.baseUrl + API_CONFIG.themeUrl + 'delete/' + paramObj.theme_id + '?' + $.param(paramObj),
+                headers: utilService.getHeaders()
             }
             $http(req).then(function(response) {
                 toastService.show(response.data.message);
+                $state.go($state.current, {}, { reload: true });
+
                 dfd.resolve();
             }, utilService.handleError);
 

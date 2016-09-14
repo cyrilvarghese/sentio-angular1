@@ -36,12 +36,17 @@ input {
     bottom: 35px;
     right: 23px;
 }
-
+.align-center{
+    text-align: center;
+}
 .triangular-loader{
 	z-index: 101 !important;
 }
 .select-box{
     width: 35px;
+}
+md-grid-tile-footer{
+    background: rgba(0, 188, 212, 0.59) !important;
 }
 .no-left-padding{
     padding-left: 0px !important;
@@ -49,8 +54,9 @@ input {
 .no-underline{
     text-decoration: none !important;
 }
-.flex-grow{
-    flex-grow: 1 !important;
+.flex-basis{
+    flex-basis:33% !important;
+
 }
 /**
  *  Do not remove this comments bellow. It's the markers used by gulp-inject to inject

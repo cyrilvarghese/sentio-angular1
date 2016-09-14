@@ -8,7 +8,7 @@
     /* @ngInject */
     function moduleConfig($stateProvider, triMenuProvider) {
         $stateProvider
-            .state('triangular.gallery', {
+            .state('triangular.projects.detail.gallery', {
                 url: '/gallery',
                 templateUrl: 'app/gallery/gallery.tmpl.html',
                 // set the controller to load for this page

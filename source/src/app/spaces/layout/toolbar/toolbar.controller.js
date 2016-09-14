@@ -6,21 +6,38 @@
         .controller('spacesToolbarController', spacesToolbarController);
 
     /* @ngInject */
-    function spacesToolbarController($rootScope, $mdMedia, $filter, Upload,$mdUtil, $mdSidenav, $state, triBreadcrumbsService, triLayout) {
+    function spacesToolbarController($rootScope, $stateParams, $mdMedia, $filter, Upload, $mdUtil, $mdSidenav, $state, triBreadcrumbsService, triLayout) {
         var vm = this;
-        vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
+        // vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
         vm.filterEmailList = filterEmailList;
         vm.hideMenuButton = hideMenuButton;
         vm.openSideNav = openSideNav;
         vm.showSearch = false;
         vm.toggleSearch = toggleSearch;
         vm.toolbarMenu = [];
- 
+        vm.logOut = logOut;
+        var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+        $rootScope.$on('updateBreadcrumbs', function(event,args) {
+            vm.breadcrumbs = args;
+        });
 
+        vm.currentUser = {
+            displayName: userInfo.name,
+            username: userInfo.email,
+            avatar: userInfo.image,
+            roles: ['admin']
+        }
+        vm.toolbarMenu = [];
+
+        function logOut() {
+            localStorage.clear();
+            $state.go('authentication.login');
+        }
         /////////////////
-        function upload(){
+        function upload() {
 
         }
+
         function filterEmailList(emailSearch) {
             $rootScope.$broadcast('emailSearch', emailSearch);
         }
@@ -37,7 +54,7 @@
          * Build handler to open/close a SideNav;
          */
         function openSideNav(navID) {
-            $mdUtil.debounce(function(){
+            $mdUtil.debounce(function() {
                 $mdSidenav(navID).toggle();
             }, 300)();
         }

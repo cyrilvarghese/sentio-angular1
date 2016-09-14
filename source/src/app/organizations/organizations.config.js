@@ -9,7 +9,7 @@
     function moduleConfig($stateProvider, triMenuProvider) {
         triMenuProvider.addMenu({
             name: 'Organizations',
-            icon: 'fa fa-tree',
+            icon: 'fa fa-th-list',
             state: 'triangular.organizations',
             type: 'link',
 

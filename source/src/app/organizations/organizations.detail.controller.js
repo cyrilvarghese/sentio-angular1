@@ -14,18 +14,18 @@
         vm.updateOrCreate = updateOrCreate;
         vm.leaveOrg = leaveOrg;
         vm.id = parseInt($stateParams.id, 10) || 0;
- 
+
         init();
 
         function init() {
             if (vm.id !== 0) {
                 var paramObj = {
                     'api_token': localStorage.getItem('apiToken'),
-                    id: vm.id
+                    id: organizationService.getCurrentOrganization().org_id
                 };
                 organizationService.getOrg(paramObj).then(function(data) {
                     vm.selectedOrg = data;
-                    vm.members=data.members;
+                    vm.members = data.members;
                     // setBreadCrumbs();
                 });
             }
@@ -73,6 +73,7 @@
 
                 });
         }
+
         function setBreadCrumbs() {
             triBreadcrumbsService.reset();
             triBreadcrumbsService.addCrumb({ name: vm.selectedOrg.name, url: '#/organizations/' + vm.id })
