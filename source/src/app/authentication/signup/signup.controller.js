@@ -12,7 +12,7 @@
         vm.signupClick = signupClick;
         vm.user = {
             name: '',
-            email: '',
+            email:$stateParams.email || '',
             password: '',
             confirm: '',
             org_name: $stateParams.org || '',

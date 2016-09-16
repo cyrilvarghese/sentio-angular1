@@ -21,6 +21,8 @@
         vm.RemoveSpaceFromGallery = RemoveSpaceFromGallery;
         vm.getLogoList = getLogoList;
         vm.getThemeList = getThemeList;
+        vm.queryMembers = queryMembers;
+        vm.inviteMember = inviteMember;
         vm.addAction = addAction;
         triBreadcrumbsService.reset();
         triBreadcrumbsService.addCrumb({ name: 'Spaces' });
@@ -32,16 +34,16 @@
         }
 
         function init() {
-            vm.spaceList = $stateParams.spaceList;
-            vm.members = $stateParams.members;
+            // vm.spaceList = $stateParams.spaceList;
+            // vm.members = $stateParams.members;
             var paramObj = {
-                api_token: localStorage.getItem('apiToken'),
-                projectId: $stateParams.projectId
+                    api_token: localStorage.getItem('apiToken'),
+                    projectId: $stateParams.projectId
 
-            }
-            spaceService.getSpaceList(paramObj).then(function(data) {
-                vm.spaceList = data;
-            });
+                }
+                // spaceService.getSpaceList(paramObj).then(function(data) {
+                //     vm.spaceList = data;
+                // });
             getLogoList(paramObj);
             getThemeList(paramObj);
             getProjectDetails();
@@ -69,7 +71,13 @@
                 };
                 projectService.getProject(paramObj).then(function(data) {
                     vm.selectedProject = data;
-                    vm.members = data.members;
+                    vm.members = _.map(data.members, function(member) {
+                        member.image = "assets/images/avatars/avatar-1.png";
+                        return member;
+                    });
+                    vm.spaceList = data.spaces;
+                    vm.selectedMembers = [];
+
                     $rootScope.$broadcast('updateBreadcrumbs', 'Projects > ' + vm.selectedProject.name);
                     getGalleryDetails();
 
@@ -297,6 +305,70 @@
             galleryService.updateGallery(paramObj).then(function() {
                 vm.currentGallery = data;
             });
+        }
+
+
+
+       ////////////// /////members
+
+
+        vm.addMember = addMember;
+        vm.removeMember = removeMember;
+
+        function queryMembers($query) {
+            var lowercaseQuery = angular.lowercase($query);
+
+            var members = localStorage.getItem("currentOrg") ? JSON.parse(localStorage.getItem("currentOrg")).members : [];
+            members = _.map(members, function(member) {
+
+                member.name = member.name + ' - ' + member.email;
+                return member;
+            });
+            return members.filter(function(member) {
+                var lowercaseName = angular.lowercase(member.name);
+                if (lowercaseName.indexOf(lowercaseQuery) !== -1) {
+                    vm.memberNotFound = false;
+
+                    return member;
+                } else {
+                    vm.memberNotFound = true;
+                }
+            });
+        }
+
+        function memberChanged() {
+            console.log(vm.selectedMember)
+        }
+
+        function addMember() {
+            _.each(vm.selectedMembers, function(member) {
+                var paramObj = {
+                    api_token: localStorage.getItem('apiToken'),
+                    member_id: member.id,
+                    projectId: $stateParams.projectId
+                }
+                projectService.addMember(paramObj);
+            });
+
+        }
+
+        function removeMember(id) {
+            var paramObj = {
+                api_token: localStorage.getItem('apiToken'),
+                member_id: id,
+                projectId: $stateParams.projectId
+            }
+            projectService.removeMember(paramObj);
+        }
+
+        function inviteMember() {
+            var paramObj = {
+                api_token: localStorage.getItem('apiToken'),
+                email_id: vm.memberToBeAdded,
+                projectId: $stateParams.projectId
+
+            }
+            projectService.sendInvite(paramObj);
         }
 
     }

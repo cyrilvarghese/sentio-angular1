@@ -1,4 +1,3 @@
-
 (function() {
     'use strict';
 
@@ -7,12 +6,8 @@
         .controller('projectsController', projectsController);
 
     /* @ngInject */
-    function projectsController($mdSidenav, $state, $stateParams,organizationService, triBreadcrumbsService, projectService, toastService) {
-        if(!organizationService.getCurrentOrganization().org_id){
-            toastService.show('Select An Orgnization First');
-            $state.go('triangular.organizations');
-            return;
-        }
+    function projectsController($mdSidenav, $state, $stateParams, organizationService, triBreadcrumbsService, projectService, toastService) {
+       
         var vm = this;
         vm.deleteProject = deleteProject;
         vm.showProject = showProject;
@@ -22,16 +17,30 @@
         vm.isProjectSelected = false;
         // vm.projects = $stateParams.projects;
         init();
+
         function init() {
+            // var paramObj = {
+            //     orgId:organizationService.getCurrentOrganization().org_id,
+            //     api_token: localStorage.getItem('apiToken')
+            // }
+
+
+            // projectService.getProjectList(paramObj).then(function(data) {
+            //     vm.projects = data.project_list;
+            // });
             var paramObj = {
-                orgId:organizationService.getCurrentOrganization().org_id,
-                api_token: localStorage.getItem('apiToken')
-            }
-            projectService.getProjectList(paramObj).then(function(data) {
-                vm.projects = data.project_list;
+                'api_token': localStorage.getItem('apiToken'),
+                id: $stateParams.id
+            };
+            organizationService.getOrg(paramObj).then(function(data) {
+                vm.selectedOrg = data;
+                organizationService.setCurrentOrganization(vm.selectedOrg);
+                vm.members = data.members;
+                vm.projects = data.projects;
+                // setBreadCrumbs();
             });
         }
-       
+
 
         triBreadcrumbsService.reset();
 
@@ -45,6 +54,7 @@
                 selectedProject: project
             });
         }
+
         function navigateToSpaces(id, project) {
             var id = id || 0;
             $state.go('triangular.organizations.detail.projects.detail.spaces', {

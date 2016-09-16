@@ -18,7 +18,8 @@
             addLogo: addLogo,
             removeLogo: removeLogo,
             addMember:addMember,
-            removeMember:removeMember
+            removeMember:removeMember,
+            sendInvite:sendInvite
         };
 
         return service;
@@ -180,7 +181,7 @@
             var dfd = $q.defer();
             var req = {
                 method: 'POST',
-                url: API_CONFIG.baseUrl + API_CONFIG.projectsUrl + 'create?' + $.param(paramObj),
+                url: API_CONFIG.baseUrl + API_CONFIG.projectsUrl +paramObj.projectId+'/add_member?' + $.param(paramObj),
                 headers: utilService.getHeaders(),
                 data: paramObj
             }
@@ -197,7 +198,7 @@
             var dfd = $q.defer();
             var req = {
                 method: 'POST',
-                url: API_CONFIG.baseUrl + API_CONFIG.projectsUrl + 'create?' + $.param(paramObj),
+                url: API_CONFIG.baseUrl + API_CONFIG.projectsUrl +paramObj.projectId+'/remove_member?' + $.param(paramObj),
                 headers: utilService.getHeaders(),
                 data: paramObj
             }
@@ -209,6 +210,21 @@
 
             return dfd.promise;
 
+        }
+        function sendInvite(paramObj){
+             var dfd = $q.defer();
+            var req = {
+                method: 'POST',
+                url: API_CONFIG.baseUrl + API_CONFIG.projectsUrl  + paramObj.projectId + '/invite_member?' + $.param(paramObj),
+                headers: utilService.getHeaders(),
+                data: paramObj
+            }
+            $http(req).then(function(response) {
+                toastService.show(response.data.message);
+                dfd.resolve();
+            }, utilService.handleError);
+
+            return dfd.promise;
         }
 
     }

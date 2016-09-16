@@ -44,7 +44,7 @@
                 controllerAs: 'vm'
             })
             .state('authentication.signup', {
-                url: '/signup?invitation_code=',
+                url: '/signup?invitation_code&email&org',
                 templateUrl: 'app/authentication/signup/signup.tmpl.html',
                 controller: 'SignupController',
                 controllerAs: 'vm'

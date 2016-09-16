@@ -24,7 +24,7 @@
 
              organizationService.getOrgList().then(function(data) {
                  vm.orgList = data;
-                 vm.orgList = data;
+        
              });
          }
 
@@ -43,7 +43,6 @@
          }
 
          function navigateToProjects(org, id) {
-             organizationService.setCurrentOrganization(org);
              $state.go('triangular.organizations.detail.projects',{
                  id: id
              });
