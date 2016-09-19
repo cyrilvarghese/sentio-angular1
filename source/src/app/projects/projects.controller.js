@@ -66,12 +66,12 @@
         }
 
 
-        function deleteProject() {
-            var message = 'confirm deleting project - ' + vm.selectedProject.name;
+        function deleteProject(id,project) {
+            var message = 'confirm deleting project - ' +project.name;
             toastService.showCustomToast(message, 'yes', 'no').then(function(response) {
                 console.log(response);
                 var paramObj = {
-                    project_id: vm.selectedProject.id,
+                    project_id:id,
                     api_token: localStorage.getItem('apiToken')
                 }
                 projectService.deleteProject(paramObj);

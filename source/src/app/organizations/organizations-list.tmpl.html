@@ -4,7 +4,7 @@
             <h2 class="md-subhead">Created By You</h2>
             <div class="md-padding" layout-gt-sm="row" layout-sm="column">
                 <div flex="33" class="flex-basis" ng-repeat="(key, value) in vm.orgList.admin" flex-xs="100">
-                    <md-card>
+                    <md-card class="clickable" ng-click="vm.navigateToProjects(value,value.org_id)">
                         <md-card-header>
                             <md-card-avatar>
                                 <img class="md-user-avatar" src="assets/images/avatars/avatar-4.png" />
@@ -20,12 +20,7 @@
                                         <pre>{{ value.description || 'no description' }}</pre>
                                       </a> -->
                         </md-card-content>
-                      <md-card-actions layout="row" layout-align="center center">
-
-                        <!--   <invite-btn></invite-btn> -->
-                         <md-button class="md-primary" ng-click="vm.navigateToProjects(value,value.org_id)">Leave Organization</md-button>
-                        <md-button class="md-primary" ng-click="vm.navigateToProjects(value,value.org_id)">View Projects</md-button>
-                      </md-card-actions>
+                     
                     </md-card>
                 </div>
             </div>

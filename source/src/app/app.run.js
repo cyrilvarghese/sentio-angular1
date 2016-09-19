@@ -22,13 +22,22 @@
         $rootScope.$on('$destroy', function() {
             errorHandle();
         });
+        $rootScope.$on('$stateChangeStart',
+            function(event, toState, toParams, fromState, fromParams, options) {
+                if (toState.name !== "authentication.login" && !localStorage.getItem('userInfo')) {
+                    $state.go('authentication.login');
+                } else {
+                    return;
+                }
+
+            });
         $rootScope.$on('$stateChangeSuccess',
             function(event, toState, toParams, fromState, fromParams, options) {
                 if (toState.name === 'triangular.organizations') {
                     triLayout.setOption('sideMenuSize', 'off');
 
                 }
-            })
+            });
     }
     /*global services usedby app*/
     angular

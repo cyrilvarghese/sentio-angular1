@@ -64,7 +64,7 @@
         <md-tab label="Members">
             <div layout="row" md-whiteframe="1" layout-padding layout-align="space-around" ng-include="'app/members/members-list-no-invite.tmpl.html'"></div>
             <form name="emailForm" class="md-padding">
-            <p class="md-headline">Add member</p>
+            <p class="md-title">Add member</p>
                 <md-contact-chips ng-model="vm.selectedMembers " md-contacts="vm.queryMembers($query)" md-contact-name="name"    placeholder="Select from organistaion">
                 </md-contact-chips>
                 <div ng-if="vm.memberNotFound">
@@ -97,7 +97,7 @@
                                         <md-button class="md-primary md-raised" ng-click="vm.updateGallery(logo.id,null)">
                                             <md-icon md-font-icon class="zmdi zmdi-check "></md-icon>Select
                                         </md-button>
-                                        <md-button class="md-icon-button">
+                                        <md-button class="md-icon-button" >
                                             <md-icon md-font-icon class="zmdi zmdi-delete "></md-icon>
                                         </md-button>
                                     </md-grid-tile-footer>

@@ -4,7 +4,7 @@
     angular
         .module('app.services')
         .factory('toastService', toastService)
-        .controller('ToastCtrl', function($scope, $mdToast, $mdDialog, message, action1Text, action2Text) {
+        .controller('ToastCtrl', function($scope, $mdToast, $mdDialog, message, action1Text, action2Text,dfd) {
             $scope.action1Text = action1Text;
             $scope.action2Text = action2Text;
             $scope.message = message;

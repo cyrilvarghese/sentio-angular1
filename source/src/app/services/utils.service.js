@@ -20,7 +20,7 @@
         function handleError(resp) {
             console.log(resp.data.message);
             toastService.show(resp.data.message);
-            toastService.show(resp.data.error);
+            // toastService.show(resp.data.error);
         }
 
         function getHeaders (){
