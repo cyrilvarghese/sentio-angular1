@@ -16,7 +16,7 @@
         vm.navigateToDetail = navigateToDetail;
         vm.deleteSpace = deleteSpace;
         vm.uploadForLinking = uploadForLinking;
-        vm.updateGallery = updateGallery;
+        // vm.updateGallery = updateGallery;
         vm.addSpaceToGallery = addSpaceToGallery;
         vm.RemoveSpaceFromGallery = RemoveSpaceFromGallery;
         vm.getLogoList = getLogoList;
@@ -160,8 +160,9 @@
         }
 
         ///////////////////////gallery controller
-        vm.openImage = openImage;
-        vm.openTheme = openTheme;
+        vm.openLogoDialog = openLogoDialog;
+        vm.openThemeDialog = openThemeDialog;
+        // vm.selectImage = selectImage;
         vm.addLogo = addLogo;
         vm.removeLogo = removeLogo;
         vm.addTheme = addTheme;
@@ -203,7 +204,9 @@
                     project_id: $stateParams.projectId,
                     user_id: JSON.parse(localStorage.getItem('userInfo')).user_id
                 }
-                logoAndThemeService.addTheme(paramObj);
+                logoAndThemeService.addTheme(paramObj).then(function(data){
+                    updateGallery(data.id,null);
+                });
             }
         }
 
@@ -214,7 +217,9 @@
                     theme_id: vm.selectedTheme.id,
                     user_id: JSON.parse(localStorage.getItem('userInfo')).user_id
                 }
-                logoAndThemeService.removeTheme(paramObj);
+                logoAndThemeService.removeTheme(paramObj).then(function(data){
+                    updateGallery(null,data.id);
+                });
             }
         }
 
@@ -238,25 +243,24 @@
         function uploadReset() {
             vm.status = 'idle';
         }
+        function updateGallery(themeId,logoId) {
+            
+            var paramObj = {
+                api_token: localStorage.getItem('apiToken'),
+                gallery_id: vm.selectedProject.gallery.id,
+                theme_id: themeId || vm.currentGallery.theme_id,
+                logo_id: logoId || vm.currentGallery.logo_id
 
 
-        function openImage(image, $event) {
-            $mdDialog.show({
-                controller: 'GalleryDialogController',
-                controllerAs: 'vm',
-                templateUrl: 'app/gallery/gallery-dialog.tmpl.html',
-                clickOutsideToClose: true,
-                focusOnOpen: false,
-                targetEvent: $event,
-                locals: {
-                    type: 'logo',
-                    image: image,
-                    images: vm.logos
-                }
+            }
+            galleryService.updateGallery(paramObj).then(function() {
+                $mdDialog.hide();
+                $state.go($state.current,{},{reload:true})
+
             });
         }
 
-        function openTheme(image, $event) {
+        function openLogoDialog($event) {
             $mdDialog.show({
                 controller: 'GalleryDialogController',
                 controllerAs: 'vm',
@@ -264,10 +268,34 @@
                 clickOutsideToClose: true,
                 focusOnOpen: false,
                 targetEvent: $event,
+                fullscreen: true,
                 locals: {
-                    type: 'theme',
-                    image: image,
-                    images: vm.themes
+                    selectedProject: vm.selectedProject,
+                    list: vm.logos,
+                    currentGallery: vm.currentGallery,
+                    type: 'logo'
+
+                }
+
+            });
+        }
+
+        function openThemeDialog($event) {
+            $mdDialog.show({
+                controller: 'GalleryDialogController',
+                controllerAs: 'vm',
+                templateUrl: 'app/gallery/gallery-dialog.tmpl.html',
+                clickOutsideToClose: true,
+                focusOnOpen: false,
+                fullscreen: true,
+                targetEvent: $event,
+                parent: angular.element(document.body),
+                locals: {
+                    selectedProject: vm.selectedProject,
+                    list: vm.themes,
+                    currentGallery: vm.currentGallery,
+                    type: 'theme'
+
                 }
             });
         }
@@ -293,25 +321,11 @@
                 vm.currentLogo = _.filter(vm.logos, function(item) {
                     return item.id === parseInt(data.logo_id);
                 })[0];
-                 vm.currentTheme = _.filter(vm.themes, function(item) {
+                vm.currentTheme = _.filter(vm.themes, function(item) {
                     return item.id === parseInt(data.theme_id);
                 })[0];
-                
-
-            });
-        }
-
-        function updateGallery(logoId, themeId) {
-            var paramObj = {
-                api_token: localStorage.getItem('apiToken'),
-                gallery_id: vm.selectedProject.gallery.id,
-                theme_id: themeId || vm.currentGallery.theme_id,
-                logo_id: logoId || vm.currentGallery.logo_id
 
 
-            }
-            galleryService.updateGallery(paramObj).then(function() {
-                vm.currentGallery = data;
             });
         }
 

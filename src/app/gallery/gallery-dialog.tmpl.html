@@ -1,19 +1,37 @@
-<md-dialog aria-label="{{vm.currentImage.title}}">
-  
-    <md-dialog-content class="md-dialog-content extras-image-dialog">
-        <img ng-src="http://{{vm.currentImage.thumb_url}}" alt="{{vm.currentImage.thumb_url}}">
-    </md-dialog-content>
-    <md-dialog-actions layout="row">
-     
-        <span flex></span>
-        <md-button ng-click="vm.prev()" class="md-icon-button" aria-label="Close">
-            <md-icon md-font-icon="zmdi zmdi-chevron-left"></md-icon>
-        </md-button>
-        <md-button ng-click="vm.next()" class="md-icon-button" aria-label="Close">
-            <md-icon md-font-icon="zmdi zmdi-chevron-right"></md-icon>
-        </md-button>
-           <md-button ng-click="vm.remove(vm.currentImage.id)" class="md-icon-button" aria-label="Close">
-            <md-icon md-font-icon="zmdi zmdi-delete"></md-icon>
-        </md-button>
-    </md-dialog-actions>
+<md-dialog aria-label="Select Image">
+    <form ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Select Imagea</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon class="zmdi zmdi-close" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <md-content class="md-padding">
+                <md-list>
+                    <div>
+                        <md-list-item>
+                            <md-grid-list flex md-cols="4" md-cols-xs="4" md-row-height="4:4" md-gutter="4px">
+                                <md-grid-tile md-colspan="2" md-rowspan="2" ng-click="vm.selectImage(item.id)" ng-repeat="item in ::vm.list" ng-style="::{ 'background-image': 'url(http://' + item.thumb_url + ')', 'background-size' : 'cover' }">
+                                    <!--  <md-grid-tile-footer layout="row" layout-align="end center">
+                                 
+                                </md-grid-tile-footer> -->
+                            </md-grid-list>
+                        </md-list-item>
+                    </div>
+                </md-list>
+            </md-content>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button class="md-primary md-raised" ng-click="vm.updateGallery()">
+                Select
+            </md-button>
+            <md-button class="md-default md-raised" ng-click="vm.remove()">
+                Delete
+            </md-button>
+        </md-dialog-actions>
+    </form>
 </md-dialog>

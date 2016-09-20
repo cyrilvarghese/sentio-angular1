@@ -41,6 +41,7 @@
                 data:paramObj
             }
             $http(req).then(function(response) {
+                toastService.show(response.data.message);
                 dfd.resolve(response.data);
             }, utilService.handleError);
 
