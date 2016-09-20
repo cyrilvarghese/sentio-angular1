@@ -290,6 +290,14 @@
             }
             galleryService.getGallery(paramObj).then(function(data) {
                 vm.currentGallery = data;
+                vm.currentLogo = _.filter(vm.logos, function(item) {
+                    return item.id === parseInt(data.logo_id);
+                })[0];
+                 vm.currentTheme = _.filter(vm.themes, function(item) {
+                    return item.id === parseInt(data.theme_id);
+                })[0];
+                
+
             });
         }
 
@@ -309,7 +317,7 @@
 
 
 
-       ////////////// /////members
+        ////////////// /////members
 
 
         vm.addMember = addMember;

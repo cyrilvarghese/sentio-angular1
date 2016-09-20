@@ -1,0 +1,19 @@
+<md-content class="md-padding">
+    <md-list>
+        <div>
+            <md-list-item>
+                <md-grid-list flex md-cols="6" md-cols-xs="4" md-row-height="4:3" md-gutter="4px">
+                    <md-grid-tile md-colspan="2" md-rowspan="2" ng-click="vm.openImage( logo, $event)" ng-repeat="logo in ::vm.logos" ng-style="::{ 'background-image': 'url(http://' + logo.thumb_url + ')', 'background-size' : 'cover' }">
+                        <md-grid-tile-footer layout="row" layout-align="end center">
+                            <md-button class="md-primary md-raised" ng-click="vm.updateGallery(logo.id,null)">
+                                <md-icon md-font-icon class="zmdi zmdi-check "></md-icon>Select
+                            </md-button>
+                            <md-button class="md-icon-button">
+                                <md-icon md-font-icon class="zmdi zmdi-delete "></md-icon>
+                            </md-button>
+                        </md-grid-tile-footer>
+                </md-grid-list>
+            </md-list-item>
+        </div>
+    </md-list>
+</md-content>

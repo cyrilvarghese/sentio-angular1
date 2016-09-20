@@ -66,7 +66,8 @@
         }
 
 
-        function deleteProject(id,project) {
+        function deleteProject(id,project,$event) {
+            $event.stopPropagation();
             var message = 'confirm deleting project - ' +project.name;
             toastService.showCustomToast(message, 'yes', 'no').then(function(response) {
                 console.log(response);

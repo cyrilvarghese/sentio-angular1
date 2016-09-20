@@ -5,13 +5,13 @@
                 <div class="md-padding">
                     <!-- <h2 class="md-subhead">Created By You</h2> -->
                     <div class="md-padding" layout-align="start start" layout-gt-sm="row" layout-wrap layout-sm="column">
-                        <div flex="30" flex-xs="100" class="flex-basis" class="md-margin-5p" ng-repeat="(key, value) in vm.spaceList">
+                        <div flex="25" flex-xs="100" class="flex-basis" class="md-margin-5p" ng-repeat="(key, value) in vm.spaceList">
                             <md-card>
-                                <md-toolbar>
+                                <md-toolbar class="toolbar-default">
                                     <div class="md-toolbar-tools">
                                         <div layout="row" layout-align="space-between" class="full-width">
                                             <h2>
-                                     <span class="md-headline">{{value.name}}</span>
+                                     <span class="md-title">{{value.name}}</span>
                                     </h2>
                                         </div>
                                         <span flex></span>
@@ -86,7 +86,12 @@
             </form>
         
         </md-tab>
-        <md-tab label="Edit Logo">
+        <md-tab label="Gallery (3 Spaces)">
+               <div layout="row" md-whiteframe="1" class="md-padding"   layout-align="center center" ng-include="'app/gallery/gallery.tmpl.html'"></div>
+        </md-tab>
+
+
+       <!--  <md-tab label="Edit Logo">
             <md-content class="md-padding">
                 <md-list>
                     <div>
@@ -128,17 +133,12 @@
                     </div>
                 </md-list>
             </md-content>
-        </md-tab>
+        </md-tab> -->
     </md-tabs>
     <!-- left sidebar -->
     <md-button class="md-fab fab-add-fixed " ng-if="vm.selectedTabIndex===0 " ng-click="vm.navigateToDetail(0) " aria-label="fab button ">
         <md-icon md-font-icon="zmdi zmdi-plus "></md-icon>
     </md-button>
     
-    <md-button class="md-fab fab-add-fixed " ngf-select="vm.addLogo($file)" ng-disabled="vm.status != 'idle'" aria-label="upload" ng-if="vm.selectedTabIndex===2 " aria-label="fab button ">
-        <md-icon md-font-icon ng-class="{ 'zmdi zmdi-cloud-upload': vm.status=='idle' , 'fa fa-spinner fa-pulse': vm.status=='uploading' , 'zmdi zmdi-check': vm.status=='complete' } "></md-icon>
-    </md-button>
-    <md-button class="md-fab fab-add-fixed " ngf-select="vm.addTheme($file)" ng-disabled="vm.status != 'idle'" aria-label="upload" ng-if="vm.selectedTabIndex===3 " aria-label="fab button ">
-        <md-icon md-font-icon ng-class="{ 'zmdi zmdi-cloud-upload': vm.status=='idle' , 'fa fa-spinner fa-pulse': vm.status=='uploading' , 'zmdi zmdi-check': vm.status=='complete' } "></md-icon>
-    </md-button>
+    
 </ui-view>

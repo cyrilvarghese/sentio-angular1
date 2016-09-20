@@ -16,13 +16,29 @@
             priority: 1.1
         });
          triMenuProvider.addMenu({
-            name: 'Current Project',
-            icon: 'fa fa-list',
-            state: 'triangular.organizations.detail.projects.detail',
+            name: 'FAQs',
+            icon: 'fa fa-question',
+            state: 'triangular.faq',
             type: 'link',
 
-            priority: 1.2
+            priority: 1.5
         });
+          triMenuProvider.addMenu({
+            name: 'Profile',
+            icon: 'fa fa-user',
+            state: 'triangular.profile',
+            type: 'link',
+
+            priority: 1.4
+        });
+        //  triMenuProvider.addMenu({
+        //     name: 'Current Project',
+        //     icon: 'fa fa-list',
+        //     state: 'triangular.organizations.detail.projects.detail',
+        //     type: 'link',
+
+        //     priority: 1.2
+        // });
         triMenuProvider.addMenu({
             name: 'Billing Info',
             icon: 'fa fa-dollar',
