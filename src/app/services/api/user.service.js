@@ -79,11 +79,14 @@
 
 
         function login(paramObj) {
-            var dfd = $q.defer();
+        $http.defaults.headers.post['X-CSRF-TOKEN'] = localStorage.getItem('csrf');
+
+             var dfd = $q.defer();
             var req = {
                 method: 'POST',
                 url: API_CONFIG.baseUrl + API_CONFIG.authenticationUrl + 'signin',
                 headers: getHeaders(),
+                 withCredentials: true,
                 data: paramObj
             }
             $http(req).then(function(response) {

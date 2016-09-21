@@ -26,7 +26,7 @@
         function getHeaders (){
             return {
                 'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': localStorage.getItem('csrf'),
+                // 'X-CSRF-TOKEN': localStorage.getItem('csrf'),
                 'Accept': 'application/json',
                 'api-key': '7nZOLvhjP21/XqzuQCb0uylmBnbAtcPMil+6momlp5E='
 
