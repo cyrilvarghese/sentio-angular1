@@ -7,12 +7,12 @@
 
     /* @ngInject */
     function config(ChartJsProvider, $httpProvider) {
-        // $httpProvider.defaults.useXDomain = true;
-        // // $httpProvider.defaults.withCredentials = true;
-        // $httpProvider.defaults.xsrfCookieName = 'csrftoken';
-        // $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-TOKEN';
-        // $httpProvider.defaults.headers.post['X-CSRF-TOKEN'] = localStorage.getItem('csrf');
-        // // delete $httpProvider.defaults.headers.common['X-Requested-With'];
+        $httpProvider.defaults.useXDomain = true;
+        $httpProvider.defaults.withCredentials = true;
+        $httpProvider.defaults.xsrfCookieName = 'X-CSRF-TOKEN';
+        $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-TOKEN';
+        $httpProvider.defaults.headers.post['X-CSRF-TOKEN'] = localStorage.getItem('csrf');
+        delete $httpProvider.defaults.headers.common['X-Requested-With'];
         // Configure all charts to use material design colors
         ChartJsProvider.setOptions({
             colours: [
