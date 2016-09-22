@@ -7,14 +7,17 @@
 
     /* @ngInject */
     function moduleConfig($stateProvider, triMenuProvider) {
-        // triMenuProvider.addMenu({
-        //     name: 'Organizations',
-        //     icon: 'fa fa-th-list',
-        //     state: 'triangular.organizations',
-        //     type: 'link',
+        
+        triMenuProvider.addMenu({
+            name: 'Billing Info',
+            icon: 'fa fa-dollar',
+            state: 'triangular.organizations.detail',
+            type: 'link',
+            id:'billing',
 
-        //     priority: 1.1
-        // });
+            priority: 2
+        });
+       
 
         $stateProvider
             .state('triangular.organizations', {

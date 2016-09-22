@@ -6,7 +6,7 @@
         .controller('organizationsDetailController', organizationsDetailController);
 
     /* @ngInject */
-    function organizationsDetailController($mdSidenav, $scope, $rootScope, userService, triBreadcrumbsService, organizationService, $state, $stateParams) {
+    function organizationsDetailController($mdSidenav,$timeout, $scope, $rootScope, userService, triBreadcrumbsService, organizationService, $state, $stateParams) {
         var vm = this;
 
         vm.navigateToProjects = navigateToProjects;
@@ -29,6 +29,10 @@
                     // setBreadCrumbs();
                 });
             }
+            $timeout(function() {
+                angular.element('#billing').addClass('md-hue-1');
+
+            }, 100);
         }
 
         function updateOrCreate() {

@@ -9,7 +9,7 @@
     function triMenuDirective($location, $mdTheming, triTheming) {
         var directive = {
             restrict: 'E',
-            template: '<md-content><tri-menu-item permission permission-only="item.permission" ng-repeat="item in triMenuController.menu | orderBy:\'priority\'" item="::item"></tri-menu-item></md-content>',
+            templateUrl: 'app/triangular/components/menu/menu.tmpl.html',
             scope: {},
             controller: triMenuController,
             controllerAs: 'triMenuController',

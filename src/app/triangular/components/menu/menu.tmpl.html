@@ -1,0 +1,8 @@
+<md-content><tri-menu-item permission permission-only="item.permission" ng-repeat="item in triMenuController.menu | orderBy:'priority'" item="::item"></tri-menu-item>
+<md-button permission permission-only="triMenuItem.item.permission" target="_blank" ng-href="https://sentiovr.readme.io/" class="md-primary md-raised side-menu-link"  >
+    <md-icon class="side-menu-icon" md-font-icon="fa fa-question"></md-icon>
+    <span translate>FAQ</span>
+
+</md-button>
+
+</md-content>

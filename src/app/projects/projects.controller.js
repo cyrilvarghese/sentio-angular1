@@ -6,8 +6,8 @@
         .controller('projectsController', projectsController);
 
     /* @ngInject */
-    function projectsController($mdSidenav, $state, $stateParams, organizationService, triBreadcrumbsService, projectService, toastService) {
-       
+    function projectsController($mdSidenav, $state, $timeout, $stateParams, organizationService, triBreadcrumbsService, projectService, toastService) {
+
         var vm = this;
         vm.deleteProject = deleteProject;
         vm.showProject = showProject;
@@ -15,6 +15,10 @@
         vm.navigateToSpaces = navigateToSpaces;
         vm.navigateToProject = navigateToProject;
         vm.isProjectSelected = false;
+        $timeout(function() {
+            angular.element('#projects').addClass('md-hue-1');
+
+        }, 100);
         // vm.projects = $stateParams.projects;
         init();
 
@@ -66,13 +70,13 @@
         }
 
 
-        function deleteProject(id,project,$event) {
+        function deleteProject(id, project, $event) {
             $event.stopPropagation();
-            var message = 'confirm deleting project - ' +project.name;
+            var message = 'confirm deleting project - ' + project.name;
             toastService.showCustomToast(message, 'yes', 'no').then(function(response) {
                 console.log(response);
                 var paramObj = {
-                    project_id:id,
+                    project_id: id,
                     api_token: localStorage.getItem('apiToken')
                 }
                 projectService.deleteProject(paramObj);

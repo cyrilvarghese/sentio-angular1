@@ -78,7 +78,9 @@
             $scope.$parent.$parent.$broadcast('toggleDropdownMenu', triMenuItem.item, !triMenuItem.item.open);
         }
 
-        function openLink() {
+        function openLink(param1,$event) {
+            console.log(param1);
+            console.log($event);
             if(angular.isDefined(triMenuItem.item.click)) {
                 $injector.invoke(triMenuItem.item.click);
             }
@@ -93,6 +95,8 @@
                 }
             }
             triMenuItem.item.active = true;
+            angular.element('.md-hue-1').removeClass('md-hue-1');
+            angular.element($event.currentTarget).addClass('md-hue-1');
             $mdSidenav('left').close();
         }
     }
