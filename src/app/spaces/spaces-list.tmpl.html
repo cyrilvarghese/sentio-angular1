@@ -1,7 +1,7 @@
 <ui-view>
     <md-tabs md-dynamic-height md-border-bottom md-selected="vm.selectedTabIndex" class="md-padding" md-center-tabs>
         <md-tab label="Spaces">
-            <md-content>
+            <md-content ng-if="vm.spaceList.length!==0">
                 <div class="md-padding">
                     <!-- <h2 class="md-subhead">Created By You</h2> -->
                     <div class="md-padding" layout-align="start start" layout-gt-sm="row" layout-wrap layout-sm="column">
@@ -60,6 +60,10 @@
                     </div>
                 </div>
             </md-content>
+            <md-content ng-if="vm.spaceList.length===0" layout="column" layout-align="center-center">
+                <p class="md-headline" >No Space Found!</p>
+                <md-button class="md-primary md-raised"  ng-click="vm.navigateToDetail(0)">Click to add A new Space</md-button>
+            </md-content>
         </md-tab>
         <md-tab label="Members">
             <div layout="row" md-whiteframe="1" layout-padding layout-align="space-around" ng-include="'app/members/members-list-no-invite.tmpl.html'"></div>
@@ -86,11 +90,16 @@
             </form>
         
         </md-tab>
-        <md-tab label="Gallery (3 Spaces)">
-               <div layout="row" md-whiteframe="1" class="md-padding"   layout-align="center center" ng-include="'app/gallery/gallery.tmpl.html'"></div>
+        <md-tab label="Gallery (3 Spaces)" ng-if="vm.selectedProject.gallery.length!==0">
+                 <div layout="column" md-whiteframe="1" class="md-padding"   layout-align="center center" ng-include="'app/gallery/gallery.tmpl.html'"></div>
         </md-tab>
+         <md-tab label="Project Info">
+         <div layout="row" md-whiteframe="1" class="md-padding"   ng-include="'app/projects/projects-detail.tmpl.html'"></div>
+             
 
+         </md-tab>
 
+ 
        <!--  <md-tab label="Edit Logo">
             <md-content class="md-padding">
                 <md-list>

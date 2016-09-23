@@ -1,52 +1,44 @@
-<div layout="column " class="md-padding"  >
-<div layout="row" layout-xs="column" >
-   
-    <md-button class=" md-raised md-primary" ng-href="http://{{vm.currentGallery.gallery_url}}"   aria-label="view gallery button ">
-        <md-icon md-font-icon  class="zmdi zmdi-eye"></md-icon>
-        View Gallery
-    </md-button>
-    
-</div>
-  <div layout="row" layout-xs="column">
-    <div flex="30" flex-xs="100">
-       <md-card s>
-          
-            <md-card-title>
-                <md-card-title-text>
-                    <span class="md-title">Current Logo</span>
-                </md-card-title-text>
-            </md-card-title>
-              <div><img style="max-height:200px" ng-src="http://{{vm.currentLogo.thumb_url}}" alt="Logo Image"></div>
-            
-            <md-divider></md-divider>
-
-            <md-card-actions layout="row" layout-align="end center" >
-                <md-button class="md-primary" ng-click="vm.openLogoDialog($event)">Change</md-button>
-               <md-button class="md-primary"  ngf-select="vm.addLogo($file)" ng-disabled="vm.status != 'idle'" aria-label="upload"  aria-label="fab button ">
-        <md-icon md-font-icon ng-class="{ 'zmdi zmdi-cloud-upload': vm.status=='idle' , 'fa fa-spinner fa-pulse': vm.status=='uploading' , 'zmdi zmdi-check': vm.status=='complete' } "></md-icon>Upload
-    </md-button>
-            </md-card-actions>
-        </md-card>
+<div layout="column " class="md-padding">
+    <div layout="row" layout-xs="column">
+        <md-button class=" md-raised md-primary" ng-href="http://{{vm.currentGallery.gallery_url}}" aria-label="view gallery button ">
+            <md-icon md-font-icon class="zmdi zmdi-eye"></md-icon>
+            View Gallery
+        </md-button>
     </div>
-     <div flex="30" flex-xs="100">
-    <md-card>
-          
-            <md-card-title>
-                <md-card-title-text>
-                    <span class="md-title">Current Theme</span>
-                </md-card-title-text>
-            </md-card-title>
-              <div><img style="max-height:200px" ng-src="http://{{vm.currentTheme.thumb_url}}" alt="Theme Image"></div>
-            
-            <md-divider></md-divider>
-
-            <md-card-actions layout="row" layout-align="end center">
-                 <md-button class="md-primary" ng-click="vm.openThemeDialog($event)">Change</md-button>
-                <md-button class="md-primary" ngf-select="vm.addTheme($file)" ng-disabled="vm.status != 'idle'" aria-label="upload"  aria-label="fab button ">
-        <md-icon md-font-icon ng-class="{ 'zmdi zmdi-cloud-upload': vm.status=='idle' , 'fa fa-spinner fa-pulse': vm.status=='uploading' , 'zmdi zmdi-check': vm.status=='complete' } "></md-icon>Upload
-    </md-button>
-            </md-card-actions>
-        </md-card>
-    </div>
+    <div layout="row" layout-xs="column">
+        <div flex="30" ng-if="vm.logos!==[]" flex-xs="100">
+            <md-card >
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-title">Current Logo</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <div><img style="max-height:200px" ng-src="http://{{vm.currentLogo.thumb_url}}" alt="Logo Image"></div>
+                <md-divider></md-divider>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button class="md-primary" ng-click="vm.openLogoDialog($event)">Change</md-button>
+                    <md-button class="md-primary" ngf-select="vm.addLogo($file)" ng-disabled="vm.status != 'idle'" aria-label="upload" aria-label="fab button ">
+                        <md-icon md-font-icon ng-class="{ 'zmdi zmdi-cloud-upload': vm.status=='idle' , 'fa fa-spinner fa-pulse': vm.status=='uploading' , 'zmdi zmdi-check': vm.status=='complete' } "></md-icon>Upload
+                    </md-button>
+                </md-card-actions>
+            </md-card>
+        </div>
+        <div flex="30" ng-if="vm.themes!==[]" flex-xs="100">
+            <md-card>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-title">Current Theme</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <div><img style="max-height:200px" ng-src="http://{{vm.currentTheme.thumb_url}}" alt="Theme Image"></div>
+                <md-divider></md-divider>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button class="md-primary" ng-click="vm.openThemeDialog($event)">Change</md-button>
+                    <md-button class="md-primary" ngf-select="vm.addTheme($file)" ng-disabled="vm.status != 'idle'" aria-label="upload" aria-label="fab button ">
+                        <md-icon md-font-icon ng-class="{ 'zmdi zmdi-cloud-upload': vm.status=='idle' , 'fa fa-spinner fa-pulse': vm.status=='uploading' , 'zmdi zmdi-check': vm.status=='complete' } "></md-icon>Upload
+                    </md-button>
+                </md-card-actions>
+            </md-card>
+        </div>
     </div>
 </div>

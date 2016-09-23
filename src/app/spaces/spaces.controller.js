@@ -8,6 +8,8 @@
     /* @ngInject */
     function spacesController($state, $mdSidenav, $rootScope, $mdDialog, projectService, galleryService, $stateParams, spaceService, $scope, $element, $myElementInkRipple, logoAndThemeService, triBreadcrumbsService) {
         var vm = this;
+        vm.themes =[];
+        vm.logos =[];
         console.log($stateParams.members);
         // vm.members = members.data.splice(0, 5);
         vm.navigateToDetail = navigateToDetail;
@@ -16,6 +18,8 @@
         vm.navigateToDetail = navigateToDetail;
         vm.deleteSpace = deleteSpace;
         vm.uploadForLinking = uploadForLinking;
+        vm.createOrUpdate = createOrUpdate;
+        vm.leaveProject = leaveProject;
         // vm.updateGallery = updateGallery;
         vm.addSpaceToGallery = addSpaceToGallery;
         vm.RemoveSpaceFromGallery = RemoveSpaceFromGallery;
@@ -49,6 +53,38 @@
             getProjectDetails();
         }
 
+        function createOrUpdate() {
+            var paramObj = {
+                'name': vm.selectedProject.name,
+                'id': vm.selectedProject.project_id,
+                /*current view id*/
+                'org_id': $stateParams.id,
+                /*org id*/
+                'description': vm.selectedProject.description,
+                'api_token': localStorage.getItem('apiToken')
+            }
+            if (vm.id === 0) {
+                projectService.createProject(paramObj);
+            } else {
+                projectService.updateProject(paramObj);
+            }
+        }
+
+
+
+        function leaveProject() {
+            var paramObj = {
+                id: vm.selectedProject.id,
+                'api_token': localStorage.getItem('apiToken')
+            }
+            userService.leaveProject(paramObj);
+        }
+
+        function selectProject() {
+            console.log('select');
+        }
+
+
         function getLogoList(paramObj) {
 
             logoAndThemeService.getLogoList(paramObj).then(function(data) {
@@ -79,8 +115,9 @@
                     vm.selectedMembers = [];
 
                     $rootScope.$broadcast('updateBreadcrumbs', 'Projects > ' + vm.selectedProject.name);
-                    getGalleryDetails();
-
+                    if (vm.selectedProject.gallery.length!==0) {
+                        getGalleryDetails();
+                    }
 
                 });
             }
@@ -204,8 +241,8 @@
                     project_id: $stateParams.projectId,
                     user_id: JSON.parse(localStorage.getItem('userInfo')).user_id
                 }
-                logoAndThemeService.addTheme(paramObj).then(function(data){
-                    updateGallery(data.id,null);
+                logoAndThemeService.addTheme(paramObj).then(function(data) {
+                    updateGallery(data.id, null);
                 });
             }
         }
@@ -217,8 +254,8 @@
                     theme_id: vm.selectedTheme.id,
                     user_id: JSON.parse(localStorage.getItem('userInfo')).user_id
                 }
-                logoAndThemeService.removeTheme(paramObj).then(function(data){
-                    updateGallery(null,data.id);
+                logoAndThemeService.removeTheme(paramObj).then(function(data) {
+                    updateGallery(null, data.id);
                 });
             }
         }
@@ -243,8 +280,9 @@
         function uploadReset() {
             vm.status = 'idle';
         }
-        function updateGallery(themeId,logoId) {
-            
+
+        function updateGallery(themeId, logoId) {
+
             var paramObj = {
                 api_token: localStorage.getItem('apiToken'),
                 gallery_id: vm.selectedProject.gallery.id,
@@ -255,7 +293,7 @@
             }
             galleryService.updateGallery(paramObj).then(function() {
                 $mdDialog.hide();
-                $state.go($state.current,{},{reload:true})
+                $state.go($state.current, {}, { reload: true })
 
             });
         }
