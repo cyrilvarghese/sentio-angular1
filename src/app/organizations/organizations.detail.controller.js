@@ -14,7 +14,8 @@
         vm.updateOrCreate = updateOrCreate;
         vm.leaveOrg = leaveOrg;
         vm.id = parseInt($stateParams.id, 10) || 0;
-
+ triBreadcrumbsService.reset();
+         triBreadcrumbsService.addCrumb({ name: 'Organizations' })
         init();
 
         function init() {

@@ -7,17 +7,17 @@
 
     /* @ngInject */
     function moduleConfig($stateProvider, triMenuProvider) {
-        
+
         triMenuProvider.addMenu({
             name: 'Billing Info',
             icon: 'fa fa-dollar',
             state: 'triangular.organizations.detail',
             type: 'link',
-            id:'billing',
+            id: 'billing',
 
             priority: 2
         });
-       
+
 
         $stateProvider
             .state('triangular.organizations', {
@@ -32,7 +32,7 @@
                     layout: {
                         contentClass: 'layout-column'
                     }
-                }  
+                }
 
             }).state('triangular.organizations.detail', {
                 url: '/:id',
@@ -41,11 +41,22 @@
 
                 // layout-column class added to make footer move to
                 // bottom of the page on short pages
+                
+                views: {
+                    '@triangular': {
+                        templateUrl: 'app/organizations/organizations-detail.tmpl.html',
 
-                templateUrl: 'app/organizations/organizations-detail.tmpl.html',
-                controller: 'organizationsDetailController',
-                controllerAs: 'vm',
-
+                        controller: 'organizationsDetailController',
+                        controllerAs: 'vm'
+                    },
+                    'toolbar@triangular': {
+                        templateUrl: 'app/organizations/layout/toolbar/toolbar.tmpl.html',
+                        controller: 'organizationsDetailToolbarController',
+                        controllerAs: 'vm'
+                    }
+                },
+                // layout-column class added to make footer move to
+                // bottom of the page on short pages
                 data: {
                     layout: {
                         contentClass: 'layout-column'

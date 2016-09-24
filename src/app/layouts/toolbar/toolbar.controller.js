@@ -19,7 +19,7 @@
         vm.fullScreenIcon = 'zmdi zmdi-fullscreen';
         vm.toggleFullScreen = toggleFullScreen;
         vm.logOut = logOut;
-        
+        vm.appLogo = triSettings.logo;
         var userInfo = JSON.parse(localStorage.getItem('userInfo'));
         vm.currentUser = {
             displayName: userInfo.name,
@@ -28,7 +28,7 @@
             roles: ['admin']
         }
         vm.toolbarMenu = [];
-            ////////////////
+        ////////////////
 
         function openSideNav(navID) {
             $mdUtil.debounce(function() {
@@ -98,7 +98,8 @@
                 }
             }
         }
-        function logOut(){
+
+        function logOut() {
             localStorage.clear();
             $state.go('authentication.login');
         }

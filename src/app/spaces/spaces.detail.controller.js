@@ -6,7 +6,7 @@
         .controller('spacesDetailController', spacesDetailController);
 
     /* @ngInject */
-    function spacesDetailController($mdSidenav, spaceService,galleryService, Upload, utilService, $stateParams, triBreadcrumbsService) {
+    function spacesDetailController($mdSidenav, spaceService, galleryService, Upload, utilService, $stateParams, triBreadcrumbsService) {
         var vm = this;
         vm.isOpen = false;
         if ($stateParams.spaceId) {
@@ -53,6 +53,9 @@
             spaceService.upload($files, paramObj).then(function() {
                 uploadComplete();
                 vm.uploadIncomplete = false;
+            }, function() {
+                uploadFailed();
+                vm.uploadIncomplete = true;
             });
             // fileList=$files;
 
@@ -69,6 +72,9 @@
 
         function uploadReset() {
             vm.status = 'idle';
+        }
+         function uploadFailed() {
+            vm.status = 'failed';
         }
 
         function updateSpace() {

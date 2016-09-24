@@ -40,7 +40,7 @@
                                         </md-menu>
                                     </div>
                                 </md-toolbar>
-                                <a ng-href="http://{{value.url}}">
+                                <a ng-href="http://{{value.url}}" target="_blank">
                                     <div layout="row"> <img style="max-height:200px" ng-src="http://{{value.thumbnail}}" alt="{{value.name}}">
                                     </div>
                                 </a>
@@ -48,8 +48,8 @@
                                     <p style="height: 100px; overflow: auto;">{{value.desc}}</p>
                                     <md-divider></md-divider>
                                     <md-card-actions layout="column" layout-align="center center">
-                                        <md-button ng-href='http://{{value.editorUrl}}'>Editor Mode</md-button>
-                                        <md-button class="md-primary md-raised " ngf-select="vm.uploadForLinking(value.id,$file)" ng-disabled="vm.status != 'idle'" ngf-multiple="true" aria-label="upload">
+                                        <md-button class="md-margin" ng-href='http://{{value.editorUrl}}'>Editor Mode</md-button>
+                                        <md-button class="md-primary md-raised md-margin " ngf-select="vm.uploadForLinking(value.id,$file)" ng-disabled="vm.status != 'idle'" ngf-multiple="true" aria-label="upload">
                                             <md-icon md-font-icon ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon>
                                             upload & link 
                                         </md-button>

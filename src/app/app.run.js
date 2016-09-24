@@ -33,7 +33,7 @@
             });
         $rootScope.$on('$stateChangeSuccess',
             function(event, toState, toParams, fromState, fromParams, options) {
-                if (toState.name === 'triangular.organizations') {
+                if (toState.name === 'triangular.organizations' ||toState.name === 'triangular.profile') {
                     triLayout.setOption('sideMenuSize', 'off');
 
                 }

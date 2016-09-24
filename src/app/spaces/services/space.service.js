@@ -6,7 +6,7 @@
         .factory('spaceService', spaceService);
 
     /* @ngInject */
-    function spaceService($q, $http, RoleStore, Upload, toastService, API_CONFIG, utilService) {
+    function spaceService($q, $http, RoleStore, Upload, toastService, API_CONFIG, $state,utilService) {
 
         var service = {
 
@@ -164,6 +164,8 @@
             $http(req).then(function(response) {
                 toastService.show(response.data.message);
                 dfd.resolve(response.data);
+                $state.go($state.current, {}, { reload: true });
+
             }, utilService.handleError);
 
             return dfd.promise;

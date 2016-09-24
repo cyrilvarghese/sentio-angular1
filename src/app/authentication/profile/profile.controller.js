@@ -6,11 +6,14 @@
         .controller('ProfileController', ProfileController);
 
     /* @ngInject */
-    function ProfileController(userService,$stateParams, utilService) {
+    function ProfileController(userService,$stateParams, utilService,triBreadcrumbsService) {
         var vm = this;
         uploadReset();
         vm.uploadProfilePic = uploadProfilePic;
         vm.resetPass = resetPass;
+          triBreadcrumbsService.reset();
+         triBreadcrumbsService.addCrumb({ name: 'Profile'});
+
         vm.settingsGroups = [{
             name: 'Account Settings',
             settings: [{
