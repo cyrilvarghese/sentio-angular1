@@ -8,8 +8,8 @@
     /* @ngInject */
     function spacesController($state, $mdSidenav, $rootScope, $mdDialog, projectService, galleryService, $stateParams, spaceService, $scope, $element, $myElementInkRipple, logoAndThemeService, triBreadcrumbsService) {
         var vm = this;
-        vm.themes =[];
-        vm.logos =[];
+        vm.themes = [];
+        vm.logos = [];
         console.log($stateParams.members);
         // vm.members = members.data.splice(0, 5);
         vm.navigateToDetail = navigateToDetail;
@@ -25,8 +25,8 @@
         vm.RemoveSpaceFromGallery = RemoveSpaceFromGallery;
         vm.getLogoList = getLogoList;
         vm.getThemeList = getThemeList;
-        vm.queryMembers = queryMembers;
-        vm.inviteMember = inviteMember;
+        // vm.queryMembers = queryMembers;
+        // vm.inviteMember = inviteMember;
         vm.addAction = addAction;
         triBreadcrumbsService.reset();
         triBreadcrumbsService.addCrumb({ name: 'Spaces' });
@@ -38,17 +38,13 @@
         }
 
         function init() {
-            // vm.spaceList = $stateParams.spaceList;
-            // vm.members = $stateParams.members;
+          
             var paramObj = {
                     api_token: localStorage.getItem('apiToken'),
                     projectId: $stateParams.projectId
 
                 }
-                // spaceService.getSpaceList(paramObj).then(function(data) {
-                //     vm.spaceList = data;
-                // });
-            getLogoList(paramObj);
+                     getLogoList(paramObj);
             getThemeList(paramObj);
             getProjectDetails();
         }
@@ -106,16 +102,19 @@
                     id: $stateParams.projectId
                 };
                 projectService.getProject(paramObj).then(function(data) {
-                    vm.selectedProject = data;
+                    vm.selectedProject = data
                     vm.members = _.map(data.members, function(member) {
                         member.image = "assets/images/avatars/avatar-1.png";
                         return member;
                     });
-                    vm.spaceList = data.spaces;
+                    vm.spaceList = _.map(data.spaces, function(item) {
+                        item.editorUrl = item.url.replace('tour.html', 'tour_editor.html');
+                        return item;
+                    });
                     vm.selectedMembers = [];
 
-                    $rootScope.$broadcast('updateBreadcrumbs', 'Projects > ' + vm.selectedProject.name);
-                    if (vm.selectedProject.gallery.length!==0) {
+                    // $rootScope.$broadcast('updateBreadcrumbs', 'Projects > ' + vm.selectedProject.name);
+                    if (vm.selectedProject.gallery.length !== 0) {
                         getGalleryDetails();
                     }
 
@@ -372,45 +371,16 @@
         ////////////// /////members
 
 
-        vm.addMember = addMember;
+        // vm.addMember = addMember;
         vm.removeMember = removeMember;
 
-        function queryMembers($query) {
-            var lowercaseQuery = angular.lowercase($query);
-
-            var members = localStorage.getItem("currentOrg") ? JSON.parse(localStorage.getItem("currentOrg")).members : [];
-            members = _.map(members, function(member) {
-
-                member.name = member.name + ' - ' + member.email;
-                return member;
-            });
-            return members.filter(function(member) {
-                var lowercaseName = angular.lowercase(member.name);
-                if (lowercaseName.indexOf(lowercaseQuery) !== -1) {
-                    vm.memberNotFound = false;
-
-                    return member;
-                } else {
-                    vm.memberNotFound = true;
-                }
-            });
-        }
+        vm.openMemberDialog = openMemberDialog;
 
         function memberChanged() {
             console.log(vm.selectedMember)
         }
 
-        function addMember() {
-            _.each(vm.selectedMembers, function(member) {
-                var paramObj = {
-                    api_token: localStorage.getItem('apiToken'),
-                    member_id: member.id,
-                    projectId: $stateParams.projectId
-                }
-                projectService.addMember(paramObj);
-            });
 
-        }
 
         function removeMember(id) {
             var paramObj = {
@@ -421,15 +391,23 @@
             projectService.removeMember(paramObj);
         }
 
-        function inviteMember() {
-            var paramObj = {
-                api_token: localStorage.getItem('apiToken'),
-                email_id: vm.memberToBeAdded,
-                projectId: $stateParams.projectId
+        function openMemberDialog($event) {
+            $mdDialog.show({
+                controller: 'memberDialogController',
+                controllerAs: 'vm',
+                templateUrl: 'app/members/member-dialog.tmpl.html',
+                clickOutsideToClose: true,
+                focusOnOpen: false,
+                targetEvent: $event,
+                fullscreen: true,
+                locals: {
 
-            }
-            projectService.sendInvite(paramObj);
+
+                }
+
+            });
         }
+
 
     }
 })();

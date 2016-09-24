@@ -6,7 +6,7 @@
         .controller('GalleryDialogController', GalleryDialogController);
 
     /* @ngInject */
-    function GalleryDialogController($mdDialog,$state, list, type, selectedProject, galleryService, currentGallery) {
+    function GalleryDialogController($mdDialog,$state,logoAndThemeService, list, type, selectedProject, galleryService, currentGallery) {
         var vm = this;
         vm.list = list;
         vm.selectedProject = selectedProject;
@@ -15,41 +15,35 @@
         vm.type = type;
         vm.selectImage = selectImage;
         vm.cancel = cancel;
-        // vm.next = next;
-        // vm.prev = prev;
-        // vm.remove = remove;
-        // vm.type = type;
-
-        // function next() {
-        //     var index =images.indexOf(vm.currentImage);
-        //     index = index + 1 <images.length ? index + 1 : 0;
-        //     vm.currentImage =images[index];
-        // }
-
-        // function prev() {
-        //     var index =images.indexOf(vm.currentImage);
-        //     index = index - 1 < 0 ?images.length -1 : index - 1;
-        //     vm.currentImage =images[index];
-        // }
+        vm.remove = remove;
+         
         function cancel() {
             $mdDialog.cancel();
         }
 
-        function remove(id) {
+        function remove() {
             if (type === 'logo') {
                 var paramObj = {
                     api_token: localStorage.getItem('apiToken'),
-                    logo_id: id,
+                    logo_id:  vm.selectedId,
                     user_id: JSON.parse(localStorage.getItem('userInfo')).user_id
                 }
-                logoAndThemeService.removeLogo(paramObj);
+                logoAndThemeService.removeLogo(paramObj).then(function () {
+                    $mdDialog.hide();
+                },function () {
+                    $mdDialog.hide();
+                });
             } else {
                 var paramObj = {
                     api_token: localStorage.getItem('apiToken'),
-                    theme_id: id,
+                    theme_id:  vm.selectedId,
                     user_id: JSON.parse(localStorage.getItem('userInfo')).user_id
                 }
-                logoAndThemeService.removeTheme(paramObj);
+                logoAndThemeService.removeTheme(paramObj).then(function () {
+                    $mdDialog.hide();
+                },function () {
+                    $mdDialog.hide();
+                });
             }
         }
 

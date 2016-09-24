@@ -48,7 +48,7 @@
                                     <p style="height: 100px; overflow: auto;">{{value.desc}}</p>
                                     <md-divider></md-divider>
                                     <md-card-actions layout="column" layout-align="center center">
-                                        <md-button class="md-margin" ng-href='http://{{value.editorUrl}}'>Editor Mode</md-button>
+                                        <md-button class="md-margin" ng-href='http://{{value.editorUrl}}' target="_blank">Editor Mode</md-button>
                                         <md-button class="md-primary md-raised md-margin " ngf-select="vm.uploadForLinking(value.id,$file)" ng-disabled="vm.status != 'idle'" ngf-multiple="true" aria-label="upload">
                                             <md-icon md-font-icon ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon>
                                             upload & link 
@@ -67,27 +67,7 @@
         </md-tab>
         <md-tab label="Members">
             <div layout="row" md-whiteframe="1" layout-padding layout-align="space-around" ng-include="'app/members/members-list-no-invite.tmpl.html'"></div>
-            <form name="emailForm" class="md-padding">
-            <p class="md-title">Add member</p>
-                <md-contact-chips ng-model="vm.selectedMembers " md-contacts="vm.queryMembers($query)" md-contact-name="name"    placeholder="Select from organistaion">
-                </md-contact-chips>
-                <div ng-if="vm.memberNotFound">
-                <p class="title">Could not find the member in the organization</p>
-                    <md-input-container class="md-block">
-                        <label>Enter email to invite</label>
-                        <input type="text" ng-model="vm.memberToBeAdded">
-                    </md-input-container>
-                    <md-button class="md-primary md-raised" ng-click="vm.inviteMember()">
-                        <md-icon md-font-icon class="zmdi zmdi-mail-send "></md-icon> Send Invite
-                    </md-button>
-                </div>
-                 <div ng-if="vm.selectedMembers.length!==0">
-                
-                    <md-button class="md-primary md-raised" ng-click="vm.addMember()">
-                        <md-icon md-font-icon class="zmdi zmdi-accounts-add "></md-icon> Add Member
-                    </md-button>
-                </div>
-            </form>
+          
         
         </md-tab>
         <md-tab label="Gallery (3 Spaces)" ng-if="vm.selectedProject.gallery.length!==0">
@@ -99,53 +79,13 @@
 
          </md-tab>
 
- 
-       <!--  <md-tab label="Edit Logo">
-            <md-content class="md-padding">
-                <md-list>
-                    <div>
-                        <md-list-item>
-                            <md-grid-list flex md-cols="6" md-cols-xs="4" md-row-height="4:3" md-gutter="4px">
-                                <md-grid-tile md-colspan="2" md-rowspan="2" ng-click="vm.openImage( logo, $event)" ng-repeat="logo in ::vm.logos" ng-style="::{ 'background-image': 'url(http://' + logo.thumb_url + ')', 'background-size' : 'cover' }">
-                                    <md-grid-tile-footer layout="row" layout-align="end center">
-                                        <md-button class="md-primary md-raised" ng-click="vm.updateGallery(logo.id,null)">
-                                            <md-icon md-font-icon class="zmdi zmdi-check "></md-icon>Select
-                                        </md-button>
-                                        <md-button class="md-icon-button" >
-                                            <md-icon md-font-icon class="zmdi zmdi-delete "></md-icon>
-                                        </md-button>
-                                    </md-grid-tile-footer>
-                            </md-grid-list>
-                        </md-list-item>
-                    </div>
-                </md-list>
-            </md-content>
-        </md-tab>
-        <md-tab label="Edit Theme ">
-            <md-content class="md-padding ">
-                <md-list>
-                    <div>
-                        <md-list-item>
-                            <md-grid-list flex md-cols="6 " md-cols-xs="4 " md-row-height="4:3 " md-gutter="4px ">
-                                <md-grid-tile md-colspan="2 " md-rowspan="2 " ng-click="vm.openTheme( theme, $event) " ng-repeat="theme in ::vm.themes " ng-style="::{ 'background-image': 'url(http://' + theme.thumb_url + ')', 'background-size' : 'cover' } ">
-                                    <md-grid-tile-footer layout="row" layout-align="end center">
-                                        <md-button class="md-primary md-raised" ng-click="vm.updateGallery(null,theme.id)">
-                                            <md-icon md-font-icon class="zmdi zmdi-check "></md-icon>Select
-                                        </md-button>
-                                        <md-button class="md-icon-button ">
-                                            <md-icon md-font-icon class="zmdi zmdi-delete "></md-icon>
-                                        </md-button>
-                                    </md-grid-tile-footer>
-                                </md-grid-tile>
-                            </md-grid-list>
-                        </md-list-item>
-                    </div>
-                </md-list>
-            </md-content>
-        </md-tab> -->
+  
     </md-tabs>
     <!-- left sidebar -->
     <md-button class="md-fab fab-add-fixed " ng-if="vm.selectedTabIndex===0 " ng-click="vm.navigateToDetail(0) " aria-label="fab button ">
+        <md-icon md-font-icon="zmdi zmdi-plus "></md-icon>
+    </md-button>
+    <md-button class="md-fab fab-add-fixed " ng-if="vm.selectedTabIndex===1 " ng-click="vm.openMemberDialog() " aria-label="fab button ">
         <md-icon md-font-icon="zmdi zmdi-plus "></md-icon>
     </md-button>
    

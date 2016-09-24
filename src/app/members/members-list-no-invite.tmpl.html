@@ -1,10 +1,10 @@
-<md-list flex="100"  style="max-height:200px;overflow:auto;margin:20px" >
+<md-list flex="100"   >
     <md-subheader class="md-no-sticky md-headline align-center">Current Members</md-subheader>
     <md-list-item ng-repeat="item in ::vm.members" class="md-padding">
         <img class="toolbar-user-avatar md-padding" src="assets/images/avatars/avatar-5.png">
         <p flex="30">{{::item.name}}</p>
         <p flex="30">{{::item.email}}</p>
-        <div flex="40" layout="row" layout-align="center center"> <md-button  ng-disabled="item.role==='admin'" class="md-icon-button" ng-click="vm.removeMember(item.id)">
+        <div flex="40" layout="row" layout-align="center center"> <md-button  ng-if="item.role!=='admin'" class="md-icon-button" ng-click="vm.removeMember(item.id)">
             <md-icon md-font-icon class="zmdi zmdi-delete "></md-icon>
         </md-button></div>
        

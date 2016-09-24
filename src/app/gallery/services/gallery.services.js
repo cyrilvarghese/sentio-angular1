@@ -6,7 +6,7 @@
         .factory('galleryService', galleryService);
 
     /* @ngInject */
-    function galleryService($q, $http, RoleStore, Upload, toastService, API_CONFIG, utilService) {
+    function galleryService($q, $http, RoleStore,$state, Upload, toastService, API_CONFIG, utilService) {
 
         var service = {
             addSpaceToGallery: addSpaceToGallery,
@@ -36,13 +36,15 @@
             var dfd = $q.defer();
             var req = {
                 method: 'POST',
-                url: API_CONFIG.baseUrl + API_CONFIG.galleryUrl + 'design/'+paramObj.gallery_id+'?' + $.param(paramObj),
+                url: API_CONFIG.baseUrl + API_CONFIG.galleryUrl + 'design/' + paramObj.gallery_id + '?' + $.param(paramObj),
                 headers: utilService.getHeaders(),
-                data:paramObj
+                data: paramObj
             }
             $http(req).then(function(response) {
                 toastService.show(response.data.message);
                 dfd.resolve(response.data);
+                $state.go($state.current, {}, { reload: true });
+
             }, utilService.handleError);
 
             return dfd.promise;
@@ -52,13 +54,15 @@
             var dfd = $q.defer();
             var req = {
                 method: 'GET',
-                url: API_CONFIG.baseUrl + API_CONFIG.spacesUrl +'removeFromGallery/' + paramObj.id + '?' + $.param(paramObj),
+                url: API_CONFIG.baseUrl + API_CONFIG.spacesUrl + 'removeFromGallery/' + paramObj.id + '?' + $.param(paramObj),
                 headers: utilService.getHeaders(),
                 data: paramObj
             }
             $http(req).then(function(response) {
                 toastService.show(response.data.message);
                 dfd.resolve();
+                $state.go($state.current, {}, { reload: true });
+
             }, utilService.handleError);
 
             return dfd.promise;
@@ -74,6 +78,8 @@
             $http(req).then(function(response) {
                 toastService.show(response.data.message);
                 dfd.resolve();
+                $state.go($state.current, {}, { reload: true });
+
             }, utilService.handleError);
 
             return dfd.promise;

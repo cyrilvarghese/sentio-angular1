@@ -1,0 +1,45 @@
+ 
+
+<md-dialog style="min-height:400px;" aria-label="Add member">
+  <form ng-cloak name="inviteForm">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Add member</h2>
+        <span flex></span>
+       <!--  <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button> -->
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+   <md-contact-chips ng-model="vm.selectedMembers " md-contacts="vm.queryMembers($query)" md-contact-name="name" placeholder="Select from organistaion">
+    </md-contact-chips>
+    <div ng-if="vm.memberNotFound">
+        <p class="title">Could not find the member in the organization</p>
+        <md-input-container class="md-block">
+            <label>Enter email to invite</label>
+            <input type="email" required ng-model="vm.memberToBeAdded">
+        </md-input-container>
+       
+    </div>
+   
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <div  class="md-padding" ng-if="vm.selectedMembers.length!==0">
+        <md-button class="md-primary md-raised" ng-click="vm.addMember()">
+            <md-icon md-font-icon class="zmdi zmdi-accounts-add "></md-icon> Add Member
+        </md-button>
+    </div>
+    <div class="md-padding"  ng-if="vm.memberNotFound">
+    	  <md-button class="md-primary md-raised" ng-disabled="!inviteForm.$valid" ng-click="vm.inviteMember()">
+            <md-icon md-font-icon class="zmdi zmdi-mail-send "></md-icon> Send Invite
+        </md-button>
+    </div>
+   
+    </md-dialog-actions>
+  </form>
+</md-dialog>

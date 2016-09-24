@@ -4,7 +4,7 @@
             <div class="md-toolbar-tools">
                 <h2>Select An Image</h2>
                 <span flex></span>
-                <md-button class="md-icon-button" ng-click="cancel()">
+                <md-button class="md-icon-button" ng-click="vm.cancel()">
                     <md-icon class="zmdi zmdi-close" aria-label="Close dialog"></md-icon>
                 </md-button>
             </div>
@@ -14,7 +14,7 @@
                 <md-list>
                     <div>
                         <md-list-item>
-                            <md-grid-list flex md-cols="4" md-cols-xs="4" md-row-height="4:4" md-gutter="4px">
+                            <md-grid-list flex md-cols="6" md-cols-xs="4" md-row-height="4:4" md-gutter="4px">
                                 <md-grid-tile md-colspan="2" md-rowspan="2" ng-click="vm.selectImage(item.id)" ng-repeat="item in ::vm.list" ng-style="::{ 'background-image': 'url(http://' + item.thumb_url + ')', 'background-size' : 'cover' }">
                                     <!--  <md-grid-tile-footer layout="row" layout-align="end center">
                                  
