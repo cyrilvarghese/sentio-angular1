@@ -33,7 +33,7 @@
             });
         $rootScope.$on('$stateChangeSuccess',
             function(event, toState, toParams, fromState, fromParams, options) {
-                if (toState.name === 'triangular.organizations' ||toState.name === 'triangular.profile') {
+                if (toState.name === 'triangular.organizations' || toState.name === 'triangular.profile') {
                     triLayout.setOption('sideMenuSize', 'off');
 
                 }
@@ -51,4 +51,10 @@
                 }
             };
         });
+
+    angular.module('app').filter('trusted', ['$sce', function($sce) {
+        return function(url) {
+            return $sce.trustAsResourceUrl(url);
+        };
+    }]);
 })();

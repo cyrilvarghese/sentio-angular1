@@ -20,11 +20,13 @@
         vm.uploadForLinking = uploadForLinking;
         vm.createOrUpdate = createOrUpdate;
         vm.leaveProject = leaveProject;
+        vm.openEditorModal = openEditorModal;
         // vm.updateGallery = updateGallery;
         vm.addSpaceToGallery = addSpaceToGallery;
         vm.RemoveSpaceFromGallery = RemoveSpaceFromGallery;
         vm.getLogoList = getLogoList;
         vm.getThemeList = getThemeList;
+        vm.openPreviewModal = openPreviewModal;
         // vm.queryMembers = queryMembers;
         // vm.inviteMember = inviteMember;
         vm.addAction = addAction;
@@ -38,13 +40,13 @@
         }
 
         function init() {
-          
-            var paramObj = {
-                    api_token: localStorage.getItem('apiToken'),
-                    projectId: $stateParams.projectId
 
-                }
-                     getLogoList(paramObj);
+            var paramObj = {
+                api_token: localStorage.getItem('apiToken'),
+                projectId: $stateParams.projectId
+
+            }
+            getLogoList(paramObj);
             getThemeList(paramObj);
             getProjectDetails();
         }
@@ -287,8 +289,6 @@
                 gallery_id: vm.selectedProject.gallery.id,
                 theme_id: themeId || vm.currentGallery.theme_id,
                 logo_id: logoId || vm.currentGallery.logo_id
-
-
             }
             galleryService.updateGallery(paramObj).then(function() {
                 $mdDialog.hide();
@@ -408,6 +408,35 @@
             });
         }
 
-
+        function openEditorModal($event, url) {
+            $mdDialog.show({
+                controller: 'spaceEditorDialogController',
+                controllerAs: 'vm',
+                templateUrl: 'app/spaces/editor-dialog.tmpl.html',
+                clickOutsideToClose: true,
+                focusOnOpen: false,
+                targetEvent: $event,
+                fullscreen: true,
+                locals: {
+                    url: url,
+                    title:"Edit Scene"
+                }
+            });
+        }
+         function openPreviewModal($event, url,title) {
+            $mdDialog.show({
+                controller: 'spaceEditorDialogController',
+                controllerAs: 'vm',
+                templateUrl: 'app/spaces/editor-dialog.tmpl.html',
+                clickOutsideToClose: true,
+                focusOnOpen: false,
+                targetEvent: $event,
+                fullscreen: true,
+                locals: {
+                    url: url,
+                    title:title
+                }
+            });
+        }
     }
 })();

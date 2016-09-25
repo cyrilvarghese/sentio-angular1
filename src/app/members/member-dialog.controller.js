@@ -8,11 +8,16 @@
     /* @ngInject */
     function memberDialogController($mdDialog, $state, $stateParams, projectService) {
         var vm = this;
-        
+
+        vm.cancel = cancel;
         vm.addMember = addMember;
         vm.queryMembers = queryMembers;
         vm.inviteMember = inviteMember;
         vm.selectedMembers = [];
+
+        function cancel() {
+            $mdDialog.cancel();
+        }
 
         function addMember() {
             _.each(vm.selectedMembers, function(member) {
@@ -21,17 +26,18 @@
                     member_id: member.id,
                     projectId: $stateParams.projectId
                 }
-                projectService.addMember(paramObj).then(closeDialog,closeDialog);
+                projectService.addMember(paramObj).then(closeDialog, closeDialog);
             });
 
         }
-        function closeDialog(){
+
+        function closeDialog() {
             $mdDialog.hide();
         }
 
         function queryMembers($query) {
             var lowercaseQuery = angular.lowercase($query);
-        vm.memberToBeAdded=lowercaseQuery;
+            vm.memberToBeAdded = lowercaseQuery;
             var members = localStorage.getItem("currentOrg") ? JSON.parse(localStorage.getItem("currentOrg")).members : [];
             members = _.map(members, function(member) {
 

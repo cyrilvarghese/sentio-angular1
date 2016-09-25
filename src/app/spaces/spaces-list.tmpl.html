@@ -48,7 +48,8 @@
                                     <p style="height: 100px; overflow: auto;">{{value.desc}}</p>
                                     <md-divider></md-divider>
                                     <md-card-actions layout="column" layout-align="center center">
-                                        <md-button class="md-margin" ng-href='http://{{value.editorUrl}}' target="_blank">Editor Mode</md-button>
+                                    <!--  ng-href='http://{{value.editorUrl}}' -->
+                                        <md-button class="md-margin" ng-click="vm.openEditorModal($event,value.editorUrl)" target="_blank">Editor Mode</md-button>
                                         <md-button class="md-primary md-raised md-margin " ngf-select="vm.uploadForLinking(value.id,$file)" ng-disabled="vm.status != 'idle'" ngf-multiple="true" aria-label="upload">
                                             <md-icon md-font-icon ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon>
                                             upload & link 
@@ -85,7 +86,8 @@
     <md-button class="md-fab fab-add-fixed " ng-if="vm.selectedTabIndex===0 " ng-click="vm.navigateToDetail(0) " aria-label="fab button ">
         <md-icon md-font-icon="zmdi zmdi-plus "></md-icon>
     </md-button>
-    <md-button class="md-fab fab-add-fixed " ng-if="vm.selectedTabIndex===1 " ng-click="vm.openMemberDialog() " aria-label="fab button ">
+    <md-button class="md-fab fab-add-fixed " ng-if="vm.selectedTabIndex===1 " ng-click="vm.openMemberDialog
+() " aria-label="fab button ">
         <md-icon md-font-icon="zmdi zmdi-plus "></md-icon>
     </md-button>
    

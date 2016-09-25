@@ -6,15 +6,15 @@
       <div class="md-toolbar-tools">
         <h2>Add member</h2>
         <span flex></span>
-       <!--  <md-button class="md-icon-button" ng-click="cancel()">
-          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
-        </md-button> -->
+         <md-button class="md-icon-button" ng-click="vm.cancel()">
+                <md-icon class="zmdi zmdi-close" aria-label="Close dialog"></md-icon>
+            </md-button>
       </div>
     </md-toolbar>
 
     <md-dialog-content>
       <div class="md-dialog-content">
-   <md-contact-chips ng-model="vm.selectedMembers " md-contacts="vm.queryMembers($query)" md-contact-name="name" placeholder="Select from organistaion">
+   <md-contact-chips ng-model="vm.selectedMembers " md-contacts="vm.queryMembers($query)" md-contact-name="name" placeholder="Select from organization">
     </md-contact-chips>
     <div ng-if="vm.memberNotFound">
         <p class="title">Could not find the member in the organization</p>

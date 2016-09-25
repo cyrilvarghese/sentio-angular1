@@ -30,7 +30,7 @@
                         <span class="md-title">Current Theme</span>
                     </md-card-title-text>
                 </md-card-title>
-                <div><img style="max-height:200px" ng-src="http://{{vm.currentTheme.thumb_url}}" alt="Theme Image"></div>
+                <div><img ng-click="vm.openPreviewModal($event,vm.currentTheme.theme_url,'Theme Preview')" style="max-height:200px" ng-src="http://{{vm.currentTheme.thumb_url}}" alt="Theme Image"></div>
                 <md-divider></md-divider>
                 <md-card-actions layout="row" layout-align="end center">
                     <md-button class="md-primary" ng-click="vm.openThemeDialog($event)">Change</md-button>

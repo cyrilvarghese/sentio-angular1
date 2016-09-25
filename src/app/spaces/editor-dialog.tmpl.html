@@ -1,0 +1,18 @@
+<md-dialog aria-label="{{vm.title}}">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>{{vm.title}}</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="vm.cancel()">
+                <md-icon class="zmdi zmdi-close" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <md-content class="md-padding">
+            <div layout="row" md-whiteframe="1" layout-align="space-around">
+                <iframe type="text/html" width="640" height="500"  allowfullscreen frameborder="0" id="editor" ng-src="{{vm.url | trusted}}" id="content"></div>
+            </div>
+        </md-content>
+    </md-dialog-content>
+</md-dialog>
