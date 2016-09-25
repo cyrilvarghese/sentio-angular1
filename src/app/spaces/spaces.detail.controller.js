@@ -6,7 +6,7 @@
         .controller('spacesDetailController', spacesDetailController);
 
     /* @ngInject */
-    function spacesDetailController($mdSidenav, spaceService, galleryService, Upload, utilService, $stateParams, triBreadcrumbsService) {
+    function spacesDetailController($mdSidenav, spaceService, galleryService,toastService, Upload, utilService, $stateParams, triBreadcrumbsService) {
         var vm = this;
         vm.isOpen = false;
         if ($stateParams.spaceId) {
@@ -50,9 +50,11 @@
                 name: vm.generalInfo.name,
                 description: vm.generalInfo.description
             }
-            spaceService.upload($files, paramObj).then(function() {
+            spaceService.upload($files, paramObj).then(function(data) {
                 uploadComplete();
+                vm.spaceEditorUrl=data.
                 vm.uploadIncomplete = false;
+                triWizard.nextStep();
             }, function() {
                 uploadFailed();
                 vm.uploadIncomplete = true;

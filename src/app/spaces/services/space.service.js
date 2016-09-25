@@ -6,7 +6,7 @@
         .factory('spaceService', spaceService);
 
     /* @ngInject */
-    function spaceService($q, $http, RoleStore, Upload, toastService, API_CONFIG, $state,utilService) {
+    function spaceService($q, $http, RoleStore, Upload, toastService, API_CONFIG, $state, utilService) {
 
         var service = {
 
@@ -27,6 +27,8 @@
         }
 
         function uploadFiles(fileList, paramObj) {
+                    toastService.show('uploading file and creating space.....');
+
             var dfd = $q.defer();
             if (fileList !== null && fileList.length > 0) {
 
@@ -41,7 +43,8 @@
                         })
                     },
                     headers: utilService.getHeaders()
-                }).then(function(response) {
+                }).then(function(response) {  
+                  toastService.show(response.data.message);  
                     dfd.resolve(response);
                     // console.log('Success? ' + response.config.data.file.name + 'uploaded. responseonse: ' + response.data);
                 }, function(response) {
@@ -60,15 +63,17 @@
 
         function linkSpaces(paramObj) {
             var dfd = $q.defer();
-            if (paramObj.xml_file !== null  ) {
+            if (paramObj.xml_file !== null) {
 
                 Upload.upload({
-                    url: API_CONFIG.baseUrl + API_CONFIG.spacesUrl + 'link_space/' + paramObj.space_id + '?' + $.param({ api_token: localStorage.getItem('apiToken') ,space_id:paramObj.space_id}),
+                    url: API_CONFIG.baseUrl + API_CONFIG.spacesUrl + 'link_space/' + paramObj.space_id + '?' + $.param({ api_token: localStorage.getItem('apiToken'), space_id: paramObj.space_id }),
                     data: {
                         xml_file: paramObj.xml_file
                     },
                     headers: utilService.getHeaders()
                 }).then(function(response) {
+                    toastService.show(response.data.message);
+                    $state.go($state.current, {}, { reload: true });
                     dfd.resolve(response);
                     // console.log('Success? ' + response.config.data.file.name + 'uploaded. responseonse: ' + response.data);
                 }, function(response) {
@@ -86,15 +91,16 @@
         }
 
         function getSpaceList(paramObj) {
+
             var dfd = $q.defer();
             var req = {
                 method: 'GET',
-                url: API_CONFIG.baseUrl + API_CONFIG.projectsUrl+paramObj.projectId+'/space_list?' + $.param({ 'api_token': localStorage.getItem('apiToken') }),
+                url: API_CONFIG.baseUrl + API_CONFIG.projectsUrl + paramObj.projectId + '/space_list?' + $.param({ 'api_token': localStorage.getItem('apiToken') }),
                 headers: utilService.getHeaders()
             }
             $http(req).then(function(response) {
-                var parsedData=_.map(response.data.space_list,function(item){
-                    item.editorUrl=item.url.replace('tour.html','tour_editor.html');
+                var parsedData = _.map(response.data.space_list, function(item) {
+                    item.editorUrl = item.url.replace('tour.html', 'tour_editor.html');
                     return item;
                 })
                 dfd.resolve(response.data.space_list);
@@ -130,6 +136,8 @@
                 // currentUser = user;
                 toastService.show(response.data.message);
                 dfd.resolve(response.data);
+                // $state.go('triangular.organizations.detail.projects.detail.spaces');
+
             }, utilService.handleError);
 
             return dfd.promise;
@@ -147,6 +155,8 @@
             $http(req).then(function(response) {
                 toastService.show(response.data.message);
                 dfd.resolve(response.data);
+                $state.go('triangular.organizations.detail.projects.detail.spaces');
+
             }, utilService.handleError);
 
             return dfd.promise;

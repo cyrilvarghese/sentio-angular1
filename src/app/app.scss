@@ -30,11 +30,13 @@ input {
     margin: 7.5px !important;
     margin-bottom: 15px !important;
 }
-.login-frame img{
+
+.login-frame img {
     width: 100% !important;
 }
+
 .md-margin {
-   margin: 5px !important;  
+    margin: 5px !important;
 }
 
 .fab-add-fixed {
@@ -42,32 +44,49 @@ input {
     bottom: 35px;
     right: 23px;
 }
-.align-center{
+
+.align-center {
     text-align: center;
 }
-.triangular-loader{
-	z-index: 101 !important;
+
+.triangular-loader {
+    z-index: 101 !important;
 }
-.select-box{
+
+.select-box {
     width: 35px;
 }
-md-grid-tile-footer{
+
+md-grid-tile-footer {
     background: rgba(0, 188, 212, 0.59) !important;
 }
-.no-left-padding{
+
+.no-left-padding {
     padding-left: 0px !important;
 }
-.no-underline{
+
+.no-underline {
     text-decoration: none !important;
 }
-.flex-basis{
-    flex-basis:33% !important;
 
+.flex-basis {
+    flex-basis: 33% !important;
 }
-md-dialog{
-    min-width: 500px !important; 
+
+md-dialog {
+    min-width: 500px !important;
 }
-.md-contact-suggestion .md-contact-name{}
+
+md-toolbar.space-toolbar {
+    min-height: 50px;
+    .md-toolbar-tools {
+        height: 50px;
+    }
+}
+
+.md-contact-suggestion .md-contact-name {}
+
+
 /**
  *  Do not remove this comments bellow. It's the markers used by gulp-inject to inject
  *  all your sass files automatically
