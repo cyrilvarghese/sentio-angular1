@@ -6,7 +6,7 @@
             'ui.router',
             'triangular',
             'ngAnimate', 'ngCookies', 'ngSanitize', 'ngMessages', 'ngMaterial',
-            'googlechart', 'chart.js', 'linkify', 'ui.calendar', 'angularMoment', 'textAngular', 'uiGmapgoogle-maps', 'hljs', 'md.data.table', angularDragula(angular), 'ngFileUpload',
+             'angularMoment', 'md.data.table', 'ngFileUpload',
             // 'seed-module',
             // uncomment above to activate the example seed module
             'app.services',
@@ -26,9 +26,8 @@
             // also remove 'permission' from the first line of dependencies
             // https://github.com/Narzerus/angular-permission see here for why
             // 'app.examples',
-            'ngFileUpload',
-            "xeditable"
-
+            'ngFileUpload'
+         
         ])
 
     // set a constant for the API we are connecting to

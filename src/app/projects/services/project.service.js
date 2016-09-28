@@ -69,7 +69,7 @@
                 // currentUser = user;
                 toastService.show(response.data.message);
                 dfd.resolve();
-                $state.go($state.current, {}, { reload: true });
+                $state.go('triangular.organizations.detail.projects', {}, { reload: true });
 
             }, utilService.handleError);
 

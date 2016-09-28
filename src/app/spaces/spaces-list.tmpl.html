@@ -24,11 +24,11 @@
                                                     <md-button ng-click="vm.navigateToDetail(value.id)">
                                                         <md-icon md-font-icon='zmdi zmdi-edit'></md-icon>Edit Space details</md-button>
                                                 </md-menu-item>
-                                                <md-menu-item>
+                                                <md-menu-item ng-if="value.added_in_gallery===0">
                                                     <md-button ng-click="vm.addSpaceToGallery(value.id)">
                                                         <md-icon md-font-icon='fa fa-plus-circle'></md-icon>Add to Gallery</md-button>
                                                 </md-menu-item>
-                                                <md-menu-item>
+                                                <md-menu-item ng-if="value.added_in_gallery===1">
                                                     <md-button ng-click="vm.removeSpacefromGallery(value.id)">
                                                         <md-icon md-font-icon='zmdi zmdi-minus-circle'></md-icon>Remove From Gallery</md-button>
                                                 </md-menu-item>
@@ -46,42 +46,34 @@
                                 </a>
                                 <md-card-content>
                                     <p style="height: 100px; overflow: auto;">{{value.desc}}</p>
-                                     
-                                    
                                 </md-card-content>
                                 <md-card-actions layout="row" layout-align="end center">
                                     <!--  ng-href='http://{{value.editorUrl}}' -->
-                                        <md-button class=" md-primary md-raised" ng-click="vm.openEditorModal($event,value.editorUrl)" target="_blank">Editor Mode</md-button>
-                                        <md-button class="md-primary md-raised  " ngf-select="vm.uploadForLinking(value.id,$file)" ng-disabled="vm.status != 'idle'" ngf-multiple="true" aria-label="upload">
-                                            <md-icon md-font-icon ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon>
-                                            link 
-                                        </md-button>
-                                    </md-card-actions>
+                                    <md-button class=" md-primary md-raised" ng-click="vm.openEditorModal($event,value.editorUrl)" target="_blank">Editor Mode</md-button>
+                                    <md-button class="md-primary md-raised  " ngf-select="vm.uploadForLinking(value.id,$file)" ng-disabled="vm.status != 'idle'" ngf-multiple="true" aria-label="upload">
+                                        <md-icon md-font-icon ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon>
+                                        link
+                                    </md-button>
+                                </md-card-actions>
                             </md-card>
                         </div>
                     </div>
                 </div>
             </md-content>
             <md-content ng-if="vm.spaceList.length===0" layout="column" layout-align="center-center">
-                <p class="md-headline" >No Space Found!</p>
-                <md-button class="md-primary md-raised"  ng-click="vm.navigateToDetail(0)">Click to add A new Space</md-button>
+                <p class="md-headline">No Space Found!</p>
+                <md-button class="md-primary md-raised" ng-click="vm.navigateToDetail(0)">Click to add A new Space</md-button>
             </md-content>
         </md-tab>
         <md-tab label="Members">
             <div layout="row" md-whiteframe="1" layout-padding layout-align="space-around" ng-include="'app/members/members-list-no-invite.tmpl.html'"></div>
-          
-        
         </md-tab>
         <md-tab label="Gallery (3 Spaces)" ng-if="vm.selectedProject.gallery.length!==0">
-                 <div layout="column" md-whiteframe="1" class="md-padding"  ng-include="'app/gallery/gallery.tmpl.html'"></div>
+            <div layout="column" md-whiteframe="1" class="md-padding" ng-include="'app/gallery/gallery.tmpl.html'"></div>
         </md-tab>
-         <md-tab label="Project Info">
-         <div layout="row" md-whiteframe="1" class="md-padding"   ng-include="'app/projects/projects-detail.tmpl.html'"></div>
-             
-
-         </md-tab>
-
-  
+        <md-tab label="Project Info">
+            <div layout="row" md-whiteframe="1" class="md-padding" ng-include="'app/projects/projects-detail.tmpl.html'"></div>
+        </md-tab>
     </md-tabs>
     <!-- left sidebar -->
     <md-button class="md-fab fab-add-fixed " ng-if="vm.selectedTabIndex===0 " ng-click="vm.navigateToDetail(0) " aria-label="fab button ">
@@ -91,7 +83,4 @@
 () " aria-label="fab button ">
         <md-icon md-font-icon="zmdi zmdi-plus "></md-icon>
     </md-button>
-   
-   
-    
 </ui-view>
