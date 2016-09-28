@@ -266,7 +266,7 @@
     - angular-translate-loader-partial to 2.10.0,
     - angular-translate-storage-cookie to 2.10.0,
     - angular-translate-storage-local to 2.10.0,
-    - angular-ui-calendar to 1.0.1,
+  
     - angular-ui-router to 0.2.18,
     - countUp.js to 1.6.1,
     - font-awesome to 4.5.0,
