@@ -13,6 +13,7 @@
         console.log($stateParams.members);
         // vm.members = members.data.splice(0, 5);
         vm.navigateToDetail = navigateToDetail;
+        vm.selectedTabIndex = $stateParams.selectedTabIndex||0;
         vm.showMembers = showMembers;
         vm.selectMember = selectMember;
         vm.navigateToDetail = navigateToDetail;

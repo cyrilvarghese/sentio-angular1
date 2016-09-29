@@ -2,7 +2,7 @@
     <md-button class="md-icon-button" ng-if="!vm.hideMenuButton()" ng-click="vm.openSideNav('left')" aria-label="side navigation">
         <md-icon md-font-icon="zmdi zmdi-menu"></md-icon>
     </md-button>
-      <a href="/#/organizations">
+      <a href="/organizations">
     <img style="max-width:260px;max-height:56px" ng-src="{{::vm.appLogo}}" alt="App logo">
 </a >
     <h2 hide-xs flex>
@@ -21,7 +21,7 @@
         <md-icon md-font-icon="zmdi zmdi-sign-in"></md-icon>
         <span translate="Logout"></span>
     </md-button>
-    <md-button aria-label="Open user menu" href="#/profile" aria-label="side navigation">
+    <md-button aria-label="Open user menu" href="/profile" aria-label="side navigation">
         <img class="toolbar-user-avatar" ng-src="http://{{vm.currentUser.avatar}}"> {{vm.currentUser.displayName}}
     </md-button>
 </div>

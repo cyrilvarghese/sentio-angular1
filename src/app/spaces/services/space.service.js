@@ -27,7 +27,7 @@
         }
 
         function uploadFiles(fileList, paramObj) {
-                    toastService.show('uploading file and creating space.....');
+            toastService.show('uploading file and creating space.....');
 
             var dfd = $q.defer();
             if (fileList !== null && fileList.length > 0) {
@@ -43,8 +43,8 @@
                         })
                     },
                     headers: utilService.getHeaders()
-                }).then(function(response) {  
-                  toastService.show(response.data.message);  
+                }).then(function(response) {
+                    toastService.show(response.data.message);
                     dfd.resolve(response);
                     // console.log('Success? ' + response.config.data.file.name + 'uploaded. responseonse: ' + response.data);
                 }, function(response) {
@@ -73,7 +73,7 @@
                     headers: utilService.getHeaders()
                 }).then(function(response) {
                     toastService.show(response.data.message);
-                    $state.go($state.current, {}, { reload: true });
+                    $state.go($state.current,  {selectedTabIndex:0}, { reload: true });
                     dfd.resolve(response);
                     // console.log('Success? ' + response.config.data.file.name + 'uploaded. responseonse: ' + response.data);
                 }, function(response) {
@@ -136,7 +136,7 @@
                 // currentUser = user;
                 toastService.show(response.data.message);
                 dfd.resolve(response.data);
-                // $state.go('triangular.organizations.detail.projects.detail.spaces');
+                $state.go('triangular.organizations.detail.projects.detail.spaces', { selectedTabIndex: 0 }, { reload: true });
 
             }, utilService.handleError);
 
@@ -155,7 +155,7 @@
             $http(req).then(function(response) {
                 toastService.show(response.data.message);
                 dfd.resolve(response.data);
-                $state.go('triangular.organizations.detail.projects.detail.spaces');
+                $state.go('triangular.organizations.detail.projects.detail.spaces', {selectedTabIndex:0}, { reload: true });
 
             }, utilService.handleError);
 
@@ -174,7 +174,7 @@
             $http(req).then(function(response) {
                 toastService.show(response.data.message);
                 dfd.resolve(response.data);
-                $state.go($state.current, {}, { reload: true });
+                $state.go($state.current, { selectedTabIndex: 0 }, { reload: true });
 
             }, utilService.handleError);
 

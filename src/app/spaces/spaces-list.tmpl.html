@@ -24,11 +24,11 @@
                                                     <md-button ng-click="vm.navigateToDetail(value.id)">
                                                         <md-icon md-font-icon='zmdi zmdi-edit'></md-icon>Edit Space details</md-button>
                                                 </md-menu-item>
-                                                <md-menu-item ng-if="value.added_in_gallery===0">
+                                                <md-menu-item ng-if="value.added_in_gallery==='0'">
                                                     <md-button ng-click="vm.addSpaceToGallery(value.id)">
                                                         <md-icon md-font-icon='fa fa-plus-circle'></md-icon>Add to Gallery</md-button>
                                                 </md-menu-item>
-                                                <md-menu-item ng-if="value.added_in_gallery===1">
+                                                <md-menu-item ng-if="value.added_in_gallery==='1'">
                                                     <md-button ng-click="vm.removeSpacefromGallery(value.id)">
                                                         <md-icon md-font-icon='zmdi zmdi-minus-circle'></md-icon>Remove From Gallery</md-button>
                                                 </md-menu-item>

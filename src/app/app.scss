@@ -84,8 +84,12 @@ md-toolbar.space-toolbar {
     }
 }
 
-.md-contact-suggestion .md-contact-name {}
-
+.md-contact-suggestion .md-contact-name {
+    min-width: 300px !important;
+}
+.md-virtual-repeat-container.md-autocomplete-suggestions-container{
+    min-width: 350px !important;
+}
 
 /**
  *  Do not remove this comments bellow. It's the markers used by gulp-inject to inject

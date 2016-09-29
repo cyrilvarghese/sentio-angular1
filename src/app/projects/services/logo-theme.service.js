@@ -38,7 +38,7 @@
                 toastService.show(response.data.message);
 
                     dfd.resolve(response);
-                    $state.go($state.current, {}, { reload: true });
+                    $state.go($state.current, {selectedTabIndex:2}, { reload: true });
 
                     // console.log('Success? ' + response.config.data.file.name + 'uploaded. responseonse: ' + response.data);
                 }, function(response) {

@@ -9,7 +9,7 @@
     function moduleConfig($stateProvider, triMenuProvider) {
         $stateProvider
             .state('triangular.organizations.detail.projects.detail.spaces', {
-                url: '/spaces?galleryId=',
+                url: '/spaces?selectedTabIndex=',
 
                 views: {
                     '@triangular': {

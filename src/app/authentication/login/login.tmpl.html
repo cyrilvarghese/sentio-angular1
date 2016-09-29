@@ -36,24 +36,24 @@
                         </md-input-container>
 
                         <md-input-container>
-                            <md-button flex class="md-primary" href="#/forgot" translate="Forgot password?" aria-label="{{'Forgot password?' | triTranslate}}"></md-button>
+                            <md-button flex class="md-primary" href="/forgot" translate="Forgot password?" aria-label="{{'Forgot password?' | triTranslate}}"></md-button>
                         </md-input-container>
                     </div>
 
                     <md-button class="md-raised md-primary full-width margin-left-0 margin-right-0 margin-top-10 margin-bottom-10" type="submit"  ng-click="vm.loginClick()" ng-disabled="login.$invalid" translate="Log in" aria-label="{{'Log in' | triTranslate}}"></md-button>
 
-                    <md-button class="md-primary full-width margin-left-0 margin-right-0 margin-top-10 margin-bottom-10" href="#/signup" translate="Don't have an account? Create one now" aria-label="{{'Don\'t have an account? Create one now' | triTranslate}}"></md-button>
+                    <md-button class="md-primary full-width margin-left-0 margin-right-0 margin-top-10 margin-bottom-10" href="/signup" translate="Don't have an account? Create one now" aria-label="{{'Don\'t have an account? Create one now' | triTranslate}}"></md-button>
 
                     <div class="social-login">
-                        <md-divider></md-divider>
+                        <!-- <md-divider></md-divider> -->
 
                         <!-- <div class="text-center margin-20" translate>or login with</div> -->
-
+<!-- 
                         <div layout="row" layout-align="space-between center"  layout-margin>
                             <md-button href="#" ng-repeat="social in ::vm.socialLogins" class="md-icon-button" ng-style="{ 'background-color': social.color }" aria-label="{{social.icon}}">
                                 <md-icon md-font-icon="{{::social.icon}}"></md-icon>
                             </md-button>
-                        </div>
+                        </div> -->
                     </div>
                 </form>
             </md-content>

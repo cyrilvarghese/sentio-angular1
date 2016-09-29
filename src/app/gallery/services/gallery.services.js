@@ -43,7 +43,7 @@
             $http(req).then(function(response) {
                 toastService.show(response.data.message);
                 dfd.resolve(response.data);
-                $state.go($state.current, {}, { reload: true });
+                $state.go($state.current, {selectedTabIndex:2}, { reload: true });
 
             }, utilService.handleError);
 
