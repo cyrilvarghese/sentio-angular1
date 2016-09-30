@@ -8,9 +8,11 @@
     /* @ngInject */
     function LoaderService($rootScope) {
         var active = false;
+        var title="";
 
         return {
             isActive: isActive,
+            title:title,
             setLoaderActive: setLoaderActive
         };
 

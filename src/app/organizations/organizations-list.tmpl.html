@@ -1,31 +1,17 @@
  <ui-view>
     <md-content>
         <div class="md-padding">
-            <h2 class="md-subhead">Created By You</h2>
-            <div class="md-padding" layout-gt-sm="row" layout-sm="column">
-                <div flex="33" class="flex-basis" ng-repeat="(key, value) in vm.orgList.admin" flex-xs="100">
-                    <md-card class="clickable" ng-click="vm.navigateToProjects(value,value.org_id)">
-                        <md-card-header>
-                        
-                            <md-card-header-text>
-                                <span class="md-headline">{{value.org_name}}</span>
-                                <span class="md-subhead">Created by {{value.creator}}</span>
-                            </md-card-header-text>
-                        </md-card-header>
-                        <md-divider></md-divider>
-                        
-                        <md-card-content>
-                            <p class="md-body-1">{{value.description}}</p>
-                            <!-- <a href="#" editable-textarea="value.description" e-rows="7" e-cols="40">
-                                        <pre>{{ value.description || 'no description' }}</pre>
-                                      </a> -->
-                        </md-card-content>
-                     
-                    </md-card>
-                </div>
+            <div class="md-padding" layout-align="center" layout-gt-sm="row" layout-sm="column">
+                
+                 <tri-widget class="clickable" ng-click="vm.navigateToProjects(value,value.org_id)" layout-margin flex="50" flex-xs="100"  ng-repeat="(key, value) in vm.orgList.admin"  avatar="assets/images/avatars/avatar-5.png" palette-background="blue:800" title="{{value.org_name}}" subtitle=" Created By You" title-position="top" content-layout-align="start center" content-layout="column">
+                    <div linkify="twitter" class="font-weight-300 md-headline font-style-italic line-height-big margin-bottom-20 padding-normal" >
+                      {{value.description}}
+                    </div>
+                    <!-- <img src="assets/images/dashboards/tweet.jpg" alt="some image"> -->
+                </tri-widget>
             </div>
             <md-divider></md-divider>
-            <h2 class="md-subhead">Created By Others</h2>
+            <h2 class="md-subhead center-block">Created By Others</h2>
             <div class="md-padding" layout-gt-sm="row" layout-sm="column">
                 <div class="md-headline" ng-if="!vm.orgList.member">No Organizations Found</div>
                 <div flex="33" ng-repeat="(key, value) in vm.orgList.member" flex-xs="100">
@@ -36,7 +22,7 @@
                             </md-card-avatar>
                             <md-card-header-text>
                                 <span class="md-title">{{value.org_name}}</span>
-                                <span class="md-subhead">Created by you</span>
+                                <span class="md-subhead">Created by {{value.creator}}</span>
                             </md-card-header-text>
                         </md-card-header>
                         <md-card-content class="clickable md-ink-ripple" ng-click="vm.navigateToDetail(value.org_id)">

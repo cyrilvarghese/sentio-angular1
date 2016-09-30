@@ -25,6 +25,7 @@
         vm.activateHover = activateHover;
         vm.removeHover  = removeHover;
         vm.showLoader = triLoaderService.isActive();
+        vm.title = triLoaderService.title;
 
         // we need to use the scope here because otherwise the expression in md-is-locked-open doesnt work
         $scope.layout = triLayout.layout; //eslint-disable-line

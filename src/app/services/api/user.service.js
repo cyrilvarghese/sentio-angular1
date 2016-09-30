@@ -79,14 +79,14 @@
 
 
         function login(paramObj) {
-        $http.defaults.headers.post['X-CSRF-TOKEN'] = localStorage.getItem('csrf');
+            $http.defaults.headers.post['X-CSRF-TOKEN'] = localStorage.getItem('csrf');
 
-             var dfd = $q.defer();
+            var dfd = $q.defer();
             var req = {
                 method: 'POST',
                 url: API_CONFIG.baseUrl + API_CONFIG.authenticationUrl + 'signin',
                 headers: getHeaders(),
-                 withCredentials: true,
+                withCredentials: true,
                 data: paramObj
             }
             $http(req).then(function(response) {
@@ -95,7 +95,7 @@
                 localStorage.setItem('apiToken', response.data.auth_key);
 
                 dfd.resolve();
-            }, handleError);
+            }, utilService.handleError);
 
             return dfd.promise;
 
@@ -114,7 +114,7 @@
                 localStorage.setItem('userInfo', JSON.stringify(response.data));
                 localStorage.setItem('apiToken', response.data.auth_key);
                 dfd.resolve();
-            }, handleError);
+            }, utilService.handleError);
 
             return dfd.promise;
 
@@ -130,7 +130,7 @@
             $http(req).then(function(response) {
                 toastService.show(response.data.message)
                 dfd.resolve();
-            }, handleError);
+            }, utilService.handleError);
 
             return dfd.promise;
 
@@ -146,7 +146,7 @@
             $http(req).then(function(response) {
                 toastService.show(response.data.message)
                 dfd.resolve();
-            }, handleError);
+            }, utilService.handleError);
 
             return dfd.promise;
 
@@ -162,7 +162,7 @@
             $http(req).then(function(response) {
                 toastService.show(response.data.message)
                 dfd.resolve();
-            }, handleError);
+            }, utilService.handleError);
 
             return dfd.promise;
 
@@ -174,15 +174,11 @@
             $http.get(API_CONFIG.baseUrl + 'csrf').then(function(resp) {
                 localStorage.setItem('csrf', resp);
                 dfd.resolve();
-            }, handleError('getting csrf'));
-
+            }, utilService.handleError);
             return dfd.promise;
         }
 
-        function handleError(resp) {
-            console.log(resp.data.error);
-            toastService.show(resp.data.error);
-        }
+
 
         function getHeaders() {
             return {
@@ -206,7 +202,7 @@
                 currentUser = response.data.user_id;
                 localStorage.setItem('userInfo', JSON.stringify(response.data));
                 dfd.resolve();
-            }, handleError);
+            }, utilService.handleError);
 
             return dfd.promise;
 
@@ -256,7 +252,7 @@
                 localStorage.setItem('userInfo', JSON.stringify(response.data));
                 localStorage.setItem('apiToken', response.data.auth_key);
                 dfd.resolve();
-            }, handleError);
+            }, utilService.handleError);
 
             return dfd.promise;
         }

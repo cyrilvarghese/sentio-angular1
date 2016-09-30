@@ -116,7 +116,7 @@
                     });
                     vm.selectedMembers = [];
 
-                    // $rootScope.$broadcast('updateBreadcrumbs', 'Projects > ' + vm.selectedProject.name);
+                    $rootScope.$broadcast('updateBreadcrumbs', 'Projects > ' + vm.selectedProject.name);
                     if (vm.selectedProject.gallery.length !== 0) {
                         getGalleryDetails();
                     }
