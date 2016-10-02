@@ -13,7 +13,7 @@
             icon: 'fa fa-dollar',
             state: 'triangular.organizations.detail',
             type: 'link',
-            id: 'billing',
+            id: 'account',
 
             priority: 2
         });

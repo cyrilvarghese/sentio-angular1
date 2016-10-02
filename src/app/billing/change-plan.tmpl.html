@@ -1,0 +1,135 @@
+<div>
+    <div flex layout="row" layout-align="center center" layout-fill>
+        <md-card flex="90" class="md-whiteframe-z1 margin-bottom-100" tri-wizard>
+            <md-toolbar class="md-primary">
+                <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+                    <h2> Change Plan</h2>
+                </div>
+                <md-progress-linear class="md-accent padding-bottom-10" md-mode="determinate" ng-value="triWizard.progress"></md-progress-linear>
+            </md-toolbar>
+            <md-tabs class="md-primary" layout-fill md-selected="triWizard.currentStep" md-dynamic-height>
+                <md-tab id="select-plan">
+                    <md-tab-label>
+                        <span class="oxy-step-label">1</span>
+                        <span translate>Select Plan</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <md-content class="md-padding">
+                            <div layout="row" layout-xs="column">
+                                <div flex="33" flex-xs="100">
+                                    <md-card>
+                                        <div><img src="assets/images/backgrounds/material-backgrounds/mb-bg-03.jpg" alt="Card Image"></div>
+                                        <md-card-title>
+                                            <md-card-title-text>
+                                                <span class="md-headline">Plan A</span>
+                                            </md-card-title-text>
+                                        </md-card-title>
+                                        <md-card-content>
+                                            <p>Plan Details</p>
+                                        </md-card-content>
+                                    </md-card>
+                                </div>
+                                <div flex="33" flex-xs="100">
+                                    <md-card>
+                                        <div><img src="assets/images/backgrounds/material-backgrounds/mb-bg-04.jpg" alt="Card Image"></div>
+                                        <md-card-title>
+                                            <md-card-title-text>
+                                                <span class="md-headline">Plan B</span>
+                                            </md-card-title-text>
+                                        </md-card-title>
+                                        <md-card-content>
+                                            <p>Plan Details</p>
+                                        </md-card-content>
+                                    </md-card>
+                                </div>
+                                <div flex="33" flex-xs="100">
+                                    <md-card>
+                                        <div><img src="assets/images/backgrounds/material-backgrounds/mb-bg-01.jpg" alt="Card Image"></div>
+                                        <md-card-title>
+                                            <md-card-title-text>
+                                                <span class="md-headline">Plan C</span>
+                                            </md-card-title-text>
+                                        </md-card-title>
+                                        <md-card-content>
+                                            <p>Plan Details</p>
+                                        </md-card-content>
+                                    </md-card>
+                                </div>
+                        </md-content>
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="upload" ng-disabled="!vm.planSelected">
+                    <md-tab-label>
+                        <span class="oxy-step-label">2</span>
+                        <span translate>Make Payment</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <md-content class="md-padding">
+                            <form name="fileUploadForm" tri-wizard-form>
+                                <div>
+                                    <div layout="row" layout-align="space-around center">
+                                        <p></p>
+                                        <md-card>
+                                            <div><img src="assets/images/backgrounds/material-backgrounds/mb-bg-03.jpg" alt="Card Image"></div>
+                                            <md-card-title>
+                                                <md-card-title-text>
+                                                    <span class="md-headline">You have selected Plan A</span>
+                                                </md-card-title-text>
+                                            </md-card-title>
+                                            <md-card-content>
+                                                <div flex="100" layout="row" layout-align="space-between center" layout-padding="" class="full-width">
+                                                    <span>Spaces  </span>
+                                                    <span>12(20 allowed)</span>
+                                                </div>
+                                                <div flex="100" layout="row" layout-align="space-between center" layout-padding="" class="full-width">
+                                                    <span>Spaces  </span>
+                                                    <span>12(20 allowed)</span>
+                                                </div>
+                                                <div flex="100" layout="row" layout-align="space-between center" layout-padding="" class="full-width">
+                                                    <span>Spaces  </span>
+                                                    <span>12(20 allowed)</span>
+                                                </div>
+                                                <div flex="100" layout="row" layout-align="space-between center" layout-padding="" class="full-width">
+                                                    <span>Spaces  </span>
+                                                    <span>12(20 allowed)</span>
+                                                </div>
+                                                <div flex="100" layout="row" layout-align="space-between center" layout-padding="" class="full-width">
+                                                    <span>Spaces  </span>
+                                                    <span>12(20 allowed)</span>
+                                                </div>
+                                            </md-card-content>
+                                            <md-card-actions>
+                                               <payment-btn plan-id="3"></payment-btn>
+                                            </md-card-actions>
+                                        </md-card>
+                                    </div>
+                                </div>
+                            </form>
+                        </md-content>
+                    </md-tab-body>
+                </md-tab>
+            
+                <md-tab id="confirm" ng-if="vm.id===0" ng-disabled="vm.uploadIncomplete">
+                    <md-tab-label>
+                        <span class="oxy-step-label">3</span>
+                        <span translate>Finish</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <md-content class="md-padding">
+                            <div class="padding-40" flex layout="column" layout-align="center center">
+                                <md-icon class="big-icon" md-font-icon="zmdi zmdi-check"></md-icon>
+                                <h2 class="md-title" translate>Thankyou for the payment.You've subscribed to Plan A succesfully! </h2>
+                            </div>
+                        </md-content>
+                    </md-tab-body>
+                </md-tab>
+            </md-tabs>
+            <md-card-actions layout="row" layout-align="end center">
+              
+                <md-button  class="md-primary md-raised" ng-click="triWizard.prevStep()" ng-hide="triWizard.currentStep > 2" ng-disabled="triWizard.prevStepDisabled()" translate="Previous"></md-button>
+                <md-button  class="md-primary md-raised" ng-click="triWizard.nextStep()" ng-disabled="triWizard.nextStepDisabled()" translate="Next"></md-button>
+                <md-button  class="md-primary md-raised" ng-click="triWizard.nextStep()" ng-hide=" triWizard.currentStep < 2" ng-disabled="triWizard.nextStepDisabled()" translate="Done"></md-button>
+            </md-card-actions>
+            </div>
+        </md-card>
+    </div>

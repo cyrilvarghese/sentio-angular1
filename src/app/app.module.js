@@ -21,6 +21,8 @@
             'app.projects',
             'app.spaces',
             'app.gallery',
+            'app.billing',
+            
             // dont need permissions?  if you want to turn off permissions
             // comment out or remove the 'app.permission', line above
             // also remove 'permission' from the first line of dependencies

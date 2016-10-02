@@ -1,4 +1,4 @@
-<div class="full-image-background mb-bg-01 padding-20 padding-top-100 overlay-gradient-30" layout="row" layout-align="center start">
+<!-- <div class="full-image-background mb-bg-01 padding-20 padding-top-100 overlay-gradient-30" layout="row" layout-align="center start">
     <div class="margin-right-20">
         <img ng-src="http://{{vm.user.image}}" alt="girl-avatar" class="make-round" width="100" />
     </div>
@@ -91,4 +91,14 @@
             </md-tab>
         </md-tabs>
     </div>
+</div>
+
+ -->
+
+ <div>
+    <form action="http://52.43.239.79/api/v1/user/subscription" method="POST">
+      <input type="hidden" id="plan" name="planId"  value="3">
+        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_gsuHQW9VUvUaSMEqw0voUH64" data-amount="2000" data-name="Stripe.com" data-description="Widget" data-image="https://stripe.com/img/documentation/checkout/marketplace.png" data-locale="auto" data-zip-code="true">
+        </script>
+    </form>
 </div>
