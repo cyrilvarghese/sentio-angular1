@@ -11,6 +11,11 @@
 
         // vm.projects = $stateParams.projects;
         init();
+        vm.navigateToPlanChange = navigateToPlanChange;
+
+        function navigateToPlanChange() {
+            $state.go('triangular.organizations.detail.billing.change');
+        }
 
         function init() {
             // var paramObj = {
@@ -27,14 +32,9 @@
 
             };
             billingService.getSubscriptionDetails(paramObj).then(function(data) {
-                console.log(data);
+               vm.plan=data;
             });
-             billingService.getInvoicesList(paramObj).then(function(data) {
-                console.log(data);
-            });
-              billingService.getPlanList(paramObj).then(function(data) {
-                console.log(data);
-            });
+           
         }
 
 

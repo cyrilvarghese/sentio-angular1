@@ -22,14 +22,19 @@
             roles: ['admin']
         }
         vm.toolbarMenu = [];
+        $rootScope.$on('updateBreadcrumbs', function(event, args) {
+            vm.breadcrumbs = args;
+        });
 
         function hideMenuButton() {
             return triLayout.layout.sideMenuSize !== 'hidden' && $mdMedia('gt-sm');
         }
-  function logOut(){
+
+        function logOut() {
             localStorage.clear();
             $state.go('authentication.login');
         }
+
         function navigateToProjects() {
             $state.go('triangular.organizations.detail.projects');
         }

@@ -57,4 +57,11 @@
             return $sce.trustAsResourceUrl(url);
         };
     }]);
+    angular.module('app').filter('capitalize', function() {
+        return function(textToTitleCase) {
+            if (textToTitleCase)
+                return textToTitleCase.charAt(0).toUpperCase() + textToTitleCase.substring(1).toLowerCase();
+            return textToTitleCase;
+        };
+    });
 })();

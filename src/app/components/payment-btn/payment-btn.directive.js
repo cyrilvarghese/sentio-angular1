@@ -18,7 +18,8 @@
             link: link,
             controller: ['$scope', '$mdDialog', paymentButtonController],
             scope: {
-                planId: '=planId'
+                planId: '=planId',
+                amount: '=amount'
             },
             restrict: 'EAC'
         };

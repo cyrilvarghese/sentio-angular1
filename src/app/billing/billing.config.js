@@ -36,7 +36,7 @@
             }).state('triangular.organizations.detail.billing.change', {
                 url: '/change-plan',
                 templateUrl: 'app/billing/change-plan.tmpl.html',
-                controller: 'billingController',
+                controller: 'changePlanController',
                 controllerAs: 'vm',
                 // layout-column class added to make footer move to
                 // bottom of the page on short pages

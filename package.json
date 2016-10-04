@@ -73,6 +73,8 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
-    "ejs": "^2.5.2"
+    "ejs": "^2.5.2",
+    "gulp-if": "^2.0.1",
+    "gulp-ng-config": "^1.3.1"
   }
 }

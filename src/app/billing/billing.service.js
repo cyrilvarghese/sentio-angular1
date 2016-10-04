@@ -12,8 +12,8 @@
 
             getPlanList: getPlanList,
             cancelSubscription: cancelSubscription,
-            getInvoicesList:getInvoicesList,
-            getSubscriptionDetails:getSubscriptionDetails
+            getInvoicesList: getInvoicesList,
+            getSubscriptionDetails: getSubscriptionDetails
         };
 
         return service;
@@ -31,12 +31,24 @@
             var dfd = $q.defer();
             var req = {
                 method: 'GET',
-                // url: API_CONFIG.baseUrl + API_CONFIG.sharedUrl + '/plans?' + $.param(paramObj),
-                url: '/plans?' + $.param(paramObj),
+                url: API_CONFIG.baseUrl + API_CONFIG.sharedUrl + 'plans?' + $.param(paramObj),
+                // url: 'http://127.0.0.1:9000/plans?' + $.param(paramObj),
                 headers: utilService.getHeaders()
             }
             $http(req).then(function(response) {
-               dfd.resolve(response.data);
+                response.data.plans = _.map(response.data.plans, function(value, key) {
+                    if (key === 0) {
+                        value.color = "light-blue:600";
+                    } else if (key === 1) {
+                        value.color = "light-blue:700";
+
+                    } else if (key === 2) {
+                        value.color = "light-blue:900";
+
+                    }
+                    return value;
+                })
+                dfd.resolve(response.data.plans);
             }, utilService.handleError);
 
             return dfd.promise;
@@ -48,12 +60,12 @@
             var dfd = $q.defer();
             var req = {
                 method: 'GET',
-                // url: API_CONFIG.baseUrl + API_CONFIG.userUrl + '/subscription_details?' + $.param(paramObj),
-                url:  '/subscription_details?' + $.param(paramObj),
+                url: API_CONFIG.baseUrl + API_CONFIG.authenticationUrl + 'subscription_details?' + $.param(paramObj),
+                // url:  'http://127.0.0.1:9000/subscription_details?' + $.param(paramObj),
                 headers: utilService.getHeaders()
             }
             $http(req).then(function(response) {
-               dfd.resolve(response.data);
+                dfd.resolve(response.data.plan);
             }, utilService.handleError);
 
             return dfd.promise;
@@ -64,11 +76,11 @@
             var dfd = $q.defer();
             var req = {
                 method: 'GET',
-                url: API_CONFIG.baseUrl + API_CONFIG.userUrl + '/subscription_cancel?' + $.param(paramObj),
+                url: API_CONFIG.baseUrl + API_CONFIG.authenticationUrl + 'subscription_cancel?' + $.param(paramObj),
                 headers: utilService.getHeaders()
             }
             $http(req).then(function(response) {
-               dfd.resolve(response.data);
+                dfd.resolve(response.data);
             }, utilService.handleError);
 
 
@@ -80,12 +92,12 @@
             var dfd = $q.defer();
             var req = {
                 method: 'GET',
-                // url: API_CONFIG.baseUrl + API_CONFIG.userUrl + '/invoices?' + $.param(paramObj),
-                url: '/invoices?' + $.param(paramObj),
+                url: API_CONFIG.baseUrl + API_CONFIG.authenticationUrl + 'invoices?' + $.param(paramObj),
+                // url: 'http://127.0.0.1:9000/invoices?' + $.param(paramObj),
                 headers: utilService.getHeaders()
             }
             $http(req).then(function(response) {
-               dfd.resolve(response.data.invoices);
+                dfd.resolve(response.data.invoices);
             }, utilService.handleError);
 
             return dfd.promise;

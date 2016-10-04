@@ -22,9 +22,28 @@ input {
     cursor: pointer;
 }
 
+.center-block {
+    margin: 0 auto !important;
+}
+
+.md-display-36 {
+    font-size: 36px;
+    font-weight: 200;
+    letter-spacing: -.01em;
+    line-height: 36px;
+}
+
+.md-display-24 {
+    font-size: 24px;
+    font-weight: 200;
+    letter-spacing: -.01em;
+    line-height:24px;
+}
+
 .clickable:hover {
     background-color: rgba(158, 158, 158, 0.2);
 }
+
 .clickable.widget:hover {
     background-color: rgb(15, 45, 78) !important;
 }
@@ -75,7 +94,11 @@ md-grid-tile-footer {
 .flex-basis {
     flex-basis: 33% !important;
 }
-
+.fab-relative{
+         position: absolute;
+       bottom: 5px;
+    right: 5px;
+}
 md-dialog {
     min-width: 500px !important;
 }
@@ -90,9 +113,11 @@ md-toolbar.space-toolbar {
 .md-contact-suggestion .md-contact-name {
     min-width: 300px !important;
 }
-.md-virtual-repeat-container.md-autocomplete-suggestions-container{
+
+.md-virtual-repeat-container.md-autocomplete-suggestions-container {
     min-width: 350px !important;
 }
+
 
 /**
  *  Do not remove this comments bellow. It's the markers used by gulp-inject to inject

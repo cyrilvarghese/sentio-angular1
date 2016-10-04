@@ -7,31 +7,32 @@
                 <div flex="100" layout="row" layout-align="space-between center" layout-padding="" class="full-width">
                     <span>Current Plan </span>
                     <div layout="row" layout-align="end end">
-                        <span>Plan A</span>
+                        <span>{{vm.plan.plan_name}}</span>
                     </div>
                 </div>
-                <div flex="100" layout="row" layout-align="space-between center" layout-padding="" class="full-width">
+             <div flex="100" layout="row" layout-align="space-between center" layout-padding="" class="full-width">
                     <span>Status  </span>
                     <span>Active</span>
                 </div>
                 <div flex="100" layout="row" layout-align="space-between center" layout-padding="" class="full-width">
-                    <span>Expires  </span>
-                    <span>31<sup>st</sup> December 2016</span>
+                    <span>Projects Allowed</span>
+                    <span>{{vm.plan.num_projects}}</span>
                 </div>
                 <div flex="100" layout="row" layout-align="space-between center" layout-padding="" class="full-width">
-                    <span>Spaces  </span>
-                    <span>12(20 allowed)</span>
+                    <span>Spaces Allowed</span>
+                    <span>{{vm.plan.num_spaces}}</span>
                 </div>
                 <div flex="100" layout="row" layout-align="space-between center" layout-padding="" class="full-width">
-                    <span>Spaces  </span>
-                    <span>12(20 allowed)</span>
+                    <span>Members Allowed</span>
+                    <span>{{vm.plan.num_members}}</span>
                 </div>
-                <div flex="100" layout="row" layout-align="space-between center" layout-padding="" class="full-width">
-                    <span>Spaces  </span>
-                    <span>12(20 allowed)</span>
+                 <div flex="100" layout="row" layout-align="space-between center" layout-padding="" class="full-width">
+                    <span>Price</span>
+                    <span>{{vm.plan.price_usds}}</span>
                 </div>
+               
          <div layout="row" layout-align="space-between center">
-              <md-button class="md-primary md-raised "> Change Plan</md-button>
+              <md-button class="md-primary md-raised " ng-click="vm.navigateToPlanChange()"> Change Plan</md-button>
               <md-button class="md-primary md-default "> Cancel Plan</md-button>
         </div>
         </tri-widget>
