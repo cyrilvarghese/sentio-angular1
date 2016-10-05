@@ -34,9 +34,7 @@
 
             };
 
-            billingService.getInvoicesList(paramObj).then(function(data) {
-                console.log(data);
-            });
+           
             billingService.getPlanList(paramObj).then(function(data) {
                 vm.plans = data;
                 triLoaderService.setLoaderActive(false);

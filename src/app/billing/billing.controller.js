@@ -34,7 +34,10 @@
             billingService.getSubscriptionDetails(paramObj).then(function(data) {
                vm.plan=data;
             });
-           
+             billingService.getInvoicesList(paramObj).then(function(data) {
+               vm.invoices=data;
+            });
+       
         }
 
 

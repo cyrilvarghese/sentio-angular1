@@ -92,8 +92,8 @@
             var dfd = $q.defer();
             var req = {
                 method: 'GET',
-                url: API_CONFIG.baseUrl + API_CONFIG.authenticationUrl + 'invoices?' + $.param(paramObj),
-                // url: 'http://127.0.0.1:9000/invoices?' + $.param(paramObj),
+                // url: API_CONFIG.baseUrl + API_CONFIG.authenticationUrl + 'invoices?' + $.param(paramObj),
+                url: 'http://127.0.0.1:9000/invoices?' + $.param(paramObj),
                 headers: utilService.getHeaders()
             }
             $http(req).then(function(response) {
