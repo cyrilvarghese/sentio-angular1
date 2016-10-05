@@ -90,11 +90,15 @@
                                                 </div>
                                             </div>
                                             <md-divider class=" padding-top-20"></md-divider>
-                                            <form action="http://52.43.239.79/api/v1/user/subscription?apiToken={{vm.token}}" method="POST">
+                                            <div class="md-padding">
+                                                  <form class="md-padding" action="http://52.43.239.79/api/v1/user/subscription?apiToken={{vm.token}}" method="POST">
                                                 <input type="hidden" id="plan" name="planId" value="{{vm.selectedPlan.id}}">
                                                 <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_gsuHQW9VUvUaSMEqw0voUH64" data-amount="amout" data-name="SentioVR" data-description="Widget" data-image="assets/images/logo.png " data-name data-locale="auto" data-zip-code="true">
                                                 </script>
                                             </form>
+                                            </div>
+                                          
+
                                         </div>
                                     </div>
                                 </div>
