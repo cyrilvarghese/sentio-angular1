@@ -1,8 +1,7 @@
 <div>
     <div flex layout="row" layout-align="center center" layout-fill>
         <md-card flex="90" class="md-whiteframe-z1 margin-bottom-100" tri-wizard>
-             
-            <md-tabs class="md-primary" layout-fill md-selected="triWizard.currentStep"  md-dynamic-height>
+            <md-tabs class="md-primary" layout-fill md-selected="triWizard.currentStep" md-dynamic-height>
                 <md-tab id="select-plan">
                     <md-tab-label>
                         <span class="oxy-step-label">1</span>
@@ -39,21 +38,19 @@
                                                 <span>{{plan.num_members}}</span>
                                                 <span>Members Allowed</span>
                                             </div>
-                                           
                                         </div>
-                                            <md-divider class="md-padding"></md-divider>
-                                         <md-button class="md-fab fab-relative "   ng-click="vm.goToSummary(plan);triWizard.nextStep()" aria-label="fab button ">
-                                                <md-icon md-font-icon="zmdi zmdi-shopping-basket "></md-icon>
-                                                  <md-tooltip>Select Plan</md-tooltip>
-
-                                            </md-button>
+                                        <md-divider class="md-padding"></md-divider>
+                                        <md-button class="md-fab fab-relative " ng-click="vm.goToSummary(plan);triWizard.nextStep()" aria-label="fab button ">
+                                            <md-icon md-font-icon="zmdi zmdi-shopping-basket "></md-icon>
+                                            <md-tooltip>Select Plan</md-tooltip>
+                                        </md-button>
                                     </div>
                                 </div>
                             </div>
                         </md-content>
                     </md-tab-body>
                 </md-tab>
-                <md-tab id="pay" ng-disabled="!vm.selectedPlan" >
+                <md-tab id="pay" ng-disabled="!vm.selectedPlan">
                     <md-tab-label>
                         <span class="oxy-step-label">2</span>
                         <span translate>Make Payment</span>
@@ -63,43 +60,42 @@
                             <form name="fileUploadForm" tri-wizard-form>
                                 <div>
                                     <div layout="row" layout-align="space-around center">
-                                         
-                                    <div class="md-whiteframe-z4 margin-20   text-center" style="position: relative">
-                                    <p class="md-headline">{{vm.selectedPlan.plan_name|capitalize}} plan selected</p>
-                                        <md-toolbar class="md-tall " palette-background="green:500">
-
-                                            <div flex="column">
-                                                <p class="center-block md-padding" style="padding-top:30px">
-                                                    <span class="md-display-36 text-center">$ {{vm.selectedPlan.price_usd}}</span>
-                                                </p>
-                                                <p class="center-block">
-                                                    <span class="md-display-24 text-center">{{vm.selectedPlan.plan_name|capitalize}}</span>
-                                                </p>
-                                            </div>
-                                        </md-toolbar>
-                                        <div style="    min-height: 170px;
+                                        <div class="md-whiteframe-z4 margin-20   text-center" style="position: relative">
+                                            <p class="md-headline">{{vm.selectedPlan.plan_name|capitalize}} plan selected</p>
+                                            <md-toolbar class="md-tall " palette-background="green:500">
+                                                <div flex="column">
+                                                    <p class="center-block md-padding" style="padding-top:30px">
+                                                        <span class="md-display-36 text-center">$ {{vm.selectedPlan.price_usd}}</span>
+                                                    </p>
+                                                    <p class="center-block">
+                                                        <span class="md-display-24 text-center">{{vm.selectedPlan.plan_name|capitalize}}</span>
+                                                    </p>
+                                                </div>
+                                            </md-toolbar>
+                                            <div style="    min-height: 170px;
                                                         min-width: 190px;
                                               padding: 0px 45px;
                                                   ">
-                                            <div flex="100" layout="row" layout-align="start center" layout-padding="" class="center-block">
-                                                <span>{{vm.selectedPlan.num_projects}}</span>
-                                                <span>Projects Allowed</span>
+                                                <div flex="100" layout="row" layout-align="start center" layout-padding="" class="center-block">
+                                                    <span>{{vm.selectedPlan.num_projects}}</span>
+                                                    <span>Projects Allowed</span>
+                                                </div>
+                                                <div flex="100" layout="row" layout-align="start center" layout-padding="" class="center-block">
+                                                    <span>{{vm.selectedPlan.num_spaces}}</span>
+                                                    <span>Spaces Allowed</span>
+                                                </div>
+                                                <div flex="100" layout="row" layout-align="start center" layout-padding="" class="center-block">
+                                                    <span>{{vm.selectedPlan.num_members}}</span>
+                                                    <span>Members Allowed</span>
+                                                </div>
                                             </div>
-                                            <div flex="100" layout="row" layout-align="start center" layout-padding="" class="center-block">
-                                                <span>{{vm.selectedPlan.num_spaces}}</span>
-                                                <span>Spaces Allowed</span>
-                                            </div>
-                                            <div flex="100" layout="row" layout-align="start center" layout-padding="" class="center-block">
-                                                <span>{{vm.selectedPlan.num_members}}</span>
-                                                <span>Members Allowed</span>
-                                            </div>
-                                           
-                                        </div>
                                             <md-divider class=" padding-top-20"></md-divider>
-                                       
-                                            <payment-btn id="payment-btn" amount="vm.selected.price_usd" plan-id="vm.selectedPlan.id"></payment-btn>
-                                    
-                                </div>
+                                            <form action="http://52.43.239.79/api/v1/user/subscription?apiToken={{vm.token}}" method="POST">
+                                                <input type="hidden" id="plan" name="planId" value="{{vm.selectedPlan.id}}">
+                                                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_gsuHQW9VUvUaSMEqw0voUH64" data-amount="amout" data-name="SentioVR" data-description="Widget" data-image="assets/images/logo.png " data-name data-locale="auto" data-zip-code="true">
+                                                </script>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </form>
@@ -123,7 +119,6 @@
             </md-tabs>
             <md-card-actions layout="row" layout-align="end center">
                 <md-button class="md-primary md-raised" ng-click="triWizard.prevStep()" ng-hide="triWizard.currentStep > 2" ng-disabled="triWizard.prevStepDisabled()" translate="Previous"></md-button>
-     
                 <md-button class="md-primary md-raised" ng-click="triWizard.nextStep()" ng-hide=" triWizard.currentStep < 2" ng-disabled="triWizard.nextStepDisabled()" translate="Done"></md-button>
             </md-card-actions>
     </div>

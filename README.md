@@ -4,4 +4,4 @@
 
 #remove base tag from src/index.html
 #remove html5 mode from config.chart.js
-#gulp serve 
+#gulp serve se

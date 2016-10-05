@@ -8,7 +8,8 @@
     /* @ngInject */
     function changePlanController($mdSidenav, $rootScope, $state, $timeout, $stateParams, billingService, $scope, triLoaderService, organizationService, triBreadcrumbsService, projectService, toastService) {
         var vm = this;
-        triLoaderService.setLoaderActive(true);
+        vm.token=localStorage.getItem('apiToken')||0;
+        // triLoaderService.setLoaderActive(true);
         $rootScope.$broadcast('updateBreadcrumbs', 'Change Billing Plan');
 
         // vm.projects = $stateParams.projects;
@@ -37,7 +38,7 @@
            
             billingService.getPlanList(paramObj).then(function(data) {
                 vm.plans = data;
-                triLoaderService.setLoaderActive(false);
+                // triLoaderService.setLoaderActive(false);
             });
         }
 
