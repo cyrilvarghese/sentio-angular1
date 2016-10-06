@@ -91,11 +91,12 @@
                                             </div>
                                             <md-divider class=" padding-top-20"></md-divider>
                                             <div class="md-padding">
-                                                <form action="{{'http://52.43.239.79/api/v1/user/subscription?api_token='+vm.token| trusted}}" method="POST">
-                                                    <input type="hidden" id="plan" name="planId" value="{{vm.selectedPlan.id}}">
-                                                    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_gsuHQW9VUvUaSMEqw0voUH64" data-amount="{{vm.selectedPlan.price_usd}}" data-name="Stripe.com" data-description="Widget" data-image="https://stripe.com/img/documentation/checkout/marketplace.png" data-locale="auto" data-zip-code="true">
-                                                    </script>
-                                                </form>
+
+                                                  <form class="md-padding" action="{{'http://52.43.239.79/api/v1/user/subscription?api_token='+vm.token|trusted}}" method="POST">
+                                                <input type="hidden" id="plan" name="plan_id" value="{{vm.selectedPlan.id}}">
+                                                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_gsuHQW9VUvUaSMEqw0voUH64" data-amount="amout" data-name="SentioVR" data-description="Widget" data-image="assets/images/logo.png " data-name data-locale="auto" data-zip-code="true">
+                                                </script>
+                                            </form>
                                             </div>
                                         </div>
                                     </div>
