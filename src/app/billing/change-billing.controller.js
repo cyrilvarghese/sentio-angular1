@@ -8,6 +8,7 @@
     /* @ngInject */
     function changePlanController($mdSidenav, $rootScope, $state, $timeout, $stateParams, billingService, $scope, triLoaderService, organizationService, triBreadcrumbsService, projectService, toastService) {
         var vm = this;
+        vm.token = localStorage.getItem('apiToken');
         triLoaderService.setLoaderActive(true);
         $rootScope.$broadcast('updateBreadcrumbs', 'Change Billing Plan');
 

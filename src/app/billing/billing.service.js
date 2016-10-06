@@ -37,6 +37,7 @@
             }
             $http(req).then(function(response) {
                 response.data.plans = _.map(response.data.plans, function(value, key) {
+                    value.price_usd=value.price_usd*100;
                     if (key === 0) {
                         value.color = "light-blue:600";
                     } else if (key === 1) {
