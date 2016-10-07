@@ -13,9 +13,9 @@
         init();
         vm.navigateToPlanChange = navigateToPlanChange;
         vm.removePlan = removePlan;
-  vm.orgId = $stateParams.id;
+        vm.orgId = $stateParams.id;
         vm.token = localStorage.getItem('apiToken') || 0;
-     
+
         function navigateToPlanChange() {
             $state.go('triangular.organizations.detail.billing.change', {
                 currentPlanId: vm.plan.plan_id,
@@ -36,7 +36,9 @@
             });
 
             if ($stateParams.subscriptionCreated && $state.current.name === "triangular.organizations.detail.billing") {
-                openDialog($stateParams.subscriptionCreated === "1")
+                openDialog($stateParams.subscriptionCreated === "1","payment")
+            } else if ($stateParams.cardUpdated) {
+                openDialog($stateParams.cardUpdated === "1","card")
             }
 
         }
@@ -50,35 +52,71 @@
             billingService.cancelSubscription(paramObj);
         }
 
-        function openDialog(success) {
-            if (success) {
-                $mdDialog.show({
-                    controller: 'statusDialogController',
-                    controllerAs: 'vm',
-                    templateUrl: 'app/billing/dialogs/status-dialog.tmpl.html',
-                    clickOutsideToClose: true,
-                    focusOnOpen: false,
-                    locals: {
-                        title: "Transaction Success",
-                        color: "green:500",
-                        message: "Thankyou we have received the payment and have successfully updated your plan."
-                    },
-                    fullscreen: true,
-                });
-            } else {
-                $mdDialog.show({
-                    controller: 'statusDialogController',
-                    controllerAs: 'vm',
-                    templateUrl: 'app/billing/dialogs/status-dialog.tmpl.html',
-                    clickOutsideToClose: true,
-                    focusOnOpen: false,
-                    locals: {
-                        title: "Transaction Failed",
-                        color: "red:500",
-                        message: "We were unable to procees the pament and  update your plan.Please contact support."
-                    },
-                    fullscreen: true,
-                });
+        function openDialog(success,type) {
+
+            if (type === "payment")
+
+            {
+                if (success) {
+                    $mdDialog.show({
+                        controller: 'statusDialogController',
+                        controllerAs: 'vm',
+                        templateUrl: 'app/billing/dialogs/status-dialog.tmpl.html',
+                        clickOutsideToClose: true,
+                        focusOnOpen: false,
+                        locals: {
+                            title: "Transaction Success",
+                            color: "green:500",
+                            message: "Thankyou we have received the payment and have successfully updated your plan."
+                        },
+                        fullscreen: true,
+                    });
+                } else {
+                    $mdDialog.show({
+                        controller: 'statusDialogController',
+                        controllerAs: 'vm',
+                        templateUrl: 'app/billing/dialogs/status-dialog.tmpl.html',
+                        clickOutsideToClose: true,
+                        focusOnOpen: false,
+                        locals: {
+                            title: "Transaction Failed",
+                            color: "red:500",
+                            message: "We were unable to procees the pament and  update your plan.Please contact support."
+                        },
+                        fullscreen: true,
+                    });
+                }
+            }else{
+
+                if (success) {
+                    $mdDialog.show({
+                        controller: 'statusDialogController',
+                        controllerAs: 'vm',
+                        templateUrl: 'app/billing/dialogs/status-dialog.tmpl.html',
+                        clickOutsideToClose: true,
+                        focusOnOpen: false,
+                        locals: {
+                            title: "Card Update Success",
+                            color: "green:500",
+                          message: "We could successfully update your card."
+                        },
+                        fullscreen: true,
+                    });
+                } else {
+                    $mdDialog.show({
+                        controller: 'statusDialogController',
+                        controllerAs: 'vm',
+                        templateUrl: 'app/billing/dialogs/status-dialog.tmpl.html',
+                        clickOutsideToClose: true,
+                        focusOnOpen: false,
+                        locals: {
+                            title: "Card Update Failed",
+                            color: "red:500",
+                            message: "We could not update your card.Please retry later."
+                        },
+                        fullscreen: true,
+                    });
+                }
             }
         }
 
