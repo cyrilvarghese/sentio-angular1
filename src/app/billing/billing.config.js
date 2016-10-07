@@ -9,7 +9,7 @@
     function moduleConfig($stateProvider, triMenuProvider) {
         triMenuProvider.addMenu({
             name: 'Billing',
-            icon: 'fa fa-list',
+            icon: 'fa fa-dollar',
             state: 'triangular.organizations.detail.billing',
             type: 'link',
             id: 'billing',
@@ -20,7 +20,7 @@
 
         $stateProvider
             .state('triangular.organizations.detail.billing', {
-                url: '/billing',
+                url: '/billing?subscriptionCreated=',
                 templateUrl: 'app/billing/billing.tmpl.html',
                 controller: 'billingController',
                 controllerAs: 'vm',
@@ -34,10 +34,11 @@
 
 
             }).state('triangular.organizations.detail.billing.change', {
-                url: '/change-plan',
+                url: '/change-plan?currentPlanId=',
                 templateUrl: 'app/billing/change-plan.tmpl.html',
                 controller: 'changePlanController',
                 controllerAs: 'vm',
+
                 // layout-column class added to make footer move to
                 // bottom of the page on short pages
                 data: {

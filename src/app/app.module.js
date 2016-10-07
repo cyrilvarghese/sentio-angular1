@@ -44,6 +44,7 @@
         'logoUrl':'api/v1/logo/',
         'themeUrl':'api/v1/theme/',
         'galleryUrl':'api/v1/gallery/',
+        'changePlan':'api/v1/user/plan_update?',
         'apiKey':'7nZOLvhjP21/XqzuQCb0uylmBnbAtcPMil+6momlp5E='
     });
     //         C:\Program Files (x86)\Google\Chrome\Application>chrome.exe --user-data-dir="C:/ Chrome dev session" --disable-web-security

@@ -1,0 +1,19 @@
+<md-dialog aria-label="{{vm.title}}">
+    <md-toolbar palette-background="{{vm.color}}">
+        <div class="md-toolbar-tools" >
+            <h2>{{vm.title}}!</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="vm.cancel()">
+                <md-icon class="zmdi zmdi-close" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <md-content class="md-padding">
+            
+             <p class=".md-display-16 ">{{vm.message}}</p>
+            
+           
+        </md-content>
+    </md-dialog-content>
+</md-dialog>

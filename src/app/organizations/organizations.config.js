@@ -9,8 +9,8 @@
     function moduleConfig($stateProvider, triMenuProvider) {
 
         triMenuProvider.addMenu({
-            name: 'Account & Billing info',
-            icon: 'fa fa-dollar',
+            name: 'Account info',
+            icon: 'fa fa-info',
             state: 'triangular.organizations.detail',
             type: 'link',
             id: 'account',

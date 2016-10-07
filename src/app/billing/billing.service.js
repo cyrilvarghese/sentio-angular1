@@ -13,13 +13,35 @@
             getPlanList: getPlanList,
             cancelSubscription: cancelSubscription,
             getInvoicesList: getInvoicesList,
-            getSubscriptionDetails: getSubscriptionDetails
+            getSubscriptionDetails: getSubscriptionDetails,
+            changePlan: changePlan
         };
 
         return service;
 
 
-        function getCurrentOrganization() {
+        function changePlan(paramObj) {
+            var dfd = $q.defer();
+            var req = {
+                method: 'POST',
+                url: API_CONFIG.baseUrl + API_CONFIG.changePlan + $.param(paramObj),
+                headers: utilService.getHeaders(),
+                data: paramObj
+            }
+            $http(req).then(function(response) {
+                // currentUser = user;
+                toastService.show(response.data.message);
+                dfd.resolve();
+                $state.go('triangular.organizations.detail.billing', { subscriptionCreated: 1 }, { reload: true });
+
+            },function(){
+                 toastService.show(response.data.message);
+                dfd.reject();
+                $state.go('triangular.organizations.detail.billing', { subscriptionCreated: 0}, { reload: true });
+
+            });
+
+            return dfd.promise;
 
         }
 
@@ -32,12 +54,11 @@
             var req = {
                 method: 'GET',
                 url: API_CONFIG.baseUrl + API_CONFIG.sharedUrl + 'plans?' + $.param(paramObj),
-                // url: 'http://127.0.0.1:9000/plans?' + $.param(paramObj),
                 headers: utilService.getHeaders()
             }
             $http(req).then(function(response) {
                 response.data.plans = _.map(response.data.plans, function(value, key) {
-                    value.price_usd=value.price_usd*100;
+                    value.price_cents = value.price_usd * 100;
                     if (key === 0) {
                         value.color = "light-blue:600";
                     } else if (key === 1) {
@@ -62,8 +83,6 @@
             var req = {
                 method: 'GET',
                 url: API_CONFIG.baseUrl + API_CONFIG.authenticationUrl + 'subscription_details?' + $.param(paramObj),
-                // url:  'http://127.0.0.1:9000/subscription_details?' + $.param(paramObj),
-                headers: utilService.getHeaders()
             }
             $http(req).then(function(response) {
                 dfd.resolve(response.data.plan);
@@ -93,8 +112,8 @@
             var dfd = $q.defer();
             var req = {
                 method: 'GET',
-                // url: API_CONFIG.baseUrl + API_CONFIG.authenticationUrl + 'invoices?' + $.param(paramObj),
-                url: 'http://127.0.0.1:9000/invoices?' + $.param(paramObj),
+                url: API_CONFIG.baseUrl + API_CONFIG.authenticationUrl + 'invoices?' + $.param(paramObj),
+                // url: 'http://127.0.0.1:9000/invoices?' + $.param(paramObj),
                 headers: utilService.getHeaders()
             }
             $http(req).then(function(response) {

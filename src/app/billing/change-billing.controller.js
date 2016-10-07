@@ -8,8 +8,13 @@
     /* @ngInject */
     function changePlanController($mdSidenav, $rootScope, $state, $timeout, $stateParams, billingService, $scope, triLoaderService, organizationService, triBreadcrumbsService, projectService, toastService) {
         var vm = this;
-
-        vm.token=localStorage.getItem('apiToken')||0;
+        if ($stateParams.currentPlanId) {
+            vm.currentPlanId = JSON.parse($stateParams.currentPlanId, 10);
+        } else {
+            vm.currentPlanId = 0;
+        }
+        vm.orgId = $stateParams.id;
+        vm.token = localStorage.getItem('apiToken') || 0;
         // triLoaderService.setLoaderActive(true);
         $rootScope.$broadcast('updateBreadcrumbs', 'Change Billing Plan');
 
@@ -22,21 +27,11 @@
         }
 
         function init() {
-            // var paramObj = {
-            //     orgId:organizationService.getCurrentOrganization().org_id,
-            //     api_token: localStorage.getItem('apiToken')
-            // }
-
-
-            // projectService.getProjectList(paramObj).then(function(data) {
-            //     vm.projects = data.project_list;
-            // });
+         
             var paramObj = {
                 'api_token': localStorage.getItem('apiToken'),
 
             };
-
-           
             billingService.getPlanList(paramObj).then(function(data) {
                 vm.plans = data;
                 // triLoaderService.setLoaderActive(false);
@@ -51,6 +46,18 @@
         vm.proceeedToPay = function proceeedToPay(selectedPlan) {
             angular.element('#payment-btn button').click();
         }
+        vm.changePlan = function changePlan(selectedPlan) {
+               var paramObj = {
+                'api_token': localStorage.getItem('apiToken'),
+                'plan_id':selectedPlan.id
+
+            };
+            billingService.changePlan(paramObj).then(function(data) {
+                vm.plans = data;
+                // triLoaderService.setLoaderActive(false);
+            });
+        }
+
 
 
 
