@@ -46,6 +46,8 @@
                 }).then(function(response) {
                     toastService.show(response.data.message);
                     dfd.resolve(response);
+                $state.go('triangular.organizations.detail.projects.detail.spaces', { selectedTabIndex: 0 }, { reload: true });
+                    
                     // console.log('Success? ' + response.config.data.file.name + 'uploaded. responseonse: ' + response.data);
                 }, function(response) {
                     dfd.reject(response);

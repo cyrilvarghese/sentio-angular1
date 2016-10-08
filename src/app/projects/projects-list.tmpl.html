@@ -1,8 +1,8 @@
 <ui-view>
     <md-content class="padded-content-page">
-        <div class="md-padding" layout-gt-sm="row" layout-sm="column">
+        <div class="md-padding" layout="row"  layout-wrap flex="100" layout-gt-sm="row" layout-sm="column">
             <div flex="33" class="flex-basis" ng-repeat="project in ::vm.projects track by $index" flex-xs="100">
-                <md-card class="clickable" ng-click="vm.navigateToSpaces(project.id,project)" >
+                <md-card style="height:170px " class="clickable" ng-click="vm.navigateToSpaces(project.id,project)" >
                     <md-card-header    >
                      
                         <md-card-header-text>

@@ -21,6 +21,7 @@
 
 
         function changePlan(paramObj) {
+             toastService.show("changing plan subscription...");
             var dfd = $q.defer();
             var req = {
                 method: 'POST',
@@ -85,13 +86,14 @@
                 url: API_CONFIG.baseUrl + API_CONFIG.authenticationUrl + 'subscription_details?' + $.param(paramObj),
             }
             $http(req).then(function(response) {
-                dfd.resolve(response.data.plan);
+                dfd.resolve(response.data);
             }, utilService.handleError);
 
             return dfd.promise;
         }
 
         function cancelSubscription(paramObj) {
+             toastService.show("cancelling subscription...");
 
             var dfd = $q.defer();
             var req = {
@@ -100,6 +102,9 @@
                 headers: utilService.getHeaders()
             }
             $http(req).then(function(response) {
+                  toastService.show(response.data.message);
+                $state.go($state.current, {}, { reload: true });
+
                 dfd.resolve(response.data);
             }, utilService.handleError);
 

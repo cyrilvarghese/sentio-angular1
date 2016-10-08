@@ -6,7 +6,7 @@
          .controller('organizationsController', organizationsController);
 
      /* @ngInject */
-     function organizationsController($state, triLayout, $mdSidenav, triBreadcrumbsService, organizationService, $scope, $element, $myElementInkRipple) {
+     function organizationsController($state, triLayout,$rootScope, $mdSidenav, triBreadcrumbsService, organizationService, $scope, $element, $myElementInkRipple) {
          var vm = this;
 
 
@@ -43,6 +43,7 @@
          }
 
          function navigateToProjects(org, id) {
+             // $rootScope.accountExpired=true;
              $state.go('triangular.organizations.detail.projects',{
                  id: id
              });

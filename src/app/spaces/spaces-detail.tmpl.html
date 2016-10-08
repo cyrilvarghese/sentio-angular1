@@ -77,20 +77,7 @@
                         </md-content>
                     </md-tab-body>
                 </md-tab> -->
-                <md-tab id="confirm" ng-if="vm.id===0" ng-disabled="vm.uploadIncomplete">
-                    <md-tab-label>
-                        <span class="oxy-step-label">3</span>
-                        <span translate>Finish</span>
-                    </md-tab-label>
-                    <md-tab-body>
-                        <md-content class="md-padding">
-                            <div class="padding-40" flex layout="column" layout-align="center center">
-                                <md-icon class="big-icon" md-font-icon="zmdi zmdi-cake"></md-icon>
-                                <h2 class="md-title" translate>Congratulations -You can now add and edit scenes for this space  </h2>
-                            </div>
-                        </md-content>
-                    </md-tab-body>
-                </md-tab>
+                
             </md-tabs>
             <md-card-actions layout="row" layout-align="end center">
                 <md-button class="md-primary md-raised" ng-if="vm.id!==0" ng-click="vm.updateSpace()">Save</md-button>

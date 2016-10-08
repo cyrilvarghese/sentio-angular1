@@ -20,7 +20,7 @@
 
         $stateProvider
             .state('triangular.organizations.detail.billing', {
-                url: '/billing?subscriptionCreated&cardUpdated',
+                url: '/billing?subscriptionCreated&cardUpdated&accountExpired',
                 templateUrl: 'app/billing/billing.tmpl.html',
                 controller: 'billingController',
                 controllerAs: 'vm',

@@ -21,7 +21,12 @@ input {
 .clickable {
     cursor: pointer;
 }
-
+.truncate{
+      
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .center-block {
     margin: 0 auto !important;
 }

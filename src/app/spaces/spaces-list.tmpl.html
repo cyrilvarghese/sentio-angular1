@@ -45,7 +45,8 @@
                                     </div>
                                 </a>
                                 <md-card-content>
-                                    <p style="height: 100px; overflow: auto;">{{value.desc}}</p>
+                                    <p style="height: 50px" class="truncate">{{value.desc}}</p>
+                                    <md-tooltip >{{value.desc}}</md-tooltip>
                                 </md-card-content>
                                 <md-card-actions layout="row" layout-align="end center">
                                     <!--  ng-href='http://{{value.editorUrl}}' -->

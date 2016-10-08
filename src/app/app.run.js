@@ -29,14 +29,26 @@
                 } else {
                     return;
                 }
+                if($rootScope.accountExpired){
+                    $state.go('triangular.organizations.detail.billing');
+                     triLayout.setOption('sideMenuSize', 'off');
+                }
 
             });
         $rootScope.$on('$stateChangeSuccess',
             function(event, toState, toParams, fromState, fromParams, options) {
+                // $rootScope.accountExpired=localstorage.getItem('accountExpired');
                 if (toState.name === 'triangular.organizations' || toState.name === 'triangular.profile') {
                     triLayout.setOption('sideMenuSize', 'off');
 
                 }
+                 else if($rootScope.accountExpired&&toState.name !== 'triangular.organizations.detail.billing.change'){
+                    $state.go('triangular.organizations.detail.billing',{
+                        accountExpired:1
+                    });
+                     triLayout.setOption('sideMenuSize', 'off');
+                }
+
             });
     }
     /*global services usedby app*/
