@@ -1,4 +1,4 @@
-var mapLocation = new google.maps.LatLng(40.6700, -73.9400); //change coordinates here
+var mapLocation = new google.maps.LatLng(-33.4267933,-70.6200213); //change coordinates here
 var marker;
 var map;
 
@@ -18,9 +18,9 @@ function initialize() {
     //change address details here
     var contentString = '<div class="map-info-box">' 
     + '<div class="map-head">' 
-    + '<h3>Launch</h3></div>' 
-    + '<p class="map-address"><i class="fa fa-map-marker"></i> Lorem ipsum dolor sit amet <br><i class="fa fa-phone"></i> 604-788-1832<br><span class="map-email"><i class="fa fa-envelope"></i> info@sitename.com</span></p>' 
-    + '<p><a href="https://www.google.com/maps/place/851+6th+Ave,+New+York,+NY+10001,+USA/data=!4m2!3m1!1s0x89c259af44f80211:0xbd87d30d3c7da9d2?sa=X&amp;ei=KqAdVazxJMTkuQS9sIGIBQ&amp;aved=0CB0Q8gEwAA" target="_blank">Open on Google Maps</a></p></div>';
+    + '<h3>Sentio VR</h3></div>' 
+    + '<p class="map-address"><i class="fa fa-map-marker"></i>Santa Beatriz 91, Providencia, ChileSanta Beatriz 91, Providencia, Chile<span ' 
+    + '<p><a href="https://www.google.co.in/maps/place/Sta+Beatriz+91,+Providencia,+Regi%C3%B3n+Metropolitana,+Chile/@-33.4267933,-70.6200213,17z/data=!3m1!4b1!4m5!3m4!1s0x9662cf63a6705415:0xa512b5ad8aa5d76d!8m2!3d-33.4267933!4d-70.6178326?hl=en" target="_blank">Open on Google Maps</a></p></div>';
     
     
     var infowindow = new google.maps.InfoWindow({

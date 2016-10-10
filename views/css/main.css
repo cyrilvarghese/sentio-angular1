@@ -751,10 +751,11 @@ blockquote cite {
 
 .map-head h3 {
   height: 30px;
-  background: url(../img/logo-nav.svg) 47px center no-repeat;
+  background: url(../img/logo.png) 47px center no-repeat;
   background-size: 110px auto;
   text-indent: -999em;
   margin: 12px 0 14px;
+  background-position: 0px;
 }
 
 .map-address { font-weight: 300; }
