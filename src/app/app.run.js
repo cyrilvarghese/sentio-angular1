@@ -24,14 +24,15 @@
         });
         $rootScope.$on('$stateChangeStart',
             function(event, toState, toParams, fromState, fromParams, options) {
-                if (toState.name !== "authentication.login" && !localStorage.getItem('userInfo')) {
-                    $state.go('authentication.login');
-                } else {
-                    return;
+
+                var isAuth = toState.name.includes("authentication");
+                if (isAuth) {
+                    return; // no need to redirect 
                 }
-                if($rootScope.accountExpired){
-                    $state.go('triangular.organizations.detail.billing');
-                     triLayout.setOption('sideMenuSize', 'off');
+
+                if (!localStorage.getItem('userInfo')) {
+                    event.preventDefault(); // stop current execution
+                    $state.go('authentication.login'); // go to login
                 }
 
             });
@@ -41,12 +42,11 @@
                 if (toState.name === 'triangular.organizations' || toState.name === 'triangular.profile') {
                     triLayout.setOption('sideMenuSize', 'off');
 
-                }
-                 else if($rootScope.accountExpired&&toState.name !== 'triangular.organizations.detail.billing.change'){
-                    $state.go('triangular.organizations.detail.billing',{
-                        accountExpired:1
+                } else if ($rootScope.accountExpired && toState.name !== 'triangular.organizations.detail.billing.change') {
+                    $state.go('triangular.organizations.detail.billing', {
+                        accountExpired: 1
                     });
-                     triLayout.setOption('sideMenuSize', 'off');
+                    triLayout.setOption('sideMenuSize', 'off');
                 }
 
             });

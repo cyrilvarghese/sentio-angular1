@@ -6,7 +6,7 @@
         .controller('projectsController', projectsController);
 
     /* @ngInject */
-    function projectsController($mdSidenav, $state, $timeout, $stateParams, organizationService, triBreadcrumbsService, projectService, toastService) {
+    function projectsController($mdSidenav,$mdDialog, $state, $timeout, $stateParams, organizationService, triBreadcrumbsService, projectService, toastService) {
 
         var vm = this;
         vm.deleteProject = deleteProject;
@@ -38,7 +38,23 @@
             };
             organizationService.getOrg(paramObj).then(function(data) {
                 vm.selectedOrg = data;
-                organizationService.setCurrentOrganization(vm.selectedOrg);
+                // organizationService.setCurrentOrganization(vm.selectedOrg);
+                organizationService.setCurrentOrganization({
+                    "org_id": "14",
+                    "org_name": "the org",
+                    "description": "",
+                    "creator": "cyril varghese",
+                    "role": "admin",
+                    "plan": {
+                        "plan_id": 1,
+                        "plan_name": "trial",
+                        "num_projects": "1",
+                        "num_spaces": "4",
+                        "num_members": "3",
+                        "price_usd": "0"
+                    }
+
+                });
                 vm.members = data.members;
                 vm.projects = data.projects;
                 // setBreadCrumbs();
@@ -71,30 +87,41 @@
 
 
         function deleteProject(id, project, $event) {
-            $event.stopPropagation();
             var message = 'confirm deleting project - ' + project.name;
-            toastService.showCustomToast(message, 'yes', 'no').then(function(response) {
-                console.log(response);
+
+            var confirm = $mdDialog.confirm()
+                .title('Delete Project')
+                .textContent(message)
+                .ariaLabel('delete')
+                .targetEvent($event)
+                .ok('Confirm')
+                .cancel('Cancel');
+
+            $mdDialog.show(confirm).then(function() {
                 var paramObj = {
                     project_id: id,
                     api_token: localStorage.getItem('apiToken')
                 }
                 projectService.deleteProject(paramObj);
+            }, function() {
+
             });
+            $event.stopPropagation();
 
-        }
-
-        function showProject() {
-            $state.go('triangular.projects.detail', {
-                id: 123
-            });
-        }
-
-        function selectProject(flag, project) {
-            console.log('select');
-            vm.isProjectSelected = !flag;
-            vm.selectedProject = project;
-        }
-
+        };
     }
+
+    function showProject() {
+        $state.go('triangular.projects.detail', {
+            id: 123
+        });
+    }
+
+    function selectProject(flag, project) {
+        console.log('select');
+        vm.isProjectSelected = !flag;
+        vm.selectedProject = project;
+    }
+
+
 })();

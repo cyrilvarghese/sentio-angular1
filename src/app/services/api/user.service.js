@@ -90,7 +90,9 @@
                 data: paramObj
             }
             $http(req).then(function(response) {
-                // currentUser = user;s
+                currentUser = response.data;
+                currentUser.roles = [];
+                currentUser.roles.push(currentUser.role);
                 localStorage.setItem('userInfo', JSON.stringify(response.data));
                 localStorage.setItem('apiToken', response.data.auth_key);
 
@@ -124,7 +126,7 @@
             var dfd = $q.defer();
             var req = {
                 method: 'GET',
-                url: API_CONFIG.baseUrl + API_CONFIG.authenticationUrl + 'forgot_password?' + $.param(paramObj),
+                url: API_CONFIG.baseUrl + API_CONFIG.sharedUrl + 'forgot_password?' + $.param(paramObj),
                 headers: getHeaders()
             }
             $http(req).then(function(response) {

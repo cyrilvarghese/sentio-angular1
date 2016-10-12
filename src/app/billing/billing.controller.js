@@ -9,12 +9,14 @@
     function billingController($mdSidenav, $state, $timeout, $stateParams, $mdDialog, billingService, organizationService, triBreadcrumbsService, projectService, toastService) {
         var vm = this;
 
-        // vm.projects = $stateParams.projects;
+        vm.projects = $stateParams.projects;
         init();
         vm.navigateToPlanChange = navigateToPlanChange;
         vm.removePlan = removePlan;
         vm.orgId = $stateParams.id;
         vm.token = localStorage.getItem('apiToken') || 0;
+        vm.planId = organizationService.getCurrentOrganization.plan;
+
 
         function navigateToPlanChange() {
             $state.go('triangular.organizations.detail.billing.change', {
@@ -31,7 +33,7 @@
             billingService.getSubscriptionDetails(paramObj).then(function(data) {
                 vm.plan = data.plan;
                 vm.currentCard = data.current_card;
-                vm.statusMessage = data.message;
+                vm.statusMessage = data.state.desc;
             });
             billingService.getInvoicesList(paramObj).then(function(data) {
                 vm.invoices = data;
@@ -42,18 +44,30 @@
             } else if ($stateParams.cardUpdated) {
                 openDialog($stateParams.cardUpdated === "1", "card")
             } else if ($stateParams.accountExpired) {
-                $mdDialog.show({
-                    controller: 'statusDialogController',
-                    controllerAs: 'vm',
-                    templateUrl: 'app/billing/dialogs/status-dialog.tmpl.html',
-                    clickOutsideToClose: true,
-                    focusOnOpen: false,
-                    locals: {
-                        title: "Account Expired!",
-                        color: "red:500",
-                        message: "Your account has expired.Please renew your subscription."
-                    },
-                    fullscreen: true,
+                // $mdDialog.show({
+                //     controller: 'statusDialogController',
+                //     controllerAs: 'vm',
+                //     templateUrl: 'app/billing/dialogs/status-dialog.tmpl.html',
+                //     clickOutsideToClose: true,
+                //     focusOnOpen: false,
+                //     locals: {
+                //         title: "Account Expired!",
+                //         color: "red:500",
+                //         message: "Your account has expired.Please renew your subscription."
+                //     },
+                //     fullscreen: true,
+                // });
+                var confirm = $mdDialog.confirm()
+                    .title('Account Expired!')
+                    .textContent('Your account has expired,click proceed to renew plan.')
+                    .ariaLabel('Lucky day')
+                    .ok('Please do it!')
+                    .cancel('Sounds like a scam');
+
+                $mdDialog.show(confirm).then(function() {
+                    $scope.status = 'You decided to get rid of your debt.';
+                }, function() {
+                    $scope.status = 'You decided to keep your debt.';
                 });
             }
 

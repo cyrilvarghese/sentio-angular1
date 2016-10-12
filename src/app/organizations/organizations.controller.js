@@ -8,7 +8,10 @@
      /* @ngInject */
      function organizationsController($state, triLayout,$rootScope, $mdSidenav, triBreadcrumbsService, organizationService, $scope, $element, $myElementInkRipple) {
          var vm = this;
-
+        if(!localStorage.getItem('userInfo')){
+            $state.go('authentication.login');
+            return;
+        }
 
          vm.navigateToDetail = navigateToDetail;
          vm.showMembers = showMembers;
@@ -43,6 +46,8 @@
          }
 
          function navigateToProjects(org, id) {
+
+            
              // $rootScope.accountExpired=true;
              $state.go('triangular.organizations.detail.projects',{
                  id: id

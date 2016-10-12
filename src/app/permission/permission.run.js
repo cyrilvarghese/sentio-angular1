@@ -15,17 +15,15 @@
         }
 
         // create permissions and add check function verify all permissions
-        var permissions = ['viewEmail', 'viewGitHub', 'viewCalendar', 'viewLayouts', 'viewTodo', 'viewElements', 'viewAuthentication', 'viewCharts', 'viewMaps'];
+        var permissions = ['viewBilling', 'editOrganziation', 'addMember'];
         PermissionStore.defineManyPermissions(permissions, function (permissionName) {
             return UserService.hasPermission(permissionName);
         });
 
         // create roles for app
         RoleStore.defineManyRoles({
-            'SUPERADMIN': ['viewEmail', 'viewGitHub', 'viewCalendar', 'viewLayouts', 'viewTodo', 'viewElements', 'viewAuthentication', 'viewCharts', 'viewMaps'],
-            'ADMIN': ['viewLayouts', 'viewTodo', 'viewElements', 'viewAuthentication', 'viewCharts', 'viewMaps'],
-            'USER': ['viewAuthentication', 'viewCharts', 'viewMaps'],
-            'ANONYMOUS': []
+            'admin': ['viewBilling', 'editOrganziation', 'addMember'],
+            'user': []
         });
 
 

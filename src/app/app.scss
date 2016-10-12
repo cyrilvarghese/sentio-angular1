@@ -27,6 +27,9 @@ input {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.align-right{
+    text-align: right !important;
+}
 .center-block {
     margin: 0 auto !important;
 }

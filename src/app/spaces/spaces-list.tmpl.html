@@ -4,7 +4,7 @@
             <md-content ng-if="vm.spaceList.length!==0">
                 <div class="md-padding">
                     <!-- <h2 class="md-subhead">Created By You</h2> -->
-                    <div class="md-padding" layout-align="space-between" layout-gt-sm="row" layout-wrap layout-sm="column">
+                    <div class="md-padding" layout-align="start center" layout-gt-sm="row" layout-wrap layout-sm="column">
                         <div flex="33" flex-xs="100" class="flex-basis" class="md-margin-5p" ng-repeat="(key, value) in vm.spaceList">
                             <md-card>
                                 <md-toolbar class="md-default space-toolbar">
@@ -80,7 +80,8 @@
     <md-button class="md-fab fab-add-fixed " ng-if="vm.selectedTabIndex===0 " ng-click="vm.navigateToDetail(0) " aria-label="fab button ">
         <md-icon md-font-icon="zmdi zmdi-plus "></md-icon>
     </md-button>
-    <md-button class="md-fab fab-add-fixed " ng-if="vm.selectedTabIndex===1 " ng-click="vm.openMemberDialog
+    <md-button  permission 
+     permission-except="'addMember'" class="md-fab fab-add-fixed " ng-if="vm.selectedTabIndex===1 " ng-click="vm.openMemberDialog
 () " aria-label="fab button ">
         <md-icon md-font-icon="zmdi zmdi-plus "></md-icon>
     </md-button>
