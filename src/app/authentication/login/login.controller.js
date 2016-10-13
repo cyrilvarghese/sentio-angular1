@@ -17,8 +17,7 @@
             password: '',
             confirm: '',
             org_name: $stateParams.org || '',
-            invitation_code: $stateParams.invitation_code || '',
-            password: '',
+            invitation_code: $stateParams.invitation_code || ''
 
         };
 
