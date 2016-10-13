@@ -50,6 +50,7 @@
                 headers: utilService.getHeaders()
             }
             $http(req).then(function(response) {
+                 
                 dfd.resolve(response.data);
             }, utilService.handleError);
 

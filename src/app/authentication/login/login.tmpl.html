@@ -14,7 +14,7 @@
                 <form name="login">
                     <md-input-container class="md-block">
                         <label for="email" translate>email</label>
-                        <input id="email" label="email" name="email" type="email" ng-model="vm.user.email"  md-autofocus required/>
+                        <input id="email" ng-disabled="vm.user.invitation_code" label="email" name="email" type="email" ng-model="vm.user.email"  md-autofocus required/>
                         <div ng-messages="login.email.$error" md-auto-hide="false" ng-show="login.email.$touched">
                             <div ng-message when="required"><span translate>Please enter your email address.</span></div>
                             <div ng-message when="email"><span translate>Please enter a valid email address.</span></div>

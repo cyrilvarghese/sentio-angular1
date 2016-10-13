@@ -6,15 +6,20 @@
         .controller('LoginController', LoginController);
 
     /* @ngInject */
-    function LoginController($state, toastService, triSettings, userService) {
+    function LoginController($state,$stateParams, toastService, triSettings, userService) {
         var vm = this;
         vm.loginClick = loginClick;
-    
+
         vm.triSettings = triSettings;
         // create blank user variable for login form
         vm.user = {
-            email: '',
-            password: ''
+            email: $stateParams.email || '',
+            password: '',
+            confirm: '',
+            org_name: $stateParams.org || '',
+            invitation_code: $stateParams.invitation_code || '',
+            password: '',
+
         };
 
         ////////////////

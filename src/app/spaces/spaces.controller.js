@@ -13,7 +13,7 @@
         console.log($stateParams.members);
         // vm.members = members.data.splice(0, 5);
         vm.navigateToDetail = navigateToDetail;
-        vm.selectedTabIndex = $stateParams.selectedTabIndex||0;
+        vm.selectedTabIndex = $stateParams.selectedTabIndex || 0;
         vm.showMembers = showMembers;
         vm.selectMember = selectMember;
         vm.navigateToDetail = navigateToDetail;
@@ -106,6 +106,7 @@
                 };
                 projectService.getProject(paramObj).then(function(data) {
                     vm.selectedProject = data
+                    vm.invited = data.invited;
                     vm.members = _.map(data.members, function(member) {
                         member.image = "assets/images/avatars/avatar-1.png";
                         return member;
@@ -420,11 +421,12 @@
                 fullscreen: true,
                 locals: {
                     url: url,
-                    title:"Edit Scene"
+                    title: "Edit Scene"
                 }
             });
         }
-         function openPreviewModal($event, url,title) {
+
+        function openPreviewModal($event, url, title) {
             $mdDialog.show({
                 controller: 'spaceEditorDialogController',
                 controllerAs: 'vm',
@@ -435,7 +437,7 @@
                 fullscreen: true,
                 locals: {
                     url: url,
-                    title:title
+                    title: title
                 }
             });
         }

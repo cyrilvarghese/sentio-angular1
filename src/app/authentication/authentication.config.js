@@ -38,7 +38,7 @@
                 }
             })
             .state('authentication.login', {
-                url: '/login',
+                url: '/login?invitation_code&email&org',
                 templateUrl: 'app/authentication/login/login.tmpl.html',
                 controller: 'LoginController',
                 controllerAs: 'vm'

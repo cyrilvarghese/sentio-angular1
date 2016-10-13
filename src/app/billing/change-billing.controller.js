@@ -8,8 +8,9 @@
     /* @ngInject */
     function changePlanController($mdSidenav, $rootScope, $state, $timeout, $stateParams, billingService, $scope, triLoaderService, organizationService, triBreadcrumbsService, projectService, toastService) {
         var vm = this;
-        if ($stateParams.currentPlanId) {
-            vm.currentPlanId = JSON.parse($stateParams.currentPlanId, 10);
+        if (localStorage.getItem('currentOrg')) {
+            vm.currentPlan= JSON.parse(localStorage.getItem('currentOrg')).plan;
+            vm.currentPlanId = vm.currentPlan.plan_id;
         } else {
             vm.currentPlanId = 0;
         }

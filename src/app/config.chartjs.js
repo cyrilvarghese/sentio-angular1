@@ -7,7 +7,7 @@
 
     /* @ngInject */
     function config( $httpProvider, $locationProvider) {
-         $locationProvider.html5Mode(true);
+         // $locationProvider.htmls5Mode(true);
         $httpProvider.defaults.useXDomain = true;
         $httpProvider.defaults.withCredentials = true;
         $httpProvider.defaults.xsrfCookieName = 'X-CSRF-TOKEN';

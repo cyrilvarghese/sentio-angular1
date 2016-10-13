@@ -6,7 +6,7 @@
         .controller('projectsController', projectsController);
 
     /* @ngInject */
-    function projectsController($mdSidenav,$mdDialog, $state, $timeout, $stateParams, organizationService, triBreadcrumbsService, projectService, toastService) {
+    function projectsController($mdSidenav, $mdDialog, $state, $timeout, $stateParams, organizationService, triBreadcrumbsService, projectService, toastService) {
 
         var vm = this;
         vm.deleteProject = deleteProject;
@@ -40,7 +40,7 @@
                 vm.selectedOrg = data;
                 // organizationService.setCurrentOrganization(vm.selectedOrg);
                 organizationService.setCurrentOrganization({
-                    "org_id": "14",
+                    "org_id": "15",
                     "org_name": "the org",
                     "description": "",
                     "creator": "cyril varghese",
@@ -53,7 +53,6 @@
                         "num_members": "3",
                         "price_usd": "0"
                     }
-
                 });
                 vm.members = data.members;
                 vm.projects = data.projects;

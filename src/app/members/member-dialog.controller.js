@@ -37,14 +37,20 @@
 
         function queryMembers($query) {
             var lowercaseQuery = angular.lowercase($query);
+            var members = [];
             vm.memberToBeAdded = lowercaseQuery;
-            var members = localStorage.getItem("currentOrg") ? JSON.parse(localStorage.getItem("currentOrg")).members : [];
+            if (localStorage.getItem("currentOrg") && localStorage.getItem("currentOrg").members) {
+                members = localStorage.getItem("currentOrg") ? JSON.parse(localStorage.getItem("currentOrg")).members : [];
+            }
+            else{
+                 vm.memberNotFound = true;
+            }
             members = _.map(members, function(member) {
 
                 member.name = member.name + ' - ' + member.email;
                 return member;
             });
-            return members.filter(function(member) {
+            var result= members.filter(function(member) {
                 var lowercaseName = angular.lowercase(member.name);
                 if (lowercaseName.indexOf(lowercaseQuery) !== -1) {
                     vm.memberNotFound = false;
@@ -54,6 +60,7 @@
                     vm.memberNotFound = true;
                 }
             });
+            return result;
         }
 
         function inviteMember() {
@@ -63,7 +70,9 @@
                 projectId: $stateParams.projectId
 
             }
-            projectService.sendInvite(paramObj);
+            projectService.sendInvite(paramObj).then(function(){
+                vm.closeDialog();
+            });
         }
 
     }
