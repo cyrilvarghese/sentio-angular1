@@ -43,8 +43,12 @@
                     </div>
                 </div>
                 <div layout="row" layout-align="space-between center">
-                    <md-button class="md-primary md-raised " ng-click="vm.navigateToPlanChange()"> Change Plan</md-button>
-                    <md-button class="md-primary md-default " ng-if="vm.plan.plan_name!=='trial'" ng-click="vm.removePlan(vm.plan)"> Cancel Plan</md-button>
+<!-- chagnge button name for expired accounts -->
+
+                    <md-button class="md-primary md-raised " ng-click="vm.navigateToPlanChange()"> {{vm.btnName}} Plan</md-button>
+<!-- do not shwo cancel for trial and expired accounts -->
+                    <md-button class="md-primary md-default "
+                     ng-if="vm.plan.plan_name!=='trial'&&vm.accountExpired!==1" ng-click="vm.removePlan(vm.plan)"> Cancel Plan</md-button>
                 </div>
             </tri-widget>
             <tri-widget layout-margin flex="45" flex-xs="100" palette-background="blue:800" title-position="top" content-layout-align="start center" content-layout="column">

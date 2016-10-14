@@ -6,7 +6,7 @@
         .controller('projectsDetailController', projectsDetailController);
 
     /* @ngInject */
-    function projectsDetailController($mdSidenav, $mdDialog, $state, projectService, $stateParams, logoAndThemeService, userService, triBreadcrumbsService) {
+    function projectsDetailController($mdSidenav, $mdDialog, $state, organizationService, utilService, projectService, $stateParams, logoAndThemeService, userService, triBreadcrumbsService) {
         var vm = this;
         vm.showSpaces = showSpaces;
 
@@ -14,9 +14,17 @@
         vm.leaveProject = leaveProject;
         vm.showMembers = showMembers;
         vm.id = parseInt($stateParams.projectId, 10) || 0;
+        vm.plan = organizationService.getCurrentOrganization().plan;
+        vm.projects = organizationService.getCurrentOrganization().projects;
+
         init();
 
         function init() {
+            if (vm.projects.length + 1 > parseInt(vm.plan.num_projects)) {
+                utilService.limitExceededDialog("projects");
+                $state.go('triangular.organizations.detail.projects');
+                return;
+            }
             if (vm.id !== 0) { /*edit*/
                 var paramObj = {
                     'api_token': localStorage.getItem('apiToken'),

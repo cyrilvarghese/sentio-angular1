@@ -41,69 +41,64 @@
                                             </div>
                                         </div>
                                         <md-divider class="md-padding"></md-divider>
-                                         
-                                            <md-button  ng-disabled="plan.id===vm.currentPlanId" ng-if="!$first" class="md-fab fab-relative " ng-click="vm.goToSummary(plan);triWizard.nextStep()" aria-label="fab button ">
-                                                <md-icon md-font-icon="zmdi zmdi-shopping-basket "></md-icon>
-                                                <md-tooltip ng-if="plan.id!==vm.currentPlanId">Select Plan</md-tooltip>
-                                            </md-button>
-                                           
+                                        <md-button ng-disabled="plan.id===vm.currentPlanId&&vm.currentPlanId!==0" ng-if="!$first" class="md-fab fab-relative" ng-click="vm.goToSummary(plan);triWizard.nextStep()" aria-label="fab button ">
+                                            <md-icon md-font-icon="zmdi zmdi-shopping-basket "></md-icon>
+                                            <md-tooltip ng-if="plan.id!==vm.currentPlanId">Select Plan</md-tooltip>
+                                        </md-button>
                                     </div>
-                                     <md-tooltip style="font-size: 12px !important;" ng-if="$first">Cannot subscribe to trail plan</md-tooltip>
-                                     <md-tooltip style="font-size: 12px !important;" ng-if="plan.id===vm.currentPlanId">Already subscribed to this plan</md-tooltip>
+                                    <md-tooltip style="font-size: 12px !important;" ng-if="$first">Cannot subscribe to trail plan</md-tooltip>
+                                    <md-tooltip style="font-size: 12px !important;" ng-if="plan.id===vm.currentPlanId&&vm.currentPlanId!==0" ">Already subscribed to this plan</md-tooltip>
                                 </div>
                             </div>
 
                         </md-content>
                     </md-tab-body>
                 </md-tab>
-                <md-tab id="pay" ng-disabled="!vm.selectedPlan">
+                <md-tab id="pay" ng-disabled="!vm.selectedPlan ">
                     <md-tab-label>
-                        <span class="oxy-step-label">2</span>
+                        <span class="oxy-step-label ">2</span>
                         <span translate>Make Payment</span>
                     </md-tab-label>
                     <md-tab-body>
-                        <md-content class="md-padding">
+                        <md-content class="md-padding ">
                             <div>
-                                <div layout="row" layout-align="space-around center">
-                                    <div class="md-whiteframe-z4 margin-20   text-center" style="position: relative">
-                                        <p class="md-headline">{{vm.selectedPlan.plan_name|capitalize}} plan selected</p>
-                                        <md-toolbar class="md-tall " palette-background="green:500">
-                                            <div flex="column">
-                                                <p class="center-block md-padding" style="padding-top:30px">
-                                                    <span class="md-display-36 text-center">$ {{vm.selectedPlan.price_usd}}</span>
+                                <div layout="row" layout-align="space-around center ">
+                                    <div class="md-whiteframe-z4 margin-20 text-center" style="position: relative ">
+                                        <p class="md-headline ">{{vm.selectedPlan.plan_name|capitalize}} plan selected</p>
+                                        <md-toolbar class="md-tall" palette-background="green:500 ">
+                                            <div flex="column ">
+                                                <p class="center-block md-padding" style="padding-top:30px ">
+                                                    <span class="md-display-36 text-center ">$ {{vm.selectedPlan.price_usd}}</span>
                                                 </p>
-                                                <p class="center-block">
-                                                    <span class="md-display-24 text-center">{{vm.selectedPlan.plan_name|capitalize}}</span>
+                                                <p class="center-block ">
+                                                    <span class="md-display-24 text-center ">{{vm.selectedPlan.plan_name|capitalize}}</span>
                                                 </p>
                                             </div>
                                         </md-toolbar>
-                                        <div style="    min-height: 170px;
-                                                        min-width: 190px;
-                                              padding: 0px 45px;
-                                                  ">
-                                            <div flex="100" layout="row" layout-align="start center" layout-padding="" class="center-block">
+                                        <div style=" min-height: 170px; min-width: 190px; padding: 0px 45px; ">
+                                            <div flex="100" layout="row" layout-align="start center" layout-padding="" class="center-block ">
                                                 <span>{{vm.selectedPlan.num_projects}}</span>
                                                 <span>Projects Allowed</span>
                                             </div>
-                                            <div flex="100" layout="row" layout-align="start center" layout-padding="" class="center-block">
+                                            <div flex="100" layout="row" layout-align="start center" layout-padding="" class="center-block ">
                                                 <span>{{vm.selectedPlan.num_spaces}}</span>
                                                 <span>Spaces Allowed</span>
                                             </div>
-                                            <div flex="100" layout="row" layout-align="start center" layout-padding="" class="center-block">
+                                            <div flex="100" layout="row" layout-align="start center" layout-padding="" class="center-block ">
                                                 <span>{{vm.selectedPlan.num_members}}</span>
                                                 <span>Members Allowed</span>
                                             </div>
                                         </div>
-                                        <md-divider class=" padding-top-20"></md-divider>
-                                        <div class="md-padding" ng-if=vm.currentPlan.plan_name==='trial'>
-                                            <form class="md-padding" action="{{'http://52.43.239.79/api/v1/user/subscription?api_token='+vm.token+'&org_id='+vm.orgId|trusted}}" method="POST">
+                                        <md-divider class=" padding-top-20 "></md-divider>
+                                        <div class="md-padding" ng-if="vm.currentPlan.plan_name==='trial' ||vm.accountExpired===1">
+                                            <form class="md-padding" action="{{ 'http://52.43.239.79/api/v1/user/subscription?api_token='+vm.token+ '&org_id='+vm.orgId|trusted}}" method="POST">
                                                 <input type="hidden" id="plan" name="plan_id" value="{{vm.selectedPlan.id}}">
-                                                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_ipI2IcwYbdYDTALTVJ5Th2v6" data-amount="{{vm.selectedPlan.price_cents}}" data-name="SentioVR" data-description="Widget" data-image="assets/images/logo.png " data-name data-locale="auto" data-zip-code="true">
+                                                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_ipI2IcwYbdYDTALTVJ5Th2v6" data-amount="{{vm.selectedPlan.price_cents}}" data-name="SentioVR" data-description="Widget" data-image="assets/images/logo.png" data-name data-locale="auto" data-zip-code="true ">
                                                 </script>
                                             </form>
                                         </div>
-                                        <div class="md-padding"  ng-if=vm.currentPlan.plan_name!=='trial'> 
-                                            <md-button class="md-primary md-raised" ng-click="vm.changePlan(vm.selectedPlan)">Change Plan</md-button>
+                                        <div class="md-padding"  ng-if="vm.currentPlan.plan_name!=='trial' &&vm.accountExpired!==1"> 
+                                            <md-button class="md-primary md-raised" ng-click="vm.changePlan(vm.selectedPlan) ">{{vm.btnName}} Plan</md-button>
 
                                         </div>
                                     </div>
@@ -112,15 +107,15 @@
                         </md-content>
                     </md-tab-body>
                 </md-tab>
-                <md-tab id="confirm" ng-if="vm.id===0" ng-disabled="vm.uploadIncomplete">
+                <md-tab id="confirm" ng-if="vm.id===0" ng-disabled="vm.uploadIncomplete ">
                     <md-tab-label>
-                        <span class="oxy-step-label">3</span>
+                        <span class="oxy-step-label ">3</span>
                         <span translate>Finish</span>
                     </md-tab-label>
                     <md-tab-body>
-                        <md-content class="md-padding">
-                            <div class="padding-40" flex layout="column" layout-align="center center">
-                                <md-icon class="big-icon" md-font-icon="zmdi zmdi-check"></md-icon>
+                        <md-content class="md-padding ">
+                            <div class="padding-40" flex layout="column" layout-align="center center ">
+                                <md-icon class="big-icon" md-font-icon="zmdi zmdi-check "></md-icon>
                                 <h2 class="md-title" translate>Thankyou for the payment.You've subscribed to Plan A succesfully! </h2>
                             </div>
                         </md-content>

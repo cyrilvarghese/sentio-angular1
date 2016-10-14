@@ -6,7 +6,7 @@
         .controller('projectsController', projectsController);
 
     /* @ngInject */
-    function projectsController($mdSidenav, $mdDialog, $state, $timeout, $stateParams, organizationService, triBreadcrumbsService, projectService, toastService) {
+    function projectsController($mdSidenav, $mdDialog, $state, $timeout,utilService, $stateParams, organizationService, triBreadcrumbsService, projectService, toastService) {
 
         var vm = this;
         vm.deleteProject = deleteProject;
@@ -38,22 +38,9 @@
             };
             organizationService.getOrg(paramObj).then(function(data) {
                 vm.selectedOrg = data;
-                // organizationService.setCurrentOrganization(vm.selectedOrg);
-                organizationService.setCurrentOrganization({
-                    "org_id": "15",
-                    "org_name": "the org",
-                    "description": "",
-                    "creator": "cyril varghese",
-                    "role": "admin",
-                    "plan": {
-                        "plan_id": 1,
-                        "plan_name": "trial",
-                        "num_projects": "1",
-                        "num_spaces": "4",
-                        "num_members": "3",
-                        "price_usd": "0"
-                    }
-                });
+                organizationService.setCurrentOrganization(vm.selectedOrg);
+
+                vm.plan = data.plan;
                 vm.members = data.members;
                 vm.projects = data.projects;
                 // setBreadCrumbs();
@@ -67,6 +54,10 @@
 
 
         function navigateToProject(id, project) {
+            if (id === 0 && vm.projects.length+1 >parseInt(vm.plan.num_projects)) {
+                utilService.limitExceededDialog("projects");
+                return;
+            }
             var id = id || 0;
             $state.go('triangular.organizations.detail.projects.detail', {
                 projectId: parseInt(id),
@@ -83,6 +74,10 @@
                 // galleryId:project.galleryId
             });
         }
+
+       
+
+
 
 
         function deleteProject(id, project, $event) {

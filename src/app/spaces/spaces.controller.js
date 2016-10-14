@@ -6,7 +6,7 @@
         .controller('spacesController', spacesController);
 
     /* @ngInject */
-    function spacesController($state, $mdSidenav, $rootScope, $mdDialog, projectService, galleryService, $stateParams, spaceService, $scope, $element, $myElementInkRipple, logoAndThemeService, triBreadcrumbsService) {
+    function spacesController($state, $mdSidenav, $rootScope, organizationService, utilService, $mdDialog, projectService, galleryService, $stateParams, spaceService, $scope, $element, $myElementInkRipple, logoAndThemeService, triBreadcrumbsService) {
         var vm = this;
         vm.themes = [];
         vm.logos = [];
@@ -31,6 +31,7 @@
         // vm.queryMembers = queryMembers;
         // vm.inviteMember = inviteMember;
         vm.addAction = addAction;
+        vm.plan = organizationService.getCurrentOrganization().plan;
         triBreadcrumbsService.reset();
         triBreadcrumbsService.addCrumb({ name: 'Spaces' });
         init();
@@ -63,6 +64,7 @@
                 'api_token': localStorage.getItem('apiToken')
             }
             if (vm.id === 0) {
+
                 projectService.createProject(paramObj);
             } else {
                 projectService.updateProject(paramObj);
@@ -135,6 +137,10 @@
         }
 
         function navigateToDetail(id) {
+            if (id === 0 && vm.spaceList.length + 1 > parseInt(vm.plan.num_spaces)) {
+                utilService.limitExceededDialog("spaces");
+                return;
+            }
             $state.go('triangular.organizations.detail.projects.detail.spaces.detail', {
                 spaceId: parseInt(id)
             });
@@ -394,17 +400,22 @@
         }
 
         function openMemberDialog($event) {
+
+            if (vm.members.length + 1 > parseInt(vm.plan.num_members)) {
+                utilService.limitExceededDialog("members");
+                return;
+            }
             $mdDialog.show({
                 controller: 'memberDialogController',
                 controllerAs: 'vm',
                 templateUrl: 'app/members/member-dialog.tmpl.html',
+
                 clickOutsideToClose: true,
                 focusOnOpen: false,
                 targetEvent: $event,
                 fullscreen: true,
                 locals: {
-
-
+                    plan: vm.plan
                 }
 
             });

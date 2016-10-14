@@ -6,11 +6,12 @@
          .factory('utilService', utilService);
 
      /* @ngInject */
-     function utilService($q, $http, RoleStore, toastService, API_CONFIG) {
+     function utilService($q, $http, RoleStore, $state, toastService, API_CONFIG,$mdDialog) {
 
          var service = {
              handleError: handleError,
-             getHeaders: getHeaders
+             getHeaders: getHeaders,
+             limitExceededDialog:limitExceededDialog
          };
 
          return service;
@@ -26,6 +27,31 @@
 
              }
 
+         }
+
+         function limitExceededDialog(type) {
+
+             var confirm = $mdDialog.confirm()
+                 .title('Account Limit Exceeded!')
+                 .textContent('You have exceeded the allowed number of '+ type+', click proceed to change plan.')
+                 .ariaLabel('renew')
+                 .ok('Proceed')
+                 .cancel('Go to Billing');
+
+             $mdDialog.show(confirm).then(function() {
+                 navigateToPlanChange();
+             }, function() {
+                 navigateToBilling();
+                 // $scope.status = 'You decided to keep your debt.';
+             });
+         }
+
+         function navigateToPlanChange() {
+             $state.go('triangular.organizations.detail.billing.change');
+         }
+
+         function navigateToBilling() {
+             $state.go('triangular.organizations.detail.billing');
          }
 
          function getHeaders() {

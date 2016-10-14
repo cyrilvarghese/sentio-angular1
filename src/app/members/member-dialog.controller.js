@@ -6,7 +6,7 @@
         .controller('memberDialogController', memberDialogController);
 
     /* @ngInject */
-    function memberDialogController($mdDialog, $state, $stateParams, projectService) {
+    function memberDialogController($mdDialog, $state, $stateParams, plan, organizationService, projectService) {
         var vm = this;
 
         vm.cancel = cancel;
@@ -14,12 +14,19 @@
         vm.queryMembers = queryMembers;
         vm.inviteMember = inviteMember;
         vm.selectedMembers = [];
+        vm.plan = plan;
+        vm.members = organizationService.getCurrentOrganization().members || [];
+        vm.members = _.map(vm.members, function(member) {
+            member.name = member.name + ' - ' + member.email;
+            return member;
+        });
 
         function cancel() {
             $mdDialog.cancel();
         }
 
         function addMember() {
+
             _.each(vm.selectedMembers, function(member) {
                 var paramObj = {
                     api_token: localStorage.getItem('apiToken'),
@@ -37,20 +44,14 @@
 
         function queryMembers($query) {
             var lowercaseQuery = angular.lowercase($query);
-            var members = [];
-            vm.memberToBeAdded = lowercaseQuery;
-            if (localStorage.getItem("currentOrg") && localStorage.getItem("currentOrg").members) {
-                members = localStorage.getItem("currentOrg") ? JSON.parse(localStorage.getItem("currentOrg")).members : [];
-            }
-            else{
-                 vm.memberNotFound = true;
-            }
-            members = _.map(members, function(member) {
 
-                member.name = member.name + ' - ' + member.email;
-                return member;
-            });
-            var result= members.filter(function(member) {
+            vm.memberToBeAdded = lowercaseQuery;
+
+            if (vm.members === []) {
+                vm.memberNotFound = true;
+            }
+
+            var result = vm.members.filter(function(member) {
                 var lowercaseName = angular.lowercase(member.name);
                 if (lowercaseName.indexOf(lowercaseQuery) !== -1) {
                     vm.memberNotFound = false;
@@ -70,8 +71,8 @@
                 projectId: $stateParams.projectId
 
             }
-            projectService.sendInvite(paramObj).then(function(){
-                vm.closeDialog();
+            projectService.sendInvite(paramObj).then(function() {
+                closeDialog();
             });
         }
 

@@ -6,12 +6,12 @@
          .controller('organizationsController', organizationsController);
 
      /* @ngInject */
-     function organizationsController($state, triLayout,$rootScope, $mdSidenav, triBreadcrumbsService, organizationService, $scope, $element, $myElementInkRipple) {
+     function organizationsController($state, triLayout, $rootScope, $mdSidenav, triBreadcrumbsService, organizationService, $scope, $element, $myElementInkRipple) {
          var vm = this;
-        if(!localStorage.getItem('userInfo')){
-            $state.go('authentication.login');
-            return;
-        }
+         if (!localStorage.getItem('userInfo')) {
+             $state.go('authentication.login');
+             return;
+         }
 
          vm.navigateToDetail = navigateToDetail;
          vm.showMembers = showMembers;
@@ -27,7 +27,7 @@
 
              organizationService.getOrgList().then(function(data) {
                  vm.orgList = data;
-        
+
              });
          }
 
@@ -47,11 +47,17 @@
 
          function navigateToProjects(org, id) {
 
-            
-             // $rootScope.accountExpired=true;
-             $state.go('triangular.organizations.detail.projects',{
-                 id: id
-             });
+
+             if (_.isEmpty(org.plan)) {
+                 $rootScope.accountExpired = true;
+                 $state.go('triangular.organizations.detail.billing', {
+                     id: id
+                 });
+             } else {
+                 $state.go('triangular.organizations.detail.projects', {
+                     id: id
+                 });
+             }
          }
 
          function selectMember(ev) {

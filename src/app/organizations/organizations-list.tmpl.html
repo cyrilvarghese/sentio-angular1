@@ -1,39 +1,26 @@
- <ui-view>
+<ui-view>
     <md-content>
         <div class="md-padding">
-            <div class="md-padding"  layout-align="center" layout-gt-sm="row" layout-sm="column">
-                
-                 <tri-widget class="clickable" ng-click="vm.navigateToProjects(value,value.org_id)" layout-margin flex="50" flex-xs="100"  ng-repeat="(key, value) in vm.orgList.admin"  avatar="assets/images/avatars/avatar-5.png" palette-background="blue:800" title="{{value.org_name}}" subtitle=" Created By You" title-position="top" content-layout-align="start center" content-layout="column">
-                    <div linkify="twitter" class="font-weight-300 md-headline font-style-italic line-height-big margin-bottom-20 padding-normal" >
-                      {{value.description}}
+            <div class="md-padding" layout-align="center" layout-gt-sm="row" layout-sm="column">
+                <tri-widget class="clickable" ng-click="vm.navigateToProjects(value,value.org_id)" layout-margin flex="50" flex-xs="100" ng-repeat="(key, value) in vm.orgList.admin" avatar="assets/images/avatars/avatar-5.png" palette-background="blue:800" title="{{value.org_name}}" subtitle=" Created By You" title-position="top" content-layout-align="start center" content-layout="column">
+                    <div linkify="twitter" class="font-weight-300 md-headline font-style-italic line-height-big margin-bottom-20 padding-normal">
+                        {{value.description}}
                     </div>
                     <!-- <img src="assets/images/dashboards/tweet.jpg" alt="some image"> -->
                 </tri-widget>
             </div>
             <md-divider></md-divider>
             <h2 class="md-subhead center-block">Created By Others</h2>
-            <div class="md-padding" layout-gt-sm="row" layout-sm="column">
+            <div class="md-padding" layout-align="center" layout-gt-sm="row" layout-sm="column">
                 <div class="md-headline" ng-if="!vm.orgList.member">No Organizations Found</div>
-                <div flex="33" ng-repeat="(key, value) in vm.orgList.member" flex-xs="100">
-                    <md-card>
-                        <md-card-header>
-                            <md-card-avatar>
-                                <img class="md-user-avatar" src="assets/images/avatars/avatar-4.png" />
-                            </md-card-avatar>
-                            <md-card-header-text>
-                                <span class="md-title">{{value.org_name}}</span>
-                                <span class="md-subhead">Created by {{value.creator}}</span>
-                            </md-card-header-text>
-                        </md-card-header>
-                        <md-card-content class="clickable md-ink-ripple" ng-click="vm.navigateToDetail(value.org_id)">
-                            <p class="md-body-1">{{value.description}}</p>
-                        </md-card-content>
-                        <!-- <md-card-actions layout="row" layout-align="start start">
-                    <md-button>Invite Member</md-button>
-                    <md-button class="md-primary" ng-click="vm.showMembers('members-list-right-menu')">Members</md-button>
-                </md-card-actions> -->
-                    </md-card>
-                </div>
+                
+                    <tri-widget class="clickable" ng-click="vm.navigateToProjects(value,value.org_id)" layout-margin flex="50" flex-xs="100" ng-repeat="(key, value) in vm.orgList.member" avatar="assets/images/avatars/avatar-5.png" palette-background="blue:600" title="{{value.org_name}}" subtitle=" Created By You" title-position="top" content-layout-align="start center" content-layout="column">
+                        <div linkify="twitter" class="font-weight-300 md-headline font-style-italic line-height-big margin-bottom-20 padding-normal">
+                            {{value.description}}
+                        </div>
+                        <!-- <img src="assets/images/dashboards/tweet.jpg" alt="some image"> -->
+                    </tri-widget>
+                
             </div>
         </div>
         <md-button class="md-fab fab-add-fixed " ng-if="vm.orgList.admin.length===0" ng-click="vm.navigateToDetail(0)" aria-label="fab button">
