@@ -6,12 +6,14 @@
          .factory('utilService', utilService);
 
      /* @ngInject */
-     function utilService($q, $http, RoleStore, $state, toastService, API_CONFIG,$mdDialog) {
+     function utilService($q, $http, RoleStore, $state, toastService, API_CONFIG, $mdDialog) {
 
          var service = {
              handleError: handleError,
              getHeaders: getHeaders,
-             limitExceededDialog:limitExceededDialog
+             messageDialog: messageDialog,
+             confirmDialog: confirmDialog,
+             limitExceededDialog: limitExceededDialog
          };
 
          return service;
@@ -33,7 +35,7 @@
 
              var confirm = $mdDialog.confirm()
                  .title('Account Limit Exceeded!')
-                 .textContent('You have exceeded the allowed number of '+ type+', click proceed to change plan.')
+                 .textContent('You have exceeded the allowed number of ' + type + ', click proceed to change plan.')
                  .ariaLabel('renew')
                  .ok('Proceed')
                  .cancel('Go to Billing');
@@ -42,6 +44,42 @@
                  navigateToPlanChange();
              }, function() {
                  navigateToBilling();
+                 // $scope.status = 'You decided to keep your debt.';
+             });
+         }
+
+         function messageDialog(title, message, status) {
+             $mdDialog.show({
+                 controller: 'statusDialogController',
+                 controllerAs: 'vm',
+                 templateUrl: 'app/billing/dialogs/status-dialog.tmpl.html',
+                 clickOutsideToClose: true,
+                 focusOnOpen: false,
+                 locals: {
+                     title: title,
+                     color: status ? "green:500" : "red:500",
+                     message: message
+                 },
+                 fullscreen: true,
+             });
+         }
+
+         function confirmDialog(title, message, action1Text, action2Text, action1, action2) {
+
+             var confirm = $mdDialog.confirm()
+                 .title(title)
+                 .textContent(message)
+                 .ariaLabel(title)
+                 .ok(action1Text)
+                 .cancel(action2Text);
+
+             $mdDialog.show(confirm).then(function() {
+                 action1().then(function() {
+                     $mdDialog.hide();
+                 });
+             }, function() {
+                 if (action2)
+                     action2();
                  // $scope.status = 'You decided to keep your debt.';
              });
          }

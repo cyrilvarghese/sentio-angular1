@@ -38,7 +38,7 @@
             });
         $rootScope.$on('$stateChangeSuccess',
             function(event, toState, toParams, fromState, fromParams, options) {
-                // $rootScope.accountExpired=localstorage.getItem('accountExpired');
+                $rootScope.accountExpired=JSON.parse(localStorage.getItem('accountExpired'));
                 if (toState.name === 'triangular.organizations' || toState.name === 'triangular.profile') {
                     triLayout.setOption('sideMenuSize', 'off');
 

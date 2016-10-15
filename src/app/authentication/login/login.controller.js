@@ -6,8 +6,16 @@
         .controller('LoginController', LoginController);
 
     /* @ngInject */
-    function LoginController($state,$stateParams, toastService, triSettings, userService) {
+    function LoginController($state, $stateParams, utilService, toastService, triSettings, userService) {
         var vm = this;
+        if ($stateParams.verified && $stateParams.verified === "1") {
+            utilService.messageDialog("Account verified", "Your account was verified successfully.Please login to continue.", true);
+        } else if ($stateParams.verified && $stateParams.verified === "0") {
+            utilService.messageDialog("Account unverified", "Unable to verify account.Please retry.", false);
+        }
+
+
+
         vm.loginClick = loginClick;
 
         vm.triSettings = triSettings;

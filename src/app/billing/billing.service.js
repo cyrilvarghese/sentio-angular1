@@ -6,7 +6,7 @@
         .factory('billingService', billingService);
 
     /* @ngInject */
-    function billingService($q, $http, RoleStore, Upload, toastService, API_CONFIG, $state, utilService) {
+    function billingService($q, $http, RoleStore, Upload, toastService, organizationService, API_CONFIG, $state, utilService) {
 
         var service = {
 
@@ -21,7 +21,7 @@
 
 
         function changePlan(paramObj) {
-             toastService.show("changing plan subscription...");
+            toastService.show("changing plan subscription...");
             var dfd = $q.defer();
             var req = {
                 method: 'POST',
@@ -32,13 +32,14 @@
             $http(req).then(function(response) {
                 // currentUser = user;
                 toastService.show(response.data.message);
+
                 dfd.resolve();
                 $state.go('triangular.organizations.detail.billing', { subscriptionCreated: 1 }, { reload: true });
 
-            },function(){
-                 toastService.show(response.data.message);
+            }, function() {
+                toastService.show(response.data.message);
                 dfd.reject();
-                $state.go('triangular.organizations.detail.billing', { subscriptionCreated: 0}, { reload: true });
+                $state.go('triangular.organizations.detail.billing', { subscriptionCreated: 0 }, { reload: true });
 
             });
 
@@ -93,7 +94,7 @@
         }
 
         function cancelSubscription(paramObj) {
-             toastService.show("cancelling subscription...");
+            toastService.show("cancelling subscription...");
 
             var dfd = $q.defer();
             var req = {
@@ -102,7 +103,7 @@
                 headers: utilService.getHeaders()
             }
             $http(req).then(function(response) {
-                  toastService.show(response.data.message);
+                toastService.show(response.data.message);
                 $state.go($state.current, {}, { reload: true });
 
                 dfd.resolve(response.data);

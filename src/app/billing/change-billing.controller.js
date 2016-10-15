@@ -6,11 +6,13 @@
         .controller('changePlanController', changePlanController);
 
     /* @ngInject */
-    function changePlanController($mdSidenav, $rootScope, $state, $timeout, $stateParams, billingService, $scope, triLoaderService, organizationService, triBreadcrumbsService, projectService, toastService) {
+    function changePlanController($mdSidenav, $rootScope, $state,utilService, userService, $timeout, $stateParams, billingService, $scope, triLoaderService, organizationService, triBreadcrumbsService, projectService, toastService) {
         var vm = this;
 
         vm.currentPlan = organizationService.getCurrentOrganization().plan;
         vm.currentPlanId = vm.currentPlan.plan_id || 0;
+        vm.userVerified = userService.getCurrentUser().verified === 1;
+        vm.userId = userService.getCurrentUser().user_id;
 
         vm.orgId = $stateParams.id;
         vm.accountExpired = $stateParams.accountExpired ? parseInt($stateParams.accountExpired, 10) : 0;
@@ -19,6 +21,7 @@
 
         init();
         vm.navigateToPlanChange = navigateToPlanChange;
+        vm.resendEmail = resendEmail;
 
         function navigateToPlanChange() {
             $state.go('triangular.organizations.detail.billing.change');
@@ -39,7 +42,18 @@
             });
         }
 
+        function resendEmail() {
+            var paramObj = {
+                'api_token': localStorage.getItem('apiToken'),
+                'id':vm.userId
+
+            };
+          return  userService.resendVerificationEmail(paramObj) ;
+
+        }
+
         vm.goToSummary = function goToSummary(selectedPlan) {
+           
             angular.element('#payment-btn').click();
             vm.selectedPlan = selectedPlan;
         }

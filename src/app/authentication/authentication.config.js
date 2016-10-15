@@ -22,7 +22,7 @@
                     }
                 },
                 resolve: {
-                    csrf: function($http, API_CONFIG,toastService) {
+                    csrf: function($http, API_CONFIG, toastService) {
                         return $http({
                             method: 'GET',
                             url: API_CONFIG.baseUrl + 'csrf' /*sample data*/
@@ -38,7 +38,7 @@
                 }
             })
             .state('authentication.login', {
-                url: '/login?invitation_code&email&org',
+                url: '/login?invitation_code&email&org&verified',
                 templateUrl: 'app/authentication/login/login.tmpl.html',
                 controller: 'LoginController',
                 controllerAs: 'vm'
@@ -51,8 +51,8 @@
 
             })
             .state('authentication.lock', {
-                url: '/lock',
-                templateUrl: 'app/authentication/lock/lock.tmpl.html',
+                url: '/verify-email?email&key',
+                templateUrl: 'app/authentication/verification/lock.tmpl.html',
                 controller: 'LockController',
                 controllerAs: 'vm'
             })
@@ -67,7 +67,7 @@
                 templateUrl: 'app/authentication/profile/profile.tmpl.html',
                 controller: 'ProfileController',
                 controllerAs: 'vm'
-               
+
             });
 
     }

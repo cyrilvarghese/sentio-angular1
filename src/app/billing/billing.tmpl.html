@@ -1,5 +1,11 @@
 <ui-view>
-    <md-content class="padded-content-page">
+<div class="app-loader padding-top-100" ng-show="vm.showLoader" flex layout="column" layout-align="center center">
+    <img src="{{loader.triSettings.logo}}" alt="">
+    <md-progress-linear class="padding-bottom-10" md-mode="indeterminate"></md-progress-linear>
+    <h2 class="padding-bottom-100">Updating account info...</h2>
+</div>
+
+    <md-content class="padded-content-page" ng-show="!vm.showLoader" >
         <div class="md-padding" layout-gt-sm="row" layout-align="center start" layout-sm="column">
             <tri-widget class="md-padding" style="height: 470px;overflow: auto" layout-margin flex="40" flex-xs="100" palette-background="blue:800" title="{{value.org_name}}" title-position="top" content-layout-align="start center" content-layout="column">
                 <h2>Plan Details</h2>

@@ -14,12 +14,7 @@
         if (localStorage.getItem('userInfo')) {
             userInfo = JSON.parse(localStorage.getItem('userInfo'));
         }
-        var currentUser = {
-            displayName: userInfo.name,
-            username: userInfo.email,
-            avatar: userInfo.image ? userInfo.image : 'assets/images/avatars/avatar-5.png',
-            roles: ['SUPERADMIN']
-        };
+        var currentUser = {};
 
         var service = {
             getCurrentUser: getCurrentUser,
@@ -31,7 +26,11 @@
             leaveProject: leaveProject,
             uploadProfilePic: uploadProfilePic,
             resetPass: resetPass,
-            login: login
+            setRole: setRole,
+            verifyEmail: verifyEmail,
+            resendVerificationEmail: resendVerificationEmail,
+            login: login,
+            logOut: logOut
         };
 
         return service;
@@ -39,11 +38,15 @@
         ///////////////
 
         function getCurrentUser() {
-            return currentUser;
+            return JSON.parse(localStorage.getItem('userInfo'));
         }
 
         function getUsers() {
             return $http.get('app/permission/data/users.json');
+        }
+
+        function logOut() {
+            localStorage.clear();
         }
 
         function hasPermission(permission) {
@@ -51,7 +54,7 @@
             var hasPermission = false;
 
             // check if user has permission via its roles
-            angular.forEach(currentUser.roles, function(role) {
+            angular.forEach(getCurrentUser().roles, function(role) {
                 // check role exists
                 if (RoleStore.hasRoleDefinition(role)) {
                     // get the role
@@ -257,6 +260,44 @@
             }, utilService.handleError);
 
             return dfd.promise;
+        }
+
+        function verifyEmail(paramObj) {
+            var dfd = $q.defer();
+            var req = {
+                method: 'GET',
+                url: API_CONFIG.baseUrl + API_CONFIG.sharedUrl + 'verify_email?' + $.param(paramObj),
+                headers: getHeaders()
+
+            }
+            $http(req).then(function(response) {
+                toastService.show(response.data.message);
+                dfd.resolve();
+            }, utilService.handleError);
+
+            return dfd.promise;
+        }
+
+        function resendVerificationEmail(paramObj) {
+            var dfd = $q.defer();
+            var req = {
+                method: 'GET',
+                url: API_CONFIG.baseUrl + API_CONFIG.sharedUrl + 'resend_verification_link?' + $.param(paramObj),
+                headers: getHeaders()
+
+            }
+            $http(req).then(function(response) {
+                toastService.show(response.data.message);
+                dfd.resolve();
+            }, utilService.handleError);
+
+            return dfd.promise;
+        }
+
+        function setRole(roles) {
+            var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            userInfo.roles = roles;
+            localStorage.setItem('userInfo', JSON.stringify(userInfo));
         }
     }
 })();

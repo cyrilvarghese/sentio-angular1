@@ -6,7 +6,7 @@
         .controller('projectsController', projectsController);
 
     /* @ngInject */
-    function projectsController($mdSidenav, $mdDialog, $state, $timeout,utilService, $stateParams, organizationService, triBreadcrumbsService, projectService, toastService) {
+    function projectsController($mdSidenav, $mdDialog, userService,$state, $timeout,utilService, $stateParams, organizationService, triBreadcrumbsService, projectService, toastService) {
 
         var vm = this;
         vm.deleteProject = deleteProject;
@@ -39,6 +39,7 @@
             organizationService.getOrg(paramObj).then(function(data) {
                 vm.selectedOrg = data;
                 organizationService.setCurrentOrganization(vm.selectedOrg);
+                userService.setRole([vm.selectedOrg.role]);
 
                 vm.plan = data.plan;
                 vm.members = data.members;

@@ -49,11 +49,13 @@
 
 
              if (_.isEmpty(org.plan)) {
-                 $rootScope.accountExpired = true;
+                 localStorage.setItem("accountExpired",true);
                  $state.go('triangular.organizations.detail.billing', {
                      id: id
                  });
              } else {
+                 localStorage.setItem("accountExpired",false);
+
                  $state.go('triangular.organizations.detail.projects', {
                      id: id
                  });

@@ -6,7 +6,7 @@
         .controller('billingController', billingController);
 
     /* @ngInject */
-    function billingController($mdSidenav, $state, $timeout, $stateParams, $mdDialog, billingService, organizationService, triBreadcrumbsService, projectService, toastService) {
+    function billingController($mdSidenav, $state, $timeout, $stateParams, $mdDialog, billingService,$q, organizationService, triBreadcrumbsService, projectService, toastService) {
         var vm = this;
         vm.btnName = "Change"; /*initially set to change plan/set to renew plan for expired*/
         vm.projects = $stateParams.projects;
@@ -15,7 +15,7 @@
         vm.removePlan = removePlan;
         vm.orgId = $stateParams.id;
         vm.token = localStorage.getItem('apiToken') || 0;
-         
+
         vm.accountExpired = $stateParams.accountExpired ? parseInt($stateParams.accountExpired, 10) : 0;
 
 
@@ -39,9 +39,11 @@
             });
 
             if ($stateParams.subscriptionCreated && $state.current.name === "triangular.organizations.detail.billing") {
-                openDialog($stateParams.subscriptionCreated === "1", "payment")
+
+                openDialog($stateParams.subscriptionCreated === "1", "payment");
+
             } else if ($stateParams.cardUpdated) {
-                openDialog($stateParams.cardUpdated === "1", "card")
+                openDialog($stateParams.cardUpdated === "1", "card");
             } else if ($stateParams.accountExpired) {
                 expiryDialog();
             }
@@ -75,72 +77,90 @@
             });
         }
 
+        function getOrg() { /*updating org*/
+            var dfd = $q.defer();
+            var paramObj = {
+                'api_token': localStorage.getItem('apiToken'),
+                id: $stateParams.id
+            };
+            organizationService.getOrg(paramObj).then(function(data) {
+                vm.selectedOrg = data;
+                organizationService.setCurrentOrganization(vm.selectedOrg);
+                vm.showLoader = false;
+                dfd.resolve();
+            });
+            return dfd.promise;
+        }
+
         function openDialog(success, type) {
+            vm.showLoader = true;
+            getOrg().then(function() {
+                if (type === "payment")
 
-            if (type === "payment")
-
-            {
-                if (success) {
-                    $mdDialog.show({
-                        controller: 'statusDialogController',
-                        controllerAs: 'vm',
-                        templateUrl: 'app/billing/dialogs/status-dialog.tmpl.html',
-                        clickOutsideToClose: true,
-                        focusOnOpen: false,
-                        locals: {
-                            title: "Transaction Success",
-                            color: "green:500",
-                            message: "Thankyou we have received the payment and have successfully updated your plan."
-                        },
-                        fullscreen: true,
-                    });
+                {
+                    if (success) {
+                        $mdDialog.show({
+                            controller: 'statusDialogController',
+                            controllerAs: 'vm',
+                            templateUrl: 'app/billing/dialogs/status-dialog.tmpl.html',
+                            clickOutsideToClose: true,
+                            focusOnOpen: false,
+                            locals: {
+                                title: "Transaction Success",
+                                color: "green:500",
+                                message: "Thankyou we have received the payment and have successfully updated your plan."
+                            },
+                            fullscreen: true,
+                        });
+                    } else {
+                        $mdDialog.show({
+                            controller: 'statusDialogController',
+                            controllerAs: 'vm',
+                            templateUrl: 'app/billing/dialogs/status-dialog.tmpl.html',
+                            clickOutsideToClose: true,
+                            focusOnOpen: false,
+                            locals: {
+                                title: "Transaction Failed",
+                                color: "red:500",
+                                message: "We were unable to procees the pament and  update your plan.Please contact support."
+                            },
+                            fullscreen: true,
+                        });
+                    }
                 } else {
-                    $mdDialog.show({
-                        controller: 'statusDialogController',
-                        controllerAs: 'vm',
-                        templateUrl: 'app/billing/dialogs/status-dialog.tmpl.html',
-                        clickOutsideToClose: true,
-                        focusOnOpen: false,
-                        locals: {
-                            title: "Transaction Failed",
-                            color: "red:500",
-                            message: "We were unable to procees the pament and  update your plan.Please contact support."
-                        },
-                        fullscreen: true,
-                    });
-                }
-            } else {
 
-                if (success) {
-                    $mdDialog.show({
-                        controller: 'statusDialogController',
-                        controllerAs: 'vm',
-                        templateUrl: 'app/billing/dialogs/status-dialog.tmpl.html',
-                        clickOutsideToClose: true,
-                        focusOnOpen: false,
-                        locals: {
-                            title: "Card Update Success",
-                            color: "green:500",
-                            message: "We could successfully update your card."
-                        },
-                        fullscreen: true,
-                    });
-                } else {
-                    $mdDialog.show({
-                        controller: 'statusDialogController',
-                        controllerAs: 'vm',
-                        templateUrl: 'app/billing/dialogs/status-dialog.tmpl.html',
-                        clickOutsideToClose: true,
-                        focusOnOpen: false,
-                        locals: {
-                            title: "Card Update Failed",
-                            color: "red:500",
-                            message: "We could not update your card.Please retry later."
-                        },
-                        fullscreen: true,
-                    });
+                    if (success) {
+                        $mdDialog.show({
+                            controller: 'statusDialogController',
+                            controllerAs: 'vm',
+                            templateUrl: 'app/billing/dialogs/status-dialog.tmpl.html',
+                            clickOutsideToClose: true,
+                            focusOnOpen: false,
+                            locals: {
+                                title: "Card Update Success",
+                                color: "green:500",
+                                message: "We could successfully update your card."
+                            },
+                            fullscreen: true,
+                        });
+                    } else {
+                        $mdDialog.show({
+                            controller: 'statusDialogController',
+                            controllerAs: 'vm',
+                            templateUrl: 'app/billing/dialogs/status-dialog.tmpl.html',
+                            clickOutsideToClose: true,
+                            focusOnOpen: false,
+                            locals: {
+                                title: "Card Update Failed",
+                                color: "red:500",
+                                message: "We could not update your card.Please retry later."
+                            },
+                            fullscreen: true,
+                        });
+                    }
                 }
-            }
+            });
+
         }
 
 
