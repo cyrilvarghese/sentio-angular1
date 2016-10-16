@@ -24,7 +24,19 @@
         }
 
         function init() {
-            getOrg();
+            getOrg().then(function() {
+
+                if ($stateParams.subscriptionCreated && $state.current.name === "triangular.organizations.detail.billing") {
+
+                    openDialog($stateParams.subscriptionCreated === "1", "payment");
+
+                } else if ($stateParams.cardUpdated) {
+                    openDialog($stateParams.cardUpdated === "1", "card");
+                } else if ($stateParams.accountExpired) {
+                    expiryDialog();
+                }
+
+            });
             var paramObj = {
                 'api_token': localStorage.getItem('apiToken'),
 
@@ -37,16 +49,6 @@
             billingService.getInvoicesList(paramObj).then(function(data) {
                 vm.invoices = data;
             });
-
-            if ($stateParams.subscriptionCreated && $state.current.name === "triangular.organizations.detail.billing") {
-
-                openDialog($stateParams.subscriptionCreated === "1", "payment");
-
-            } else if ($stateParams.cardUpdated) {
-                openDialog($stateParams.cardUpdated === "1", "card");
-            } else if ($stateParams.accountExpired) {
-                expiryDialog();
-            }
 
 
         }
@@ -99,7 +101,7 @@
                         color = "red:500";
                         message = "We were unable to procees the pament and  update your plan.Please contact support.";
                     }
-                } else if(type==='card'){
+                } else if (type === 'card') {
 
                     if (success) {
                         title = "Card Update Success";
@@ -110,10 +112,10 @@
                         color = "red:500";
                         message = "We could not update your card.Please retry later.";
                     }
-                   
+
 
                 }
-                utilService.messageDialog(title,message,success);
+                utilService.messageDialog(title, message, success);
             });
 
         }
