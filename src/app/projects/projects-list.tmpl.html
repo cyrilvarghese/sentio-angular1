@@ -34,12 +34,12 @@
                     <md-divider ng-if="!$last"></md-divider>
                 </md-list-item>
             </md-list> -->
-        <md-button class="md-fab fab-add-fixed" ng-click="vm.navigateToProject(0,null)" aria-label="fab button">
+        <md-button class="md-fab fab-add-fixed" permission permission-only="'admin'"  ng-click="vm.navigateToProject(0,null)" aria-label="fab button">
             <md-icon md-font-icon="zmdi zmdi-plus"></md-icon>
         </md-button>
     </md-content>
     <md-content ng-if="vm.projects.length===0" layout="column" layout-align="center-center">
                 <p class="md-headline">No projects found!</p>
-                <md-button class="md-primary md-raised" ng-click="vm.navigateToProject(0,null)">Click to add a new projet</md-button>
+                <md-button permission permission-only="'admin'" class="md-primary md-raised" ng-click="vm.navigateToProject(0,null)">Click to add a new projet</md-button>
             </md-content>
 </ui-view>

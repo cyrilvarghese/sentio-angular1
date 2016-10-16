@@ -4,7 +4,6 @@
             <md-toolbar class="md-primary">
                 <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
                     <h2> Space Information</h2>
-                     
                 </div>
                 <md-progress-linear class="md-accent padding-bottom-10" md-mode="determinate" ng-value="triWizard.progress"></md-progress-linear>
             </md-toolbar>
@@ -44,46 +43,52 @@
                 <md-tab ng-if="vm.id===0" id="upload" ng-disabled="infoForm.$invalid">
                     <md-tab-label>
                         <span class="oxy-step-label">2</span>
-                        <span translate>Upload Images</span>
+                        <span translate>Select Images</span>
                     </md-tab-label>
                     <md-tab-body>
                         <md-content class="md-padding">
+                            <md-list flex="100" ng-if="vm.files.length!==0">
+                                <md-subheader flex="row" layout-align="space-between" class="md-no-sticky md-headline  ">Selected Files</md-subheader>
+                                <md-list-item ng-repeat="item in vm.files" class="md-padding">
+                                    <p flex="80">{{::item.name}}</p>
+                                    <md-divider></md-divider>
+                                </md-list-item>
+                            </md-list>
                             <form name="fileUploadForm" tri-wizard-form>
                                 <div>
-                                    <div layout="row" layout-align="space-around center">
-                                        <md-button class="md-primary md-raised md-fab" ngf-select="vm.createSpace($files)" ng-disabled="vm.status != 'idle'" ngf-multiple="true" aria-label="upload">
-                                            <md-icon md-font-icon ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete' ,'zmdi zmdi-close': vm.status == 'failed'}"></md-icon>
+                                    <div layout="row" layout-align="start center">
+                                        <md-button class="md-primary" ngf-select="vm.addToArr($files)" ng-disabled="vm.status != 'idle'" ngf-multiple="true" aria-label="upload">
+                                            Select files to upload
                                         </md-button>
-                                        <!--   <md-button class="md-primary md-raised md-fab" ngf-select="vm.upload($files)" ngf-multiple="true" aria-label="upload">
-                                            <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>
-                                        </md-button> -->
                                     </div>
                                 </div>
                             </form>
                         </md-content>
                     </md-tab-body>
                 </md-tab>
-                <!-- <md-tab id="edit-connection" ng-disabled="editConnection.$invalid">
+                <md-tab id="create-space" ng-disabled="vm.files.length===0">
                     <md-tab-label>
                         <span class="oxy-step-label">3</span>
-                        <span translate>Finish</span>
+                        <span translate>Create Space</span>
                     </md-tab-label>
                     <md-tab-body>
                         <md-content class="md-padding">
                             <div class="padding-40" flex layout="column" layout-align="center center">
-                                <md-icon class="big-icon" md-font-icon="zmdi zmdi-edit"></md-icon>
-                                <p class="md-title" translate>Edit Connections</p>
+                                <div class="app-loader padding-top-100"  flex layout="column" layout-align="center center">
+                                    <img class="margin-bottom-10" style="height: 50px !important;width: auto" src="../assets/images/logo.png" alt="">
+                                    <md-progress-linear class="padding-bottom-10" md-mode="indeterminate"></md-progress-linear>
+                                    <h2 class="padding-bottom-100">Creating Space...</h2>
+                                </div>
                             </div>
                         </md-content>
                     </md-tab-body>
-                </md-tab> -->
-                
+                </md-tab>
             </md-tabs>
             <md-card-actions layout="row" layout-align="end center">
                 <md-button class="md-primary md-raised" ng-if="vm.id!==0" ng-click="vm.updateSpace()">Save</md-button>
-                <md-button ng-if="vm.id===0"  class="md-primary md-raised" ng-click="triWizard.prevStep()" ng-hide="triWizard.currentStep > 2" ng-disabled="triWizard.prevStepDisabled()" translate="Previous"></md-button>
-                <md-button  ng-if="vm.id===0"  class="md-primary md-raised" ng-click="triWizard.nextStep()" ng-disabled="triWizard.nextStepDisabled()" translate="Next"></md-button>
-                 <md-button  ng-if="vm.id===0"  class="md-primary md-raised" ng-click="triWizard.nextStep()" ng-hide=" triWizard.currentStep < 2" ng-disabled="triWizard.nextStepDisabled()" translate="Done"></md-button>
+                <md-button ng-if="vm.id===0" class="md-primary md-raised" ng-click="triWizard.prevStep()" ng-hide="triWizard.currentStep > 2" ng-disabled="triWizard.prevStepDisabled()" translate="Previous"></md-button>
+                <md-button ng-if="vm.id===0" class="md-primary md-raised" ng-click="triWizard.nextStep()" ng-hide="triWizard.currentStep === 1" ng-disabled="triWizard.nextStepDisabled()" translate="Next"></md-button>
+                <md-button ng-if="vm.id===0&&vm.files.length!==0" class="md-primary md-raised" ng-click="triWizard.nextStep();vm.createSpace()" ng-show="triWizard.currentStep === 1" ng-disabled="triWizard.nextStepDisabled()">Create Space</md-button>
             </md-card-actions>
     </div>
     </md-card>

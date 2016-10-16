@@ -56,6 +56,12 @@
                 controller: 'LockController',
                 controllerAs: 'vm'
             })
+            .state('authentication.reset', {
+                url: '/reset-password?email&code',
+                templateUrl: 'app/authentication/verification/reset.tmpl.html',
+                controller: 'resetPasswordController',
+                controllerAs: 'vm'
+            })
             .state('authentication.forgot', {
                 url: '/forgot',
                 templateUrl: 'app/authentication/forgot/forgot.tmpl.html',

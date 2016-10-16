@@ -6,7 +6,7 @@
         .controller('billingController', billingController);
 
     /* @ngInject */
-    function billingController($mdSidenav, $state, $timeout, $stateParams, $mdDialog, billingService,$q, organizationService, triBreadcrumbsService, projectService, toastService) {
+    function billingController($mdSidenav, $state, $timeout, utilService, userService, $stateParams, $mdDialog, billingService, $q, organizationService, triBreadcrumbsService, projectService, toastService) {
         var vm = this;
         vm.btnName = "Change"; /*initially set to change plan/set to renew plan for expired*/
         vm.projects = $stateParams.projects;
@@ -24,7 +24,7 @@
         }
 
         function init() {
-
+            getOrg();
             var paramObj = {
                 'api_token': localStorage.getItem('apiToken'),
 
@@ -61,20 +61,8 @@
         }
 
         function expiryDialog() {
-            vm.btnName = "Renew"; /*initially set to change plan/set to renew plan for expired*/
 
-            var confirm = $mdDialog.confirm()
-                .title('Account Expired!')
-                .textContent('Your account has expired,click proceed to renew plan.')
-                .ariaLabel('renew')
-                .ok('Proceed to renew')
-                .cancel('cancel');
-
-            $mdDialog.show(confirm).then(function() {
-                vm.navigateToPlanChange();
-            }, function() {
-                // $scope.status = 'You decided to keep your debt.';
-            });
+            utilService.customConfirmDialog('Account Expired!', 'The account for this organization has expired, click renew plan to proceed or contact the organisation administrator.', false, "Proceed To Renew", "cancel", navigateToPlanChange, null);
         }
 
         function getOrg() { /*updating org*/
@@ -86,6 +74,8 @@
             organizationService.getOrg(paramObj).then(function(data) {
                 vm.selectedOrg = data;
                 organizationService.setCurrentOrganization(vm.selectedOrg);
+                userService.setRole([vm.selectedOrg.role]);
+
                 vm.showLoader = false;
                 dfd.resolve();
             });
@@ -95,70 +85,35 @@
         function openDialog(success, type) {
             vm.showLoader = true;
             getOrg().then(function() {
-                if (type === "payment")
-
-                {
+                var title, color, message = "";
+                if (type === "payment") {
                     if (success) {
-                        $mdDialog.show({
-                            controller: 'statusDialogController',
-                            controllerAs: 'vm',
-                            templateUrl: 'app/billing/dialogs/status-dialog.tmpl.html',
-                            clickOutsideToClose: true,
-                            focusOnOpen: false,
-                            locals: {
-                                title: "Transaction Success",
-                                color: "green:500",
-                                message: "Thankyou we have received the payment and have successfully updated your plan."
-                            },
-                            fullscreen: true,
-                        });
+
+                        title = "Transaction Success";
+                        color = "green:500";
+                        message = "Thankyou we have received the payment and have successfully updated your plan.";
+
                     } else {
-                        $mdDialog.show({
-                            controller: 'statusDialogController',
-                            controllerAs: 'vm',
-                            templateUrl: 'app/billing/dialogs/status-dialog.tmpl.html',
-                            clickOutsideToClose: true,
-                            focusOnOpen: false,
-                            locals: {
-                                title: "Transaction Failed",
-                                color: "red:500",
-                                message: "We were unable to procees the pament and  update your plan.Please contact support."
-                            },
-                            fullscreen: true,
-                        });
+
+                        title = "Transaction Failed";
+                        color = "red:500";
+                        message = "We were unable to procees the pament and  update your plan.Please contact support.";
                     }
-                } else {
+                } else if(type==='card'){
 
                     if (success) {
-                        $mdDialog.show({
-                            controller: 'statusDialogController',
-                            controllerAs: 'vm',
-                            templateUrl: 'app/billing/dialogs/status-dialog.tmpl.html',
-                            clickOutsideToClose: true,
-                            focusOnOpen: false,
-                            locals: {
-                                title: "Card Update Success",
-                                color: "green:500",
-                                message: "We could successfully update your card."
-                            },
-                            fullscreen: true,
-                        });
+                        title = "Card Update Success";
+                        color = "green:500";
+                        message = "We could successfully update your card."
                     } else {
-                        $mdDialog.show({
-                            controller: 'statusDialogController',
-                            controllerAs: 'vm',
-                            templateUrl: 'app/billing/dialogs/status-dialog.tmpl.html',
-                            clickOutsideToClose: true,
-                            focusOnOpen: false,
-                            locals: {
-                                title: "Card Update Failed",
-                                color: "red:500",
-                                message: "We could not update your card.Please retry later."
-                            },
-                            fullscreen: true,
-                        });
+                        title = "Card Update Failed";
+                        color = "red:500";
+                        message = "We could not update your card.Please retry later.";
                     }
+                   
+
                 }
+                utilService.messageDialog(title,message,success);
             });
 
         }

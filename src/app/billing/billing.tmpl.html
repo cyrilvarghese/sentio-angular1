@@ -37,7 +37,7 @@
                     <span>Price</span>
                     <span>$ {{vm.plan.price_usd}}</span>
                 </div>
-                <div flex="100" layout="row" layout-align="space-between center" class="full-width">
+                <div flex="100" layout="row" layout-align="space-between center" class="full-width"  permission permission-only="'admin'" >
                     <div>Current Card-
                     <p style="font-size: 12px">(XXXX-XXXX-XXXX-{{vm.currentCard.last4}})</p></div>
                     <div>
@@ -48,7 +48,7 @@
                         </form>
                     </div>
                 </div>
-                <div layout="row" layout-align="space-between center">
+                <div layout="row" permission permission-only="'admin'" layout-align="space-between center">
 <!-- chagnge button name for expired accounts -->
 
                     <md-button class="md-primary md-raised " ng-click="vm.navigateToPlanChange()"> {{vm.btnName}} Plan</md-button>

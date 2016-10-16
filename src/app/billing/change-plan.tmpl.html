@@ -60,7 +60,7 @@
                         <span translate>Make Payment</span>
                     </md-tab-label>
                     <md-tab-body>
-                        <md-content class="md-padding" ng-if="vm.userVerified">
+                        <md-content class="md-padding" ng-if="vm.paymentAllowed">
                             <div>
                                 <div layout="row" layout-align="space-around center ">
                                     <div class="md-whiteframe-z4 margin-20 text-center" style="position: relative ">
@@ -106,7 +106,7 @@
                             </div>
                         </md-content>
 
-                         <md-content class="md-padding" ng-if="!vm.userVerified">
+                         <md-content class="md-padding" ng-if="!vm.paymentAllowed">
                            <md-card>
                                       <md-card-title>
                                 <md-card-title-text>

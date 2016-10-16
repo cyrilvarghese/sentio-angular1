@@ -6,12 +6,12 @@
         .controller('changePlanController', changePlanController);
 
     /* @ngInject */
-    function changePlanController($mdSidenav, $rootScope, $state,utilService, userService, $timeout, $stateParams, billingService, $scope, triLoaderService, organizationService, triBreadcrumbsService, projectService, toastService) {
+    function changePlanController($mdSidenav, $rootScope, $state, utilService, userService, $timeout, $stateParams, billingService, $scope, triLoaderService, organizationService, triBreadcrumbsService, projectService, toastService) {
         var vm = this;
 
         vm.currentPlan = organizationService.getCurrentOrganization().plan;
         vm.currentPlanId = vm.currentPlan.plan_id || 0;
-        vm.userVerified = userService.getCurrentUser().verified === 1;
+        vm.paymentAllowed = userService.getCurrentUser().verified === 1;
         vm.userId = userService.getCurrentUser().user_id;
 
         vm.orgId = $stateParams.id;
@@ -45,17 +45,21 @@
         function resendEmail() {
             var paramObj = {
                 'api_token': localStorage.getItem('apiToken'),
-                'id':vm.userId
+                'id': vm.userId
 
             };
-          return  userService.resendVerificationEmail(paramObj) ;
+            return userService.resendVerificationEmail(paramObj);
 
         }
 
         vm.goToSummary = function goToSummary(selectedPlan) {
-           
-            angular.element('#payment-btn').click();
-            vm.selectedPlan = selectedPlan;
+            if (isValidPlan(selectedPlan)) {
+                angular.element('#payment-btn').click();
+                vm.selectedPlan = selectedPlan;
+            }
+            else{
+                utilService.messageDialog("Plan Invalid","You have more projects/spaces/members created than the limit of the selected plan.Please remove projects/spaces/members and retry.",false)
+            }
         }
 
         vm.proceeedToPay = function proceeedToPay(selectedPlan) {
@@ -70,6 +74,14 @@
             billingService.changePlan(paramObj).then(function(data) {
                 vm.plans = data;
             });
+        }
+
+        function isValidPlan(selectedPlan) {
+          
+            return !(selectedPlan.num_spaces < vm.currentPlan.num_spaces ||
+                selectedPlan.num_spaces < vm.currentPlan.num_spaces ||
+                selectedPlan.num_members < vm.currentPlan.num_members)
+
         }
 
 

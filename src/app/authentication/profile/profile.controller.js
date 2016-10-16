@@ -6,11 +6,11 @@
         .controller('ProfileController', ProfileController);
 
     /* @ngInject */
-    function ProfileController(userService,$stateParams, utilService,triBreadcrumbsService) {
+    function ProfileController(userService,$stateParams,API_CONFIG, utilService,triBreadcrumbsService) {
         var vm = this;
         uploadReset();
         vm.uploadProfilePic = uploadProfilePic;
-        vm.resetPass = resetPass;
+        vm.resendResetPasswordLink = resendResetPasswordLink;
           triBreadcrumbsService.reset();
          triBreadcrumbsService.addCrumb({ name: 'Profile'});
 
@@ -63,14 +63,13 @@
                 uploadReset();
             }, utilService.handleError);
         }
-        function resetPass() {
+         function resendResetPasswordLink(){
             var paramObj={
-                api_token:localStorage.getItem('apiToken'),
                 email:vm.user.email,
-                code:$stateParams.code
+                api_token:API_CONFIG.apiKey
             }
-            userService.resetPass(paramObj,vm.user.password);
-        }
+            userService.forgotPass(paramObj);
+         }
 
         function uploadStarted() {
             vm.status = 'uploading';

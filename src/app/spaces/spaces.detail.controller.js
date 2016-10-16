@@ -9,6 +9,7 @@
     function spacesDetailController($mdSidenav, spaceService, galleryService,toastService, Upload, utilService, $stateParams, triBreadcrumbsService) {
         var vm = this;
         vm.isOpen = false;
+        vm.files=[];
         if ($stateParams.spaceId) {
             vm.id = parseInt($stateParams.spaceId);
         } else {
@@ -18,6 +19,7 @@
         vm.status = 'idle'; // idle | uploading | complete
         vm.createSpace = createSpace;
         vm.updateSpace = updateSpace;
+        vm.addToArr = addToArr;
         vm.addToGallery = addToGallery;
         vm.removeFromGallery = removeFromGallery;
         vm.uploadIncomplete = true;
@@ -42,15 +44,17 @@
         }
         var fileList;
         ////////////////
-
-        function createSpace($files) {
+        function addToArr(selectedFiles){
+            vm.files.push.apply(vm.files, selectedFiles);
+        }
+        function createSpace() {
             uploadStarted();
             var paramObj = {
                 projectId: $stateParams.projectId,
                 name: vm.generalInfo.name,
                 description: vm.generalInfo.description
             }
-            spaceService.upload($files, paramObj).then(function(data) {
+            spaceService.upload(vm.files, paramObj).then(function(data) {
                 uploadComplete();
                 vm.spaceEditorUrl=data.
                 vm.uploadIncomplete = false;

@@ -6,27 +6,25 @@
         .run(permissionRun);
 
     /* @ngInject */
-    function permissionRun($rootScope, $cookies, $state, PermissionStore, RoleStore, UserService) {
+    function permissionRun($rootScope, $cookies, $state, PermissionStore, RoleStore, userService) {
         // normally this would be done at the login page but to show quick
         // demo we grab username from cookie and login the user
         var cookieUser = $cookies.get('tri-user');
-        if(angular.isDefined(cookieUser)) {
+        if (angular.isDefined(cookieUser)) {
             UserService.login(cookieUser);
         }
 
         // create permissions and add check function verify all permissions
-        var permissions = ['viewBilling', 'editOrganziation', 'addMember'];
-        PermissionStore.defineManyPermissions(permissions, function (permissionName) {
-            return UserService.hasPermission(permissionName);
+        var permissions = ['viewBilling', 'editOrganziation', 'addMember','changePlan'];
+        PermissionStore.defineManyPermissions(permissions, function(permissionName) {
+            return userService.hasPermission(permissionName);
         });
 
         // create roles for app
         RoleStore.defineManyRoles({
             'admin': ['viewBilling', 'editOrganziation', 'addMember'],
-            'user': []
+            'member': []
         });
-
-
         ///////////////////////
 
         // default redirect if access is denied

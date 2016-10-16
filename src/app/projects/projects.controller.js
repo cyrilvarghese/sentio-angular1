@@ -23,15 +23,7 @@
         init();
 
         function init() {
-            // var paramObj = {
-            //     orgId:organizationService.getCurrentOrganization().org_id,
-            //     api_token: localStorage.getItem('apiToken')
-            // }
-
-
-            // projectService.getProjectList(paramObj).then(function(data) {
-            //     vm.projects = data.project_list;
-            // });
+            
             var paramObj = {
                 'api_token': localStorage.getItem('apiToken'),
                 id: $stateParams.id
@@ -44,7 +36,6 @@
                 vm.plan = data.plan;
                 vm.members = data.members;
                 vm.projects = data.projects;
-                // setBreadCrumbs();
             });
         }
 

@@ -29,8 +29,10 @@
                 data: {
                     layout: {
                         contentClass: 'layout-column'
-                    }
-                }
+                    },
+                    
+                },
+
 
 
             }).state('triangular.organizations.detail.billing.change', {

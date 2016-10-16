@@ -13,6 +13,7 @@
              getHeaders: getHeaders,
              messageDialog: messageDialog,
              confirmDialog: confirmDialog,
+             customConfirmDialog: customConfirmDialog,
              limitExceededDialog: limitExceededDialog
          };
 
@@ -59,6 +60,71 @@
                      title: title,
                      color: status ? "green:500" : "red:500",
                      message: message
+                 },
+                 fullscreen: true,
+             });
+         }
+ 
+ 
+         function handleError(resp) {
+             console.log(resp.data.message);
+             if (resp.data.message) {
+                 toastService.show(resp.data.message);
+             } else {
+                 toastService.show("Unable to complete action, please contact support.");
+
+             }
+
+         }
+
+         function limitExceededDialog(type) {
+
+             var confirm = $mdDialog.confirm()
+                 .title('Account Limit Exceeded!')
+                 .textContent('You have exceeded the allowed number of ' + type + ', click proceed to change plan.')
+                 .ariaLabel('renew')
+                 .ok('Proceed')
+                 .cancel('Go to Billing');
+
+             $mdDialog.show(confirm).then(function() {
+                 navigateToPlanChange();
+             }, function() {
+                 navigateToBilling();
+                 // $scope.status = 'You decided to keep your debt.';
+             });
+         }
+
+         function messageDialog(title, message, status) {
+             $mdDialog.show({
+                 controller: 'statusDialogController',
+                 controllerAs: 'vm',
+                 templateUrl: 'app/billing/dialogs/status-dialog.tmpl.html',
+                 clickOutsideToClose: true,
+                 focusOnOpen: false,
+                 locals: {
+                     title: title,
+                     color: status ? "green:500" : "red:500",
+                     message: message
+                 },
+                 fullscreen: true,
+             });
+         }
+
+         function customConfirmDialog(title, message, status, action1Text, action2Text, action1, action2) {
+             $mdDialog.show({
+                 controller: 'customConfirmDialogController',
+                 controllerAs: 'vm',
+                 templateUrl: 'app/components/custom-confirm-dialog/custom-confirm.tmpl.html',
+                 clickOutsideToClose: true,
+                 focusOnOpen: false,
+                 locals: {
+                     title: title,
+                     color: status ? "green:500" : "red:500",
+                     message: message,
+                     action1Text: action1Text,
+                     action2Text: action2Text,
+                     action1: action1,
+                     action2: action2
                  },
                  fullscreen: true,
              });

@@ -244,20 +244,23 @@
         }
 
 
-        function resetPass(paramObj, password) {
+        function resetPass(paramObj) {
             var dfd = $q.defer();
             var req = {
                 method: 'POST',
                 url: API_CONFIG.baseUrl + API_CONFIG.sharedUrl + 'reset_password?' + $.param(paramObj),
                 headers: getHeaders(),
-                data: { password: password }
+                data: paramObj
             }
             $http(req).then(function(response) {
                 currentUser = response.data.user_id;
                 localStorage.setItem('userInfo', JSON.stringify(response.data));
                 localStorage.setItem('apiToken', response.data.auth_key);
                 dfd.resolve();
-            }, utilService.handleError);
+            },function(){
+                dfd.reject();
+                 utilService.handleError();
+            });
 
             return dfd.promise;
         }
