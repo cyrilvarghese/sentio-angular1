@@ -15,6 +15,7 @@
         vm.removePlan = removePlan;
         vm.orgId = $stateParams.id;
         vm.token = localStorage.getItem('apiToken') || 0;
+        vm.user = userService.getCurrentUser();
 
         vm.accountExpired = $stateParams.accountExpired ? parseInt($stateParams.accountExpired, 10) : 0;
 
