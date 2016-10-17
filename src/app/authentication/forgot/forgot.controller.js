@@ -18,7 +18,7 @@
 
         function resetClick() {
             var paramObj={
-                email_id:vm.user.email,
+                email:vm.user.email,
                 api_token:API_CONFIG.apiKey
             }
             userService.forgotPass(paramObj);

@@ -51,6 +51,8 @@
                     // console.log('Success? ' + response.config.data.file.name + 'uploaded. responseonse: ' + response.data);
                 }, function(response) {
                     dfd.reject(response);
+                    utilService.handleError(response);
+                    
                     // console.log('Error status: ' + response.status);
                 }, function(evt) {
                     var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
@@ -80,6 +82,7 @@
                     // console.log('Success? ' + response.config.data.file.name + 'uploaded. responseonse: ' + response.data);
                 }, function(response) {
                     dfd.reject(response);
+                    utilService.handleError(response);
                     // console.log('Error status: ' + response.status);
                 }, function(evt) {
                     var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);

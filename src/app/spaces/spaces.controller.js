@@ -24,7 +24,7 @@
         vm.openEditorModal = openEditorModal;
         // vm.updateGallery = updateGallery;
         vm.addSpaceToGallery = addSpaceToGallery;
-        vm.RemoveSpaceFromGallery = RemoveSpaceFromGallery;
+        vm.removeSpaceFromGallery = removeSpaceFromGallery;
         vm.getLogoList = getLogoList;
         vm.getThemeList = getThemeList;
         vm.openPreviewModal = openPreviewModal;
@@ -195,7 +195,7 @@
             }
         }
 
-        function RemoveSpaceFromGallery(id) {
+        function removeSpaceFromGallery(id) {
             if (localStorage.getItem('userInfo')) {
                 var paramObj = {
                     api_token: localStorage.getItem('apiToken'),

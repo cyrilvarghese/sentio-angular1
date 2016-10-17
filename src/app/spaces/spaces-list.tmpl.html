@@ -29,7 +29,7 @@
                                                         <md-icon md-font-icon='fa fa-plus-circle'></md-icon>Add to Gallery</md-button>
                                                 </md-menu-item>
                                                 <md-menu-item ng-if="value.added_in_gallery==='1'">
-                                                    <md-button ng-click="vm.removeSpacefromGallery(value.id)">
+                                                    <md-button ng-click="vm.removeSpaceFromGallery(value.id)">
                                                         <md-icon md-font-icon='zmdi zmdi-minus-circle'></md-icon>Remove From Gallery</md-button>
                                                 </md-menu-item>
                                                 <md-menu-item>
@@ -69,7 +69,7 @@
         <md-tab label="Members">
             <div layout="row" md-whiteframe="1" layout-padding layout-align="space-around" ng-include="'app/members/members-list-no-invite.tmpl.html'"></div>
         </md-tab>
-        <md-tab label="Gallery ({{vm.selectedProject.gallery.length}} Spaces)" ng-if="vm.selectedProject.gallery.length!==0">
+        <md-tab label="Gallery" ng-if="vm.selectedProject.gallery.length!==0">
             <div layout="column" md-whiteframe="1" class="md-padding" ng-include="'app/gallery/gallery.tmpl.html'"></div>
         </md-tab>
         <md-tab label="Project Info">

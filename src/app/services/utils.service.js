@@ -19,19 +19,6 @@
 
          return service;
 
-
-
-         function handleError(resp) {
-             console.log(resp.data.message);
-             if (resp.data.message) {
-                 toastService.show(resp.data.message);
-             } else {
-                 toastService.show("Unable to complete action, please contact support.");
-
-             }
-
-         }
-
          function limitExceededDialog(type) {
 
              var confirm = $mdDialog.confirm()
@@ -46,6 +33,22 @@
              }, function() {
                  navigateToBilling();
                  // $scope.status = 'You decided to keep your debt.';
+             });
+         }
+
+         function getCSRF() {
+             $http({
+                 method: 'GET',
+                 url: API_CONFIG.baseUrl + 'csrf' /*sample data*/
+             }).then(function(resp) {
+
+                 if (resp.status === 200) {
+                     localStorage.setItem('csrf', resp.data);
+                     toastService.show('Session resotored.Please retry.')
+
+                 } else {
+                     toastService.show('unable to load site properly please retry in some time.')
+                 }
              });
          }
 
@@ -64,12 +67,16 @@
                  fullscreen: true,
              });
          }
- 
- 
+
+
          function handleError(resp) {
              console.log(resp.data.message);
              if (resp.data.message) {
                  toastService.show(resp.data.message);
+                  if (resp.status === 400) {
+                     toastService.show("session expired please login again..");
+                     $state.go('authentication.login',{},{reload:true})
+                 }
              } else {
                  toastService.show("Unable to complete action, please contact support.");
 
