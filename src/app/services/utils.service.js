@@ -73,7 +73,7 @@
              console.log(resp.data.message);
              if (resp.data.message) {
                  toastService.show(resp.data.message);
-                  if (resp.status === 400) {
+                  if (resp.status === 406) {
                      toastService.show("session expired please login again..");
                      $state.go('authentication.login',{},{reload:true})
                  }

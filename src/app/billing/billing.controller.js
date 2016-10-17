@@ -40,6 +40,7 @@
             });
             var paramObj = {
                 'api_token': localStorage.getItem('apiToken'),
+                'org_id':  $stateParams.id
 
             };
             billingService.getSubscriptionDetails(paramObj).then(function(data) {

@@ -8,7 +8,7 @@
                 <md-progress-linear class="md-accent padding-bottom-10" md-mode="determinate" ng-value="triWizard.progress"></md-progress-linear>
             </md-toolbar>
             <md-tabs class="md-primary" layout-fill md-selected="triWizard.currentStep" md-dynamic-height>
-                <md-tab id="Info">
+                <md-tab id="Info" " ng-disabled="vm.disableWizardSteps">
                     <md-tab-label>
                         <span class="oxy-step-label">1</span>
                         <span translate>General Info</span>
@@ -40,7 +40,7 @@
                         </md-content>
                     </md-tab-body>
                 </md-tab>
-                <md-tab ng-if="vm.id===0" id="upload" ng-disabled="infoForm.$invalid">
+                <md-tab ng-if="vm.id===0" id="upload" ng-disabled="infoForm.$invalid||vm.disableWizardSteps">
                     <md-tab-label>
                         <span class="oxy-step-label">2</span>
                         <span translate>Select Images</span>
@@ -49,8 +49,12 @@
                         <md-content class="md-padding">
                             <md-list flex="100" ng-if="vm.files.length!==0">
                                 <md-subheader flex="row" layout-align="space-between" class="md-no-sticky md-headline  ">Selected Files</md-subheader>
-                                <md-list-item ng-repeat="item in vm.files" class="md-padding">
-                                    <p flex="80">{{::item.name}}</p>
+                                <md-list-item ng-repeat="item in vm.files track by $index" ng-show="!item.deleted" class="md-padding">
+                                  <div flex="100" style="display: flex" flex="row" layout-align="space-between center">
+                                      
+                                    <p  >{{::item.name}}</p>
+                                    <md-button    class="md-icon-button " ng-click="vm.removeFile(item,$index)"><md-icon class="zmdi zmdi-close"></md-icon></md-button>
+                                  </div> 
                                     <md-divider></md-divider>
                                 </md-list-item>
                             </md-list>
@@ -66,7 +70,7 @@
                         </md-content>
                     </md-tab-body>
                 </md-tab>
-                <md-tab id="create-space" ng-disabled="vm.files.length===0">
+                <md-tab id="create-space" ng-if="vm.id===0" md-on-select="vm.createSpace()" ng-disabled="vm.files.length===0||vm.disableWizardSteps">
                     <md-tab-label>
                         <span class="oxy-step-label">3</span>
                         <span translate>Create Space</span>

@@ -6,10 +6,11 @@
         .controller('spacesDetailController', spacesDetailController);
 
     /* @ngInject */
-    function spacesDetailController($mdSidenav, spaceService, galleryService,toastService, Upload, utilService, $stateParams, triBreadcrumbsService) {
+    function spacesDetailController($mdSidenav, spaceService, galleryService, toastService, Upload, utilService, $stateParams, triBreadcrumbsService) {
         var vm = this;
         vm.isOpen = false;
-        vm.files=[];
+        vm.createSpaceDisabled = true;
+        vm.files = [];
         if ($stateParams.spaceId) {
             vm.id = parseInt($stateParams.spaceId);
         } else {
@@ -25,6 +26,19 @@
         vm.uploadIncomplete = true;
         if (vm.id !== 0) {
             init();
+        }
+        vm.removeFile = removeFile;
+
+
+        function removeFile(file, index) {
+            vm.files = _.map(vm.files, function(value,key) {
+                if(index === key){
+                    value.deleted=true;
+
+                }
+                return value;
+            })
+          
         }
 
         function init() {
@@ -44,11 +58,16 @@
         }
         var fileList;
         ////////////////
-        function addToArr(selectedFiles){
+        function addToArr(selectedFiles) {
             vm.files.push.apply(vm.files, selectedFiles);
         }
+
         function createSpace() {
+            // vm.createSpaceDisabled = false;
             uploadStarted();
+            vm.files=_.filter(vm.files,function(item){
+                return !item.deleted;
+            })
             var paramObj = {
                 projectId: $stateParams.projectId,
                 name: vm.generalInfo.name,
@@ -56,7 +75,7 @@
             }
             spaceService.upload(vm.files, paramObj).then(function(data) {
                 uploadComplete();
-                vm.spaceEditorUrl=data.
+                vm.spaceEditorUrl = data.
                 vm.uploadIncomplete = false;
                 triWizard.nextStep();
             }, function() {
@@ -79,7 +98,8 @@
         function uploadReset() {
             vm.status = 'idle';
         }
-         function uploadFailed() {
+
+        function uploadFailed() {
             vm.status = 'failed';
         }
 
