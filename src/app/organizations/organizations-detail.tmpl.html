@@ -9,7 +9,7 @@
                 </div>
                 <span flex></span>
                 <div hide-xs  ng-if="vm.id!==0" class="md-padding no-left-padding" layout="row" layout-xs="column" layout-align="start-start">
-                     <md-button class="md-default" ng-click="vm.leaveOrg()">Leave Organization</md-button>
+                     <md-button class="md-default"  permission permission-only="'admin'" ng-click="vm.leaveOrg()">Leave Organization</md-button>
 
                      
                 </div>
@@ -19,7 +19,7 @@
                     </md-button>
                     <md-menu-content width="3">
                         <md-menu-item>
-                               <md-button class="md-default" ng-click="vm.leaveOrg()">Leave Organization</md-button>
+                               <md-button class="md-default"  permission permission-only="'admin'" ng-click="vm.leaveOrg()">Leave Organization</md-button>
                     </md-button>
                         </md-menu-item>
                       
@@ -39,8 +39,8 @@
             <textarea ng-model="vm.selectedOrg.description" required>></textarea>
         </md-input-container>
         <div layout="row"  ng-if="vm.selectedOrg.projects.length!==0"  layout-align="space-between">
-              <md-button class="md-raised md-primary"  ng-click="vm.navigateToProjects()">View Projects</md-button>
-            <md-button class="md-primary md-raised" ng-click="vm.updateOrCreate()">Save</md-button>
+              <md-button class="md-raised md-primary"  permission permission-only="'admin'" ng-click="vm.navigateToProjects()">View Projects</md-button>
+            <md-button class="md-primary md-raised"  permission permission-only="'admin'" ng-click="vm.updateOrCreate()">Save</md-button>
         </div>
     </div>  <div class="md-padding" ng-if="vm.id!==0">
           <div layout="column " layout-align="start start">

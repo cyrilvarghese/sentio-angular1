@@ -60,6 +60,9 @@
                 data: {
                     layout: {
                         contentClass: 'layout-column'
+                    },
+                    permission: {
+                        only: ['admin']
                     }
                 }
             });

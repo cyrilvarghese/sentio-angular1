@@ -8,7 +8,7 @@
             <label>Description</label>
             <textarea ng-model="vm.selectedProject.description"></textarea>
         </md-input-container>
-        <div layout="row" layout-align="end-center">
+        <div layout="row" layout-align="end-center"  permission permission-only="'admin'">
             <md-button class="md-primary md-raised" ng-click="vm.createOrUpdate()">Save</md-button>
         </div>
     </div>

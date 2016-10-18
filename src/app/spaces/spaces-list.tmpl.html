@@ -24,10 +24,6 @@
                                                     <md-button ng-click="vm.navigateToDetail(value.id)">
                                                         <md-icon md-font-icon='zmdi zmdi-edit'></md-icon>Edit Space details</md-button>
                                                 </md-menu-item>
-                                                <md-menu-item ng-if="value.added_in_gallery==='0'">
-                                                    <md-button ng-click="vm.addSpaceToGallery(value.id)">
-                                                        <md-icon md-font-icon='fa fa-plus-circle'></md-icon>Add to Gallery</md-button>
-                                                </md-menu-item>
                                                 <md-menu-item ng-if="value.added_in_gallery==='1'">
                                                     <md-button ng-click="vm.removeSpaceFromGallery(value.id)">
                                                         <md-icon md-font-icon='zmdi zmdi-minus-circle'></md-icon>Remove From Gallery</md-button>
@@ -46,15 +42,23 @@
                                 </a>
                                 <md-card-content>
                                     <p style="height: 50px" class="truncate">{{value.desc}}</p>
-                                    <md-tooltip >{{value.desc}}</md-tooltip>
                                 </md-card-content>
-                                <md-card-actions layout="row" layout-align="end center">
-                                    <!--  ng-href='http://{{value.editorUrl}}' -->
-                                    <md-button class=" md-primary md-raised" ng-click="vm.openEditorModal($event,value.editorUrl)" target="_blank">Editor Mode</md-button>
-                                    <md-button class="md-primary md-raised  " ngf-select="vm.uploadForLinking(value.id,$file)" ng-disabled="vm.status != 'idle'" ngf-multiple="true" aria-label="upload">
-                                        <md-icon md-font-icon ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon>
-                                        link
-                                    </md-button>
+                                <md-card-actions layout="row" layout-align="space-between center">
+                                    <div>
+                                        <!--  ng-href='http://{{value.editorUrl}}' -->
+                                        <md-button class=" md-primary md-icon-button" ng-click="vm.openEditorModal($event,value.editorUrl)" target="_blank">
+                                        <md-icon class="zmdi zmdi-edit" style="font-size:24px !important"> </md-icon>
+                                            <md-tooltip style="font-size:12px !important">View a space in editor mode</md-tooltip>
+                                        </md-button>
+                                        <md-button class="md-primary  md-icon-button" ngf-select="vm.uploadForLinking(value.id,$file)" ng-disabled="vm.status != 'idle'" ngf-multiple="true" aria-label="upload">
+                                            <md-icon md-font-icon style="font-size:24px !important" ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon>
+                                            <md-tooltip style="font-size:12px !important">Upload an xml file to link spaces</md-tooltip>
+                                        </md-button>
+                                    </div>
+                                    <md-button class="md-primary md-raised" ng-click="vm.addSpaceToGallery(value.id)">
+                                         Add to Gallery
+                                          <md-tooltip style="font-size:12px !important">Add space to gallery</md-tooltip></md-button>
+
                                 </md-card-actions>
                             </md-card>
                         </div>
