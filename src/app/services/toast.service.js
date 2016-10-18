@@ -39,7 +39,7 @@
             $mdToast.show({
                 template: "<md-toast><div class='md-toast-content'>" + message + "</div></md-toast>",
                 position: 'bottom right',
-                hideDelay: 3000
+                hideDelay: 5000
             });
         }
 

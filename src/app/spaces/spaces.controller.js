@@ -36,6 +36,7 @@
         triBreadcrumbsService.addCrumb({ name: 'Spaces' });
         init();
         uploadReset();
+        uploadResetTheme();
 
         function addAction() {
             console.log(vm.selectedTabIndex);
@@ -185,6 +186,20 @@
             vm.status = 'idle';
         }
 
+        function uploadResetTheme() {
+            vm.statusTheme = 'idle';
+        }
+
+        function uploadStartedTheme() {
+            vm.statusTheme = 'uploading';
+        }
+
+
+        function uploadCompleteTheme() {
+            vm.statusTheme = 'complete';
+
+        }
+
         function addSpaceToGallery(id) {
             if (localStorage.getItem('userInfo')) {
                 var paramObj = {
@@ -223,8 +238,9 @@
                 files: files,
                 project_id: $stateParams.projectId
             }
-            logoAndThemeService.addLogo(paramObj).then(function() {
+            logoAndThemeService.addLogo(paramObj).then(function(data) {
                 uploadComplete();
+                updateGallery(null, data.id);
             }, function() {
                 uploadReset();
             })
@@ -243,6 +259,7 @@
         }
 
         function addTheme(files) {
+            uploadStartedTheme();
             if (localStorage.getItem('userInfo')) {
                 var paramObj = {
                     api_token: localStorage.getItem('apiToken'),
@@ -251,8 +268,15 @@
                     user_id: JSON.parse(localStorage.getItem('userInfo')).user_id
                 }
                 logoAndThemeService.addTheme(paramObj).then(function(data) {
-                    updateGallery(data.id, null);
-                });
+                    uploadCompleteTheme();
+                    updateGallery(data.theme_id, null);
+                }, function() {
+                    uploadResetTheme();
+                })
+
+
+
+
             }
         }
 

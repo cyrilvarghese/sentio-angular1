@@ -13,6 +13,7 @@
             setCurrentOrganization: setCurrentOrganization,
             getOrgList: getOrgList,
             getOrg: getOrg,
+            getOrgStats: getOrgStats,
             createOrganization: createOrganization,
             updateOrganization: updateOrganization
 
@@ -101,6 +102,23 @@
 
         }
 
+        function getOrgStats(paramObj) {
+             var dfd = $q.defer();
+            var req = {
+                method: 'GET',
+                url: API_CONFIG.baseUrl + API_CONFIG.organizationsUrl + paramObj.id +'/current_stats?' + $.param(paramObj),
+                headers: utilService.getHeaders(),
+                data: paramObj
+            }
+            $http(req).then(function(response) {
+                // toastService.show(response.data.message);
+                // navigateToList();
+                dfd.resolve(response.data);
+            }, utilService.handleError);
+
+            return dfd.promise;
+
+        }
 
         function navigateToList() {
             $state.go('triangular.organizations', {}, { reload: true })

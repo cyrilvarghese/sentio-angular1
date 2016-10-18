@@ -15,6 +15,7 @@
         vm.addTheme = addTheme;
         vm.removeTheme = removeTheme;
         uploadReset();
+        uploadResetTheme();
         ////////////////
         function addLogo(files) {
             uploadStarted();
@@ -43,13 +44,20 @@
         }
 
         function addTheme(files) {
+
+            uploadStartedTheme();
+
             if (localStorage.getItem('userInfo')) {
                 var paramObj = {
                     api_token: localStorage.getItem('apiToken'),
                     logo_id: vm.selectedLogo.id,
                     user_id: JSON.parse(localStorage.getItem('userInfo')).user_id
                 }
-                logoAndThemeService.addTheme(paramObj);
+                logoAndThemeService.addTheme(paramObj).then(function() {
+                    uploadCompleteTheme();
+                }, function() {
+                    uploadResetTheme();
+                });
             }
         }
 
@@ -64,10 +72,7 @@
             }
         }
 
-        function uploadStarted() {
-            vm.status = 'uploading';
-        }
-
+     
         function showMembers(componentId) {
             $mdSidenav(componentId)
                 .open()
@@ -75,15 +80,33 @@
 
                 });
         }
+        function uploadStarted() {
+            vm.status = 'uploading';
+        }
+
 
         function uploadComplete() {
             vm.status = 'complete';
 
         }
 
+        function uploadResetTheme() {
+            vm.statusTheme = 'idle';
+        }
+         function uploadStartedTheme() {
+            vm.statusTheme = 'uploading';
+        }
+
+
+        function uploadCompleteTheme() {
+            vm.statusTheme = 'complete';
+
+        }
+
         function uploadReset() {
             vm.status = 'idle';
         }
+        // num
         // number of days of dummy data to show
         var numberOfFeedDays = 1;
         var loremPixelCategories = ['abstract', 'city', 'people', 'nature', 'food', 'fashion', 'nightlife'];

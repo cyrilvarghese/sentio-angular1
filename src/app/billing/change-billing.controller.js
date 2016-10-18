@@ -9,8 +9,8 @@
     function changePlanController($mdSidenav, $rootScope, $state, utilService, userService, $timeout, $stateParams, billingService, $scope, triLoaderService, organizationService, triBreadcrumbsService, projectService, toastService) {
         var vm = this;
 
-        vm.currentPlan = organizationService.getCurrentOrganization().plan;
-        vm.currentPlanId = vm.currentPlan.plan_id || 0;
+        // vm.currentPlan = organizationService.getCurrentOrganization().plan;
+        vm.currentPlanId = organizationService.getCurrentOrganization().plan.plan_id || 0;
         vm.paymentAllowed = userService.getCurrentUser().verified === 1;
         vm.userId = userService.getCurrentUser().user_id;
 
@@ -32,14 +32,22 @@
             if (vm.accountExpired === 1) {
                 vm.btnName = "Renew selected"
             }
-
             var paramObj = {
                 'api_token': localStorage.getItem('apiToken'),
+                'id': vm.orgId
 
             };
-            billingService.getPlanList(paramObj).then(function(data) {
-                vm.plans = data;
-            });
+            organizationService.getOrgStats(paramObj).then(function(data) {
+                vm.currentPlan = data.max_stats;
+                var paramObj = {
+                    'api_token': localStorage.getItem('apiToken'),
+
+                };
+                billingService.getPlanList(paramObj).then(function(data) {
+                    vm.plans = data;
+                });
+            })
+
         }
 
         function resendEmail() {
@@ -56,9 +64,8 @@
             if (isValidPlan(selectedPlan)) {
                 angular.element('#payment-btn').click();
                 vm.selectedPlan = selectedPlan;
-            }
-            else{
-                utilService.messageDialog("Plan Invalid","You have more projects/spaces/members created than the limit of the selected plan.Please remove projects/spaces/members and retry.",false)
+            } else {
+                utilService.messageDialog("Plan Invalid", "You have more projects/spaces/members created than the limit of the selected plan.Please remove projects/spaces/members and retry.", false)
             }
         }
 
@@ -77,10 +84,10 @@
         }
 
         function isValidPlan(selectedPlan) {
-          
-            return !(selectedPlan.num_spaces < vm.currentPlan.num_spaces ||
-                selectedPlan.num_spaces < vm.currentPlan.num_spaces ||
-                selectedPlan.num_members < vm.currentPlan.num_members)
+
+            return !(selectedPlan.num_projects < vm.currentPlan.project ||
+                selectedPlan.num_spaces < vm.currentPlan.space ||
+                selectedPlan.num_members < vm.currentPlan.member)
 
         }
 

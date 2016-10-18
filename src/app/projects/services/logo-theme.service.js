@@ -37,16 +37,17 @@
                 }).then(function(response) {
                 toastService.show(response.data.message);
 
-                    dfd.resolve(response);
+                    dfd.resolve(response.data);
                     $state.go($state.current, {selectedTabIndex:2}, { reload: true });
 
                     // console.log('Success? ' + response.config.data.file.name + 'uploaded. responseonse: ' + response.data);
                 }, function(response) {
+            utilService.handleError(response);
                     dfd.reject(response);
                     // console.log('Error status: ' + response.status);
                 }, function(evt) {
                     var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                    console.log('progress: ' + progressPercentage + '% ' + evt.config.data.image[0].name);
+                    console.log('progress: ' + progressPercentage + '% ' + evt.config.data.image.name);
                     // console.log('progress: ' + progressPercentage + '% ' + evt.config.data.image[1].name);
                 });;
 
@@ -135,14 +136,15 @@
                     
                     $state.go($state.current, {}, { reload: true });
 
-                    dfd.resolve(response);
+                    dfd.resolve(response.data);
                     // console.log('Success? ' + response.config.data.file.name + 'uploaded. responseonse: ' + response.data);
                 }, function(response) {
+                    utilService.handleError(response);
                     dfd.reject(response);
                     // console.log('Error status: ' + response.status);
                 }, function(evt) {
                     var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                    console.log('progress: ' + progressPercentage + '% ' + evt.config.data.image[0].name);
+                    console.log('progress: ' + progressPercentage + '% ' + evt.config.data.image.name);
                     // console.log('progress: ' + progressPercentage + '% ' + evt.config.data.image[1].name);
                 });;
 
