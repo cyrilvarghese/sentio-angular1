@@ -22,6 +22,7 @@
 
         function cancel() {
             $mdDialog.cancel();
+            $mdDialog.hide();
         }
 
 

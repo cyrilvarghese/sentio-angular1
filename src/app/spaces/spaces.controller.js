@@ -137,9 +137,19 @@
                 });
         }
 
+        function navigateToPlanChange() {
+            $state.go('triangular.organizations.detail.billing.change');
+        }
+
+        function navigateToBilling() {
+            $state.go('triangular.organizations.detail.billing');
+        }
+
         function navigateToDetail(id) {
             if (id === 0 && vm.spaceList.length + 1 > parseInt(vm.plan.num_spaces)) {
-                utilService.limitExceededDialog("spaces");
+                // utilService.limitExceededDialog("spaces");
+                utilService.customConfirmDialog('Plan limit exceeded!', 'You have exceeded the allowed number of spaces, click proceed to change plan or contact the organization admin.', false, "Proceed To Renew", "View Current Plan", navigateToPlanChange, navigateToBilling);
+
                 return;
             }
             $state.go('triangular.organizations.detail.projects.detail.spaces.detail', {

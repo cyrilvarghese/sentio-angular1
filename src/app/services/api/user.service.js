@@ -6,7 +6,7 @@
         .factory('userService', userService);
 
     /* @ngInject */
-    function userService($q, $http, RoleStore, Upload, utilService, toastService, API_CONFIG) {
+    function userService($q, $http, $state,RoleStore, Upload, utilService, toastService, API_CONFIG) {
         var userInfo = {
             name: 'guest',
             username: '-'
@@ -227,10 +227,14 @@
                     },
                     headers: utilService.getHeaders()
                 }).then(function(response) {
+                    toastService.show(response.data.message);
+                    localStorage.setItem('userInfo', JSON.stringify(response.data));
+                    $state.go($state.current, {}, {reload:true});
                     dfd.resolve(response);
                     // console.log('Success? ' + response.config.data.file.name + 'uploaded. responseonse: ' + response.data);
                 }, function(response) {
                     dfd.reject(response);
+                    utilService.handleError(response);
                     // console.log('Error status: ' + response.status);
                 }, function(evt) {
                     var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
@@ -257,9 +261,9 @@
                 localStorage.setItem('userInfo', JSON.stringify(response.data));
                 localStorage.setItem('apiToken', response.data.auth_key);
                 dfd.resolve();
-            },function(){
+            }, function() {
                 dfd.reject();
-                 utilService.handleError();
+                utilService.handleError();
             });
 
             return dfd.promise;
