@@ -1,4 +1,4 @@
-(function() {
+  (function() {
     'use strict';
 
     angular
@@ -9,7 +9,6 @@
     function spacesDetailController($mdSidenav, spaceService, galleryService, toastService, Upload, utilService, $stateParams, triBreadcrumbsService) {
         var vm = this;
         vm.isOpen = false;
-        vm.createSpaceDisabled = true;
         vm.files = [];
         if ($stateParams.spaceId) {
             vm.id = parseInt($stateParams.spaceId);
@@ -63,7 +62,7 @@
         }
 
         function createSpace() {
-            // vm.createSpaceDisabled = false;
+            vm.disableWizardSteps = true;
             uploadStarted();
             vm.files=_.filter(vm.files,function(item){
                 return !item.deleted;

@@ -38,7 +38,7 @@
                 }
             })
             .state('authentication.login', {
-                url: '/login?invitation_code&email&org&verified',
+                url: '/login?invitation_code&email&org&verified&sessionExpired',
                 templateUrl: 'app/authentication/login/login.tmpl.html',
                 controller: 'LoginController',
                 controllerAs: 'vm'

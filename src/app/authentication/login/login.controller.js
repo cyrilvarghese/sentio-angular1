@@ -12,6 +12,9 @@
             utilService.messageDialog("Account verified", "Your account was verified successfully.Please login to continue.", true);
         } else if ($stateParams.verified && $stateParams.verified === "0") {
             utilService.messageDialog("Account unverified", "Unable to verify account.Please retry.", false);
+        }else if($stateParams.sessionExpired){
+            utilService.messageDialog("Session Expired", "Your session has expired please login again...", false);
+
         }
 
 

@@ -70,7 +70,7 @@
                         </md-content>
                     </md-tab-body>
                 </md-tab>
-                <md-tab id="create-space" ng-if="vm.id===0" md-on-select="vm.createSpace()" ng-disabled="vm.files.length===0||vm.disableWizardSteps">
+                <md-tab id="create-space" ng-if="vm.id===0" md-on-select="vm.createSpace()" ng-disabled="vm.files.length===0">
                     <md-tab-label>
                         <span class="oxy-step-label">3</span>
                         <span translate>Create Space</span>
@@ -90,8 +90,8 @@
             </md-tabs>
             <md-card-actions layout="row" layout-align="end center">
                 <md-button class="md-primary md-raised" ng-if="vm.id!==0" ng-click="vm.updateSpace()">Save</md-button>
-                <md-button ng-if="vm.id===0" class="md-primary md-raised" ng-click="triWizard.prevStep()" ng-hide="triWizard.currentStep > 2" ng-disabled="triWizard.prevStepDisabled()" translate="Previous"></md-button>
-                <md-button ng-if="vm.id===0" class="md-primary md-raised" ng-click="triWizard.nextStep()" ng-hide="triWizard.currentStep === 1" ng-disabled="triWizard.nextStepDisabled()" translate="Next"></md-button>
+                <md-button ng-if="vm.id===0" class="md-primary md-raised" ng-click="triWizard.prevStep()" ng-hide="triWizard.currentStep > 2" ng-disabled="triWizard.prevStepDisabled()||vm.disableWizardSteps" translate="Previous"></md-button>
+                <md-button ng-if="vm.id===0" class="md-primary md-raised" ng-click="triWizard.nextStep()" ng-hide="triWizard.currentStep === 1" ng-disabled="triWizard.nextStepDisabled()||vm.disableWizardSteps" translate="Next"></md-button>
                 <md-button ng-if="vm.id===0&&vm.files.length!==0" class="md-primary md-raised" ng-click="triWizard.nextStep();vm.createSpace()" ng-show="triWizard.currentStep === 1" ng-disabled="triWizard.nextStepDisabled()">Create Space</md-button>
             </md-card-actions>
     </div>

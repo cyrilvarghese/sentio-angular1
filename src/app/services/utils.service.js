@@ -74,8 +74,8 @@
              if (resp.data.message) {
                  toastService.show(resp.data.message);
                   if (resp.status === 406) {
-                     toastService.show("session expired please login again..");
-                     $state.go('authentication.login',{},{reload:true})
+                     // toastService.show("session expired please login again..");
+                     $state.go('authentication.login',{sessionExpired:true},{reload:true})
                  }
              } else {
                  toastService.show("Unable to complete action, please contact support.");
