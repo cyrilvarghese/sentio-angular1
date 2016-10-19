@@ -9,7 +9,7 @@
     function organizationsDetailController($mdSidenav, $timeout, $scope, $rootScope, toastService,userService, triBreadcrumbsService, organizationService, $state, $stateParams) {
         var vm = this;
 
-        if (userService.getCurrentUser().roles[0] !== 'admin') {
+        if (userService.getCurrentUser().roles[0] !== 'admin'&&vm.id !== 0) {
             toastService.show('You are not authorized to make any changes in this view');
             vm.disableForm=true;
         }
