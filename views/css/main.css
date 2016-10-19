@@ -298,7 +298,7 @@ transform:translateY(0);
 .featured-on,
 .features,
 .tour,
-.site-footer { background-color: rgba(0, 0, 0, 0.03); }
+.site-footer { background-color: rgba(0, 0, 0, 0.05); }
 
 .section-spacing,
 .section-spacing.featured-on,
@@ -312,7 +312,7 @@ transform:translateY(0);
 .featured-sites li:last-child { padding-bottom: 0; }
 
 .featured-sites img {
-  opacity: .15;
+  
   transition: all 0.5s linear;
 }
 
