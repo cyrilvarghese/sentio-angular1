@@ -6,7 +6,7 @@
         .controller('ToolbarController', DefaultToolbarController);
 
     /* @ngInject */
-    function DefaultToolbarController($scope, $injector, $rootScope, $mdMedia, $state, $element, $filter, $mdUtil, $mdSidenav, $mdToast, $timeout, $document, triBreadcrumbsService, triSettings, triLayout) {
+    function DefaultToolbarController($scope, $injector, $rootScope, $mdMedia, $state, $element, $filter, $mdUtil, $mdSidenav, $mdToast, $timeout, $document,userService, triBreadcrumbsService, triSettings, triLayout) {
         var vm = this;
         // vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
         vm.emailNew = false;
@@ -25,7 +25,7 @@
             displayName: userInfo.name,
             username: userInfo.email,
             avatar: userInfo.image,
-            roles: ['admin']
+            roles: userInfo.roles
         }
          $rootScope.$on('updateBreadcrumbs', function(event,args) {
             vm.breadcrumbs = args;

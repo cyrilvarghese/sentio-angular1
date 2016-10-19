@@ -16,8 +16,9 @@
         vm.toggleSearch = toggleSearch;
         vm.toolbarMenu = [];
         vm.logOut = logOut;
+        vm.goTo = goTo;
         var userInfo = JSON.parse(localStorage.getItem('userInfo'));
-        $rootScope.$on('updateBreadcrumbs', function(event,args) {
+        $rootScope.$on('updateBreadcrumbs', function(event, args) {
             vm.breadcrumbs = args;
         });
 
@@ -25,9 +26,13 @@
             displayName: userInfo.name,
             username: userInfo.email,
             avatar: userInfo.image,
-            roles: ['admin']
+            roles: userInfo.roles
         }
         vm.toolbarMenu = [];
+
+        function goTo(state) {
+            $state.go(state);
+        }
 
         function logOut() {
             localStorage.clear();

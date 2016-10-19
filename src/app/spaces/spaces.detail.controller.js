@@ -16,7 +16,6 @@
           } else {
               vm.id = 0;
           }
-
           vm.status = 'idle'; // idle | uploading | complete
           vm.createSpace = createSpace;
           vm.updateSpace = updateSpace;
@@ -57,6 +56,7 @@
                       description: data.description,
 
                   }
+
               });
           }
           var fileList;

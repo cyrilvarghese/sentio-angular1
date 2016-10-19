@@ -21,7 +21,7 @@
         $stateProvider
             .state('triangular.organizations.detail.billing', {
                 url: '/billing?subscriptionCreated&cardUpdated&accountExpired',
-                templateUrl: 'app/billing/billing.tmpl.html',
+                templateUrl: 'app/billing/billing-disabled.tmpl.html',
                 controller: 'billingController',
                 controllerAs: 'vm',
                 // layout-column class added to make footer move to

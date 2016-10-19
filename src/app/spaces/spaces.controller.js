@@ -6,7 +6,7 @@
         .controller('spacesController', spacesController);
 
     /* @ngInject */
-    function spacesController($state, $mdSidenav, $rootScope, organizationService, utilService, $mdDialog, projectService, galleryService, $stateParams, spaceService, $scope, $element, $myElementInkRipple, logoAndThemeService, triBreadcrumbsService) {
+    function spacesController($state,userService, $mdSidenav, $rootScope, organizationService, utilService, $mdDialog, projectService, galleryService, $stateParams, spaceService, $scope, $element, $myElementInkRipple, logoAndThemeService, triBreadcrumbsService) {
         var vm = this;
         vm.themes = [];
         vm.logos = [];
@@ -18,6 +18,7 @@
         vm.selectMember = selectMember;
         vm.navigateToDetail = navigateToDetail;
         vm.deleteSpace = deleteSpace;
+        vm.user = userService.getCurrentUser();
         vm.uploadForLinking = uploadForLinking;
         vm.createOrUpdate = createOrUpdate;
         vm.leaveProject = leaveProject;
@@ -119,8 +120,15 @@
                         return item;
                     });
                     vm.selectedMembers = [];
+                    var breadCrumbs = [{
+                        name: 'Projects',
+                        state: 'triangular.organizations.detail.projects'
+                    }, {
+                        name:vm.selectedProject.name,
+                        state: 'triangular.organizations.detail.projects.detail.spaces'
+                    }]
+                    $rootScope.$broadcast('updateBreadcrumbs', breadCrumbs);
 
-                    $rootScope.$broadcast('updateBreadcrumbs', 'Projects > ' + vm.selectedProject.name);
                     if (vm.selectedProject.gallery.length !== 0) {
                         getGalleryDetails();
                     }

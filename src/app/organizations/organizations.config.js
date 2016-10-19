@@ -41,14 +41,24 @@
 
                 // layout-column class added to make footer move to
                 // bottom of the page on short pages
-                templateUrl: 'app/organizations/organizations-detail.tmpl.html',
-                controller: 'organizationsDetailController',
-                controllerAs: 'vm',
 
+                controllerAs: 'vm',
+                views: {
+                    'toolbar@triangular': {
+                        templateUrl: 'app/organizations/layout/toolbar/toolbar.tmpl.html',
+                        controller: 'organizationsDetailToolbarController',
+                        controllerAs: 'vm'
+                    },
+                    '@triangular': {
+                        templateUrl: 'app/organizations/organizations-detail.tmpl.html',
+                        controller: 'organizationsDetailController',
+                        controllerAs: 'vm'
+                    }
+                },
 
                 // layout-column class added to make footer move to
                 // bottom of the page on short pages
-                    data: {
+                data: {
                     layout: {
                         contentClass: 'layout-column'
                     }

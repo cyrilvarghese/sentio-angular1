@@ -2,7 +2,7 @@
     <md-content>
         <div class="md-padding">
             <div class="md-padding" layout-align="center" layout-gt-sm="row" layout-sm="column">
-                <tri-widget class="clickable" ng-click="vm.navigateToProjects(value,value.org_id)" layout-margin flex="50" flex-xs="100" ng-repeat="(key, value) in vm.orgList.admin" avatar="assets/images/avatars/avatar-5.png" palette-background="blue:800" title="{{value.org_name}}" subtitle=" Created By You" title-position="top" content-layout-align="start center" content-layout="column">
+                <tri-widget class="clickable white-fg" ng-click="vm.navigateToProjects(value,value.org_id)" layout-margin flex="50" flex-xs="100" ng-repeat="(key, value) in vm.orgList.admin" avatar="assets/images/org1.png" palette-background="cyan:500" title="{{value.org_name}}" subtitle=" Created By You" title-position="top" content-layout-align="start center" content-layout="column">
                     <div linkify="twitter" class="font-weight-300 md-headline font-style-italic line-height-big margin-bottom-20 padding-normal">
                         {{value.description}}
                     </div>
@@ -17,7 +17,7 @@
             <h2 class="md-subhead center-block">Created By Others</h2>
             <div class="md-padding" layout-align="center" layout-gt-sm="row" layout-sm="column">
                 <div class="md-headline" ng-if="!vm.orgList.member">No Organizations Found</div>
-                <tri-widget class="clickable" ng-click="vm.navigateToProjects(value,value.org_id)" layout-margin flex="50" flex-xs="100" ng-repeat="(key, value) in vm.orgList.member" avatar="assets/images/avatars/avatar-5.png" palette-background="blue:600" title="{{value.org_name}}" subtitle=" Created By {{value.creator}}" title-position="top" content-layout-align="start center" content-layout="column">
+                <tri-widget class="clickable white-fg" ng-click="vm.navigateToProjects(value,value.org_id)" layout-margin flex="50" flex-xs="100" ng-repeat="(key, value) in vm.orgList.member" avatar="assets/images/org1.png" palette-background="cyan:500" title="{{value.org_name}}" subtitle=" Created By {{value.creator}}" title-position="top" content-layout-align="start center" content-layout="column">
                     <div linkify="twitter" class="font-weight-300 md-headline font-style-italic line-height-big margin-bottom-20 padding-normal">
                         {{value.description}}
                     </div>

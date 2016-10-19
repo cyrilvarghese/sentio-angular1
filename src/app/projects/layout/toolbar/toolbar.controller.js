@@ -19,7 +19,7 @@
             displayName: userInfo.name,
             username: userInfo.email,
             avatar: userInfo.image,
-            roles: ['admin']
+            roles: userInfo.roles
         }
         vm.toolbarMenu = [];
         $rootScope.$on('updateBreadcrumbs', function(event, args) {

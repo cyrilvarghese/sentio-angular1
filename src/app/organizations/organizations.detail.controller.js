@@ -39,10 +39,7 @@
                 $rootScope.$emit('updateBreadcrumbs', 'Spaces > Add New Orgnisation');
             }
 
-            $timeout(function() {
-                angular.element('#billing').addClass('md-hue-1');
-
-            }, 100);
+            
         }
 
         function updateOrCreate() {

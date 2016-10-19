@@ -19,8 +19,11 @@
             displayName: userInfo.name,
             username: userInfo.email,
             avatar: userInfo.image,
-            roles: ['admin']
+           roles: userInfo.roles
         }
+         $rootScope.$on('updateBreadcrumbs', function(event,args) {
+            vm.breadcrumbs = args;
+        });
         vm.toolbarMenu = [];
 
         function hideMenuButton() {

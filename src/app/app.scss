@@ -58,9 +58,12 @@ input {
 }
 
 .clickable.widget:hover {
-    background-color: rgb(15, 45, 78) !important;
+    background-color:rgb(0, 131, 143) !important;
+    color:#fff !important;
 }
-
+.white-fg{
+      color:#fff !important;
+}
 .md-margin-5p {
     margin: 7.5px !important;
     margin-bottom: 15px !important;
@@ -106,6 +109,9 @@ md-grid-tile-footer {
 
 .flex-basis {
     flex-basis: 33% !important;
+}
+.flex-basis-50 {
+    flex-basis: 50% !important;
 }
 .fab-relative{
          position: absolute;
