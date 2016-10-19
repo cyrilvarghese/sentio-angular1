@@ -24,7 +24,7 @@
                                                     <md-button ng-click="vm.navigateToDetail(value.id)">
                                                         <md-icon md-font-icon='zmdi zmdi-edit'></md-icon>Edit Space details</md-button>
                                                 </md-menu-item>
-                                                <md-menu-item ng-if="value.added_in_gallery==='1'">
+                                                <md-menu-item >
                                                     <md-button ng-click="vm.removeSpaceFromGallery(value.id)">
                                                         <md-icon md-font-icon='zmdi zmdi-minus-circle'></md-icon>Remove From Gallery</md-button>
                                                 </md-menu-item>
@@ -55,9 +55,13 @@
                                             <md-tooltip style="font-size:12px !important">Upload an xml file to link spaces</md-tooltip>
                                         </md-button>
                                     </div>
-                                    <md-button class="md-primary md-raised" ng-click="vm.addSpaceToGallery(value.id)">
+                                    <md-button class="md-primary md-raised" ng-if="value.added_in_gallery==='0'" ng-click="vm.addSpaceToGallery(value.id)">
                                          Add to Gallery
                                           <md-tooltip style="font-size:12px !important">Add space to gallery</md-tooltip></md-button>
+
+                                          <md-button class="md-primary md-raised" ng-if="value.added_in_gallery==='1'" ng-click="vm.addSpaceToGallery(value.id)">
+                                         Remove from Gallery
+                                          <md-tooltip style="font-size:12px !important">Remove space from gallery</md-tooltip></md-button>
 
                                 </md-card-actions>
                             </md-card>

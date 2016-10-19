@@ -6,7 +6,7 @@
         .run(runFunction);
 
     /* @ngInject */
-    function runFunction($rootScope, $state, triLayout) {
+    function runFunction($rootScope, $state, triLayout, toastService) {
 
         // default redirect if access is denied
         function redirectError() {
@@ -26,6 +26,7 @@
             function(event, toState, toParams, fromState, fromParams, options) {
 
                 var isAuth = toState.name.includes("authentication");
+                var isOrgDetail = toState.name.includes("organizations.detail");
                 if (isAuth) {
                     return; // no need to redirect 
                 }
@@ -34,11 +35,11 @@
                     event.preventDefault(); // stop current execution
                     $state.go('authentication.login'); // go to login
                 }
-
+                 
             });
         $rootScope.$on('$stateChangeSuccess',
             function(event, toState, toParams, fromState, fromParams, options) {
-                $rootScope.accountExpired=JSON.parse(localStorage.getItem('accountExpired'));
+                $rootScope.accountExpired = JSON.parse(localStorage.getItem('accountExpired'));
                 if (toState.name === 'triangular.organizations' || toState.name === 'triangular.profile') {
                     triLayout.setOption('sideMenuSize', 'off');
 

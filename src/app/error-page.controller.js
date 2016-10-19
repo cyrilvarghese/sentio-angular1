@@ -6,13 +6,15 @@
     /* @ngInject */
     function ErrorPageController($state) {
         var vm = this;
-
-        vm.goHome = goHome;
+ 
+        vm.goBack = goBack;
 
         /////////
 
-        function goHome() {
-            $state.go('triangular.dashboard-analytics');
+        function goBack() {
+            $state.go('triangular.organization.detail.projects')
+            
         }
+         
     }
 })();

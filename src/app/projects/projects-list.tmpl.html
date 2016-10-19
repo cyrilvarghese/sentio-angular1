@@ -18,7 +18,7 @@
                     </md-card-content>
                     <md-card-actions layout="row" layout-align="end end">
                       
-                        <md-button    ng-click="vm.deleteProject(project.id,project,$event)">  <md-icon md-font-icon class="zmdi zmdi-delete"></md-icon>Delete</md-button>
+                        <md-button permission permission-only="'admin'"   ng-click="vm.deleteProject(project.id,project,$event)">  <md-icon md-font-icon class="zmdi zmdi-delete"></md-icon>Delete</md-button>
                     </md-card-actions>
                 </md-card>
             </div>

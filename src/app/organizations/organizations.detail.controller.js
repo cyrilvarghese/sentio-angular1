@@ -6,16 +6,20 @@
         .controller('organizationsDetailController', organizationsDetailController);
 
     /* @ngInject */
-    function organizationsDetailController($mdSidenav,$timeout, $scope, $rootScope, userService, triBreadcrumbsService, organizationService, $state, $stateParams) {
+    function organizationsDetailController($mdSidenav, $timeout, $scope, $rootScope, toastService,userService, triBreadcrumbsService, organizationService, $state, $stateParams) {
         var vm = this;
 
+        if (userService.getCurrentUser().roles[0] !== 'admin') {
+            toastService.show('You are not authorized to make any changes in this view');
+            vm.disableForm=true;
+        }
         vm.navigateToProjects = navigateToProjects;
         vm.showMembers = showMembers;
         vm.updateOrCreate = updateOrCreate;
         vm.leaveOrg = leaveOrg;
         vm.id = parseInt($stateParams.id, 10) || 0;
- triBreadcrumbsService.reset();
-         triBreadcrumbsService.addCrumb({ name: 'Organizations' })
+        triBreadcrumbsService.reset();
+        triBreadcrumbsService.addCrumb({ name: 'Organizations' })
         init();
 
         function init() {
@@ -57,7 +61,7 @@
                 org_id: vm.selectedOrg.org_id,
                 'api_token': localStorage.getItem('apiToken')
             }
-            userService.leaveOrg(paramObj);
+            userServiceuserService.leaveOrg(paramObj);
         }
 
         function selectProject() {

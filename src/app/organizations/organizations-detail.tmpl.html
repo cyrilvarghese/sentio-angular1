@@ -1,5 +1,5 @@
 <ui-view>
-<md-content class="padded-content-page">
+<md-content class="padded-content-page" >
  <md-toolbar>
             <div class="md-toolbar-tools">
                 <div layout="row" layout-align="space-between" class="full-width">
@@ -32,15 +32,15 @@
       
         <md-input-container class="md-block">
             <label>Organization Name</label>
-            <input type="text" ng-model="vm.selectedOrg.name" required>
+            <input type="text" ng-disabled="vm.disableForm" ng-model="vm.selectedOrg.name" required>
         </md-input-container>
         <md-input-container class="md-block">
             <label>Description</label>
-            <textarea ng-model="vm.selectedOrg.description" required>></textarea>
+            <textarea ng-disabled="vm.disableForm" ng-model="vm.selectedOrg.description" required>></textarea>
         </md-input-container>
-        <div layout="row"  ng-if="vm.selectedOrg.projects.length!==0"  layout-align="space-between">
-              <md-button class="md-raised md-primary"  permission permission-only="'admin'" ng-click="vm.navigateToProjects()">View Projects</md-button>
-            <md-button class="md-primary md-raised"  permission permission-only="'admin'" ng-click="vm.updateOrCreate()">Save</md-button>
+        <div layout="row" permission permission-only="'admin'" ng-if="vm.selectedOrg.projects.length!==0"  layout-align="space-between">
+              <md-button class="md-raised md-primary"  ng-click="vm.navigateToProjects()">View Projects</md-button>
+            <md-button class="md-primary md-raised"  ng-click="vm.updateOrCreate()">Save</md-button>
         </div>
     </div>  <div class="md-padding" ng-if="vm.id!==0">
           <div layout="column " layout-align="start start">

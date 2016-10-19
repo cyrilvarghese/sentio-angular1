@@ -15,14 +15,14 @@
         }
 
         // create permissions and add check function verify all permissions
-        var permissions = ['viewBilling', 'editOrganziation', 'addMember','changePlan'];
+        var permissions = ['viewBilling', 'editOrganization', 'addMember','changePlan'];
         PermissionStore.defineManyPermissions(permissions, function(permissionName) {
             return userService.hasPermission(permissionName);
         });
 
         // create roles for app
         RoleStore.defineManyRoles({
-            'admin': ['viewBilling', 'editOrganziation', 'addMember'],
+            'admin': ['viewBilling', 'editOrganization', 'addMember'],
             'member': []
         });
         ///////////////////////

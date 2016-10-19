@@ -13,8 +13,8 @@
             icon: 'fa fa-info',
             state: 'triangular.organizations.detail',
             type: 'link',
-            id: 'account',
-
+            id: 'account'   ,
+           
             priority: 2
         });
 
@@ -60,9 +60,6 @@
                 data: {
                     layout: {
                         contentClass: 'layout-column'
-                    },
-                    permission: {
-                        only: ['admin']
                     }
                 }
             });

@@ -23,12 +23,12 @@
     }
 
     /* @ngInject */
-    function triMenuItemController($scope, $injector, $mdSidenav, $state, $filter, $window, triBreadcrumbsService) {
+    function triMenuItemController($scope, toastService, $injector, $mdSidenav, $state, $filter, $window, triBreadcrumbsService) {
         var triMenuItem = this;
         // load a template for this directive based on the type ( link | dropdown )
         triMenuItem.item.template = 'app/triangular/components/menu/menu-item-' + triMenuItem.item.type + '.tmpl.html';
 
-        switch(triMenuItem.item.type) {
+        switch (triMenuItem.item.type) {
             case 'dropdown':
                 // if we have kids reorder them by priority
                 triMenuItem.item.children = $filter('orderBy')(triMenuItem.item.children, 'priority');
@@ -36,10 +36,9 @@
                 // add a check for open event
                 $scope.$on('toggleDropdownMenu', function(event, item, open) {
                     // if this is the item we are looking for
-                    if(triMenuItem.item === item) {
+                    if (triMenuItem.item === item) {
                         triMenuItem.item.open = open;
-                    }
-                    else {
+                    } else {
                         triMenuItem.item.open = false;
                     }
                 });
@@ -53,7 +52,6 @@
                 break;
             case 'link':
                 triMenuItem.openLink = openLink;
-
                 // on init check if this is current menu
                 checkItemActive($state.current.name, $state.params);
 
@@ -63,11 +61,13 @@
                 break;
         }
 
+         
+
         function checkItemActive() {
             // first check if the state is the same
             triMenuItem.item.active = $state.includes(triMenuItem.item.state, triMenuItem.item.params);
             // if we are now the active item reset the breadcrumbs and open all parent dropdown items
-            if(triMenuItem.item.active) {
+            if (triMenuItem.item.active) {
                 triBreadcrumbsService.reset();
                 triBreadcrumbsService.addCrumb(triMenuItem.item);
                 $scope.$emit('openParents');
@@ -78,19 +78,17 @@
             $scope.$parent.$parent.$broadcast('toggleDropdownMenu', triMenuItem.item, !triMenuItem.item.open);
         }
 
-        function openLink(param1,$event) {
+        function openLink(param1, $event) {
             console.log(param1);
             console.log($event);
-            if(angular.isDefined(triMenuItem.item.click)) {
+            if (angular.isDefined(triMenuItem.item.click)) {
                 $injector.invoke(triMenuItem.item.click);
-            }
-            else {
+            } else {
                 var params = angular.isUndefined(triMenuItem.item.params) ? {} : triMenuItem.item.params;
-                if(angular.isDefined(triMenuItem.item.openInNewTab) && triMenuItem.item.openInNewTab === true) {
+                if (angular.isDefined(triMenuItem.item.openInNewTab) && triMenuItem.item.openInNewTab === true) {
                     var url = $state.href(triMenuItem.item.state, params);
                     $window.open(url, '_blank');
-                }
-                else {
+                } else {
                     $state.go(triMenuItem.item.state, params);
                 }
             }
