@@ -6,16 +6,15 @@
                     <img ng-src="{{::vm.triSettings.logo}}" alt="{{vm.triSettings.name}}">
                 </div>
                 <div layout="row" layout-align="center center">
-                    <h1 class="md-headline">
+                    <h1 class="md-headline padding-20">
                         <span translate>Verifying your email - </span> {{vm.email}}
                     </h1>
                 </div>
             </md-toolbar>
             <md-content class="md-padding">
-                <div class="app-loader padding-top-100" ng-show="vm.showLoader" flex layout="column" layout-align="center center">
-                    <img src="../assets/images/logo.png" alt="">
+                <div class="app-loader padding-top-30" ng-show="vm.showLoader" flex layout="column" layout-align="center center">
                     <md-progress-linear class="padding-bottom-10" md-mode="indeterminate"></md-progress-linear>
-                    <h2 class="padding-bottom-100">Please wait while we verify your email...</h2>
+                    <h2 class="padding-bottom-100 padding-20">Please wait while we verify your email...</h2>
                 </div>
             </md-content>
         </md-card>

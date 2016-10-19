@@ -8,6 +8,7 @@
     /* @ngInject */
     function LockController($state, $stateParams, userService, triSettings, API_CONFIG) {
         var vm = this;
+        vm.triSettings=triSettings;
         vm.showLoader = true;
         var paramObj = {
             email: $stateParams.email || "",

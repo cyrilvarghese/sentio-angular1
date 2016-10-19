@@ -37,7 +37,7 @@
 
             }).state('triangular.organizations.detail.billing.change', {
                 url: '/change-plan?currentPlanId=',
-                templateUrl: 'app/billing/change-plan.tmpl.html',
+                templateUrl: 'app/billing/billing-disabled.tmpl.html',
                 controller: 'changePlanController',
                 controllerAs: 'vm',
 
