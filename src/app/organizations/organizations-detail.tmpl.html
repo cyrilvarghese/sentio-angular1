@@ -1,6 +1,6 @@
 <ui-view>
-<md-content class="padded-content-page" >
- <md-toolbar>
+    <md-content class="padded-content-page">
+        <md-toolbar>
             <div class="md-toolbar-tools">
                 <div layout="row" layout-align="space-between" class="full-width">
                     <h2>
@@ -8,61 +8,54 @@
                     </h2>
                 </div>
                 <span flex></span>
-                <div hide-xs  ng-if="vm.id!==0" class="md-padding no-left-padding" layout="row" layout-xs="column" layout-align="start-start">
-                     <md-button class="md-default"  ng-disabled="vm.disableForm" ng-click="vm.leaveOrg()">Leave Organization</md-button>
-
-                     
+                <div hide-xs ng-if="vm.id!==0" class="md-padding no-left-padding" layout="row" layout-xs="column" layout-align="start-start">
+                    <md-button class="md-default" ng-disabled="vm.disableForm" ng-click="vm.leaveOrg()">Leave Organization</md-button>
                 </div>
-                <md-menu  ng-if="vm.id!==0"  hide-gt-xs>
+                <md-menu ng-if="vm.id!==0" hide-gt-xs>
                     <md-button class="md-icon-button" aria-label="open menu" ng-click="$mdOpenMenu()">
                         <md-icon md-font-icon="zmdi zmdi-more-vert"></md-icon>
                     </md-button>
                     <md-menu-content width="3">
                         <md-menu-item>
-                               <md-button class="md-default"  permission permission-only="'admin'" ng-click="vm.leaveOrg()">Leave Organization</md-button>
-                    </md-button>
+                            <md-button class="md-default" permission permission-only="'admin'" ng-click="vm.leaveOrg()">Leave Organization</md-button>
+                            </md-button>
                         </md-menu-item>
-                      
-                         
-                  
                 </md-menu>
             </div>
         </md-toolbar>
-    <div layout="column " class="md-padding" md-whiteframe="1">
-      
-        <md-input-container class="md-block">
-            <label>Organization Name</label>
-            <input type="text" ng-disabled="vm.disableForm" ng-model="vm.selectedOrg.name" required>
-        </md-input-container>
-        <md-input-container class="md-block">
-            <label>Description</label>
-            <textarea ng-disabled="vm.disableForm" ng-model="vm.selectedOrg.description" required>></textarea>
-        </md-input-container>
-        <div layout="row" ng-if="vm.selectedOrg.projects.length!==0" ng-disabled="vm.disableForm" layout-align="space-between">
-              <md-button class="md-raised md-primary"  ng-click="vm.navigateToProjects()">View Projects</md-button>
-            <md-button class="md-primary md-raised"  ng-disabled="vm.disableForm" ng-click="vm.updateOrCreate()">Save</md-button>
+        <div layout="column" class="md-padding" md-whiteframe="1">
+            <form name="newForm">
+                <md-input-container class="md-block">
+                    <label>Organization Name</label>
+                    <input type="text" required ng-disabled="vm.disableForm" ng-model="vm.selectedOrg.name" required>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Description</label>
+                    <textarea ng-disabled="vm.disableForm" ng-model="vm.selectedOrg.description" required>></textarea>
+                </md-input-container>
+                <div layout="row"  layout-align="end center">
+                    <md-button ng-if="vm.id!==0&&vm.selectedOrg.projects.length!==0" class="md-raised md-primary" ng-disabled="vm.disableForm" ng-click="vm.navigateToProjects()">View Projects</md-button>
+                    <md-button class="md-primary md-raised" ng-disabled="vm.disableForm||newForm.$invalid" ng-click="vm.updateOrCreate()">Save</md-button>
+            </form>
+            </div>
         </div>
-    </div>  <div class="md-padding" ng-if="vm.id!==0">
-          <div layout="column " layout-align="start start">
-         
-          
+        <div class="md-padding" ng-if="vm.id!==0">
+            <div layout="column " layout-align="start start">
+            </div>
         </div>
-  
-    </div> 
-</md-content>
-  
-<!-- <md-content>
+    </md-content>
+    <!-- <md-content>
     <div class="md-padding">
     </div>
     <div layout="column" ng-include="'app/projects/projects-list.tmpl.html'"></div>
 </md-content> -->
-<!-- left sidebar -->
-<md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="members-list-right-menu">
-    <md-toolbar class="md-theme-light">
-        <h1 class="md-toolbar-tools">Members</h1>
-    </md-toolbar>
-    <md-content >
-         <div layout="row" layout-align="start center" class="md-padding"  ng-include="'app/members/members-list-no-invite.tmpl.html'"></div>
-    </md-content>
-</md-sidenav>
+    <!-- left sidebar -->
+    <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="members-list-right-menu">
+        <md-toolbar class="md-theme-light">
+            <h1 class="md-toolbar-tools">Members</h1>
+        </md-toolbar>
+        <md-content>
+            <div layout="row" layout-align="start center" class="md-padding" ng-include="'app/members/members-list-no-invite.tmpl.html'"></div>
+        </md-content>
+    </md-sidenav>
 </ui-view>
