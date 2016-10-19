@@ -8,21 +8,21 @@
     /* @ngInject */
     function organizationsDetailController($mdSidenav, $timeout, $scope, $rootScope, toastService,userService, triBreadcrumbsService, organizationService, $state, $stateParams) {
         var vm = this;
-
-        if (userService.getCurrentUser().roles[0] !== 'admin'&&vm.id !== 0) {
-            toastService.show('You are not authorized to make any changes in this view');
-            vm.disableForm=true;
-        }
+        vm.id = parseInt($stateParams.id, 10) || 0;
         vm.navigateToProjects = navigateToProjects;
         vm.showMembers = showMembers;
         vm.updateOrCreate = updateOrCreate;
         vm.leaveOrg = leaveOrg;
-        vm.id = parseInt($stateParams.id, 10) || 0;
         triBreadcrumbsService.reset();
         triBreadcrumbsService.addCrumb({ name: 'Organizations' })
         init();
 
         function init() {
+
+            if (userService.getCurrentUser().roles[0] !== 'admin' && vm.id !== 0) {
+                toastService.show('You are not authorized to make any changes in this view');
+                vm.disableForm = true;
+            }
             if (vm.id !== 0) {
                 var paramObj = {
                     'api_token': localStorage.getItem('apiToken'),
