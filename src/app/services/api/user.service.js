@@ -261,9 +261,11 @@
                 localStorage.setItem('userInfo', JSON.stringify(response.data));
                 localStorage.setItem('apiToken', response.data.auth_key);
                 dfd.resolve();
-            }, function() {
+                    toastService.show(response.data.message);
+
+            }, function(response) {
                 dfd.reject();
-                utilService.handleError();
+                utilService.handleError(response);
             });
 
             return dfd.promise;

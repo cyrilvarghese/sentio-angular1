@@ -5,7 +5,7 @@
 
         <p flex="30">{{::item.name}}</p>
         <p flex="30">{{::item.email}}</p>
-        <div flex="40" layout="row" layout-align="center center"> <md-button  ng-if="item.role!=='admin'" class="md-icon-button" ng-click="vm.removeMember(item.id)">
+        <div flex="40" layout="row" layout-align="center center"> <md-button  permission permission-only="'admin'" class="md-icon-button" ng-click="vm.removeMember(item.id)">
             <md-icon md-font-icon class="zmdi zmdi-delete "></md-icon>
         </md-button></div>
        
