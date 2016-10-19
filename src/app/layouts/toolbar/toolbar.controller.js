@@ -8,7 +8,7 @@
     /* @ngInject */
     function DefaultToolbarController($scope, $injector, $rootScope, $mdMedia, $state, $element, $filter, $mdUtil, $mdSidenav, $mdToast, $timeout, $document, triBreadcrumbsService, triSettings, triLayout) {
         var vm = this;
-        vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
+        // vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
         vm.emailNew = false;
         vm.languages = triSettings.languages;
         vm.openSideNav = openSideNav;
@@ -27,6 +27,9 @@
             avatar: userInfo.image,
             roles: ['admin']
         }
+         $rootScope.$on('updateBreadcrumbs', function(event,args) {
+            vm.breadcrumbs = args;
+        });
         vm.toolbarMenu = [];
         ////////////////
 

@@ -6,7 +6,7 @@
         .controller('organizationsDetailController', organizationsDetailController);
 
     /* @ngInject */
-    function organizationsDetailController($mdSidenav, $timeout, $scope, $rootScope, toastService,userService, triBreadcrumbsService, organizationService, $state, $stateParams) {
+    function organizationsDetailController($mdSidenav, triLayout, $timeout, $scope, $rootScope, toastService, userService, triBreadcrumbsService, organizationService, $state, $stateParams) {
         var vm = this;
         vm.id = parseInt($stateParams.id, 10) || 0;
         vm.navigateToProjects = navigateToProjects;
@@ -34,6 +34,11 @@
                     // setBreadCrumbs();
                 });
             }
+            if (vm.id === 0) {
+                triLayout.setOption('sideMenuSize', 'off');
+                $rootScope.$emit('updateBreadcrumbs', 'Spaces > Add New Orgnisation');
+            }
+
             $timeout(function() {
                 angular.element('#billing').addClass('md-hue-1');
 
@@ -61,7 +66,7 @@
                 org_id: vm.selectedOrg.org_id,
                 'api_token': localStorage.getItem('apiToken')
             }
-            userServiceuserService.leaveOrg(paramObj);
+            userService.leaveOrg(paramObj);
         }
 
         function selectProject() {
