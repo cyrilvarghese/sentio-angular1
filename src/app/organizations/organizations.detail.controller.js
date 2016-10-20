@@ -30,16 +30,33 @@
                 };
                 organizationService.getOrg(paramObj).then(function(data) {
                     vm.selectedOrg = data;
-                    vm.members = data.members;
-                    // setBreadCrumbs();
+                    userService.setRole([vm.selectedOrg.role]);
+                    console.log("role set");
+                 vm.members = data.members;
+                    var breadCrumbs = [{
+                        name: 'Organizations',
+                        state: 'triangular.organizations'
+                    }, {
+                        name: vm.selectedOrg.name,
+                        state: 'triangular.organizations.detail'
+                    }]
+                    $rootScope.$broadcast('updateBreadcrumbs', breadCrumbs);
                 });
-            }
-            if (vm.id === 0) {
+            } else if (vm.id === 0) {
                 triLayout.setOption('sideMenuSize', 'off');
-                $rootScope.$emit('updateBreadcrumbs', 'Spaces > Add New Orgnisation');
+
+                var breadCrumbs = [{
+                    name: 'Organizations',
+                    state: 'triangular.organizations'
+                }, {
+                    name: 'New Organization',
+                    state: 'triangular.organizations.detail'
+                }];
+                $rootScope.$broadcast('updateBreadcrumbs', breadCrumbs);
+
             }
 
-            
+
         }
 
         function updateOrCreate() {

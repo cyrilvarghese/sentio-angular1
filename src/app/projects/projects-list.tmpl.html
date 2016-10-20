@@ -39,7 +39,7 @@
         </md-button>
     </md-content>
     <md-content ng-if="vm.projects.length===0" layout="column" layout-align="center-center">
-                <p class="md-headline">No projects found!</p>
+                <p class="md-headline">You are not part of any project!</p>
                 <md-button permission permission-only="'admin'" class="md-primary md-raised" ng-click="vm.navigateToProject(0,null)">Click to add a new projet</md-button>
             </md-content>
 </ui-view>

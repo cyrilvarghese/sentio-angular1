@@ -156,7 +156,7 @@
         function navigateToDetail(id) {
             if (id === 0 && vm.spaceList.length + 1 > parseInt(vm.plan.num_spaces)) {
                 // utilService.limitExceededDialog("spaces");
-                utilService.customConfirmDialog('Plan limit exceeded!', 'You have exceeded the allowed number of spaces, upgrade your plan or contact the organization admin.', false, "Upgrade", "View Current Plan", navigateToPlanChange, navigateToBilling);
+                utilService.customConfirmDialog('Plan limit exceeded!', 'You have exceeded the allowed number of spaces, upgrade your plan or contact the organization admin.', false, "Upgrade", "cancel", navigateToPlanChange, null);
 
                 return;
             }

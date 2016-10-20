@@ -21,6 +21,9 @@
         $stateProvider
             .state('triangular.organizations.detail.projects', {
                 url: '/projects',
+                params:{
+                    role:null
+                },
                 views: {
                     '@triangular': {
                         templateUrl: 'app/projects/projects-list.tmpl.html',

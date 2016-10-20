@@ -6,14 +6,16 @@
         .controller('projectsController', projectsController);
 
     /* @ngInject */
-    function projectsController($mdSidenav, $mdDialog, userService,$state, $timeout,utilService, $stateParams, organizationService, triBreadcrumbsService, projectService, toastService) {
+    function projectsController($mdSidenav, $mdDialog, userService, $state, $timeout, utilService, $stateParams, organizationService, triBreadcrumbsService, projectService, toastService) {
 
         var vm = this;
         vm.deleteProject = deleteProject;
         vm.showProject = showProject;
+        vm.role = $stateParams.role;
         vm.selectProject = selectProject;
         vm.navigateToSpaces = navigateToSpaces;
         vm.navigateToProject = navigateToProject;
+
         vm.isProjectSelected = false;
         $timeout(function() {
             angular.element('#projects').addClass('md-hue-1');
@@ -23,7 +25,9 @@
         init();
 
         function init() {
-            
+            if (vm.role)
+               { userService.setRole([vm.role]);}
+             
             var paramObj = {
                 'api_token': localStorage.getItem('apiToken'),
                 id: $stateParams.id
@@ -31,7 +35,6 @@
             organizationService.getOrg(paramObj).then(function(data) {
                 vm.selectedOrg = data;
                 organizationService.setCurrentOrganization(vm.selectedOrg);
-                userService.setRole([vm.selectedOrg.role]);
 
                 vm.plan = data.plan;
                 vm.members = data.members;
@@ -46,8 +49,9 @@
 
 
         function navigateToProject(id, project) {
-            if (id === 0 && vm.projects.length+1 >parseInt(vm.plan.num_projects)) {
-                utilService.limitExceededDialog("projects");
+            if (id === 0 && vm.projects.length + 1 > parseInt(vm.plan.num_projects)) {
+                utilService.customConfirmDialog('Plan limit exceeded!', 'You have exceeded the allowed number of projects, upgrade your plan or contact the organization admin.', false, "Upgrade", "cancel", navigateToPlanChange, null);
+
                 return;
             }
             var id = id || 0;
@@ -67,7 +71,7 @@
             });
         }
 
-       
+
 
 
 

@@ -6,7 +6,7 @@
          .controller('organizationsController', organizationsController);
 
      /* @ngInject */
-     function organizationsController($state, triLayout, $rootScope, $mdSidenav, triBreadcrumbsService, organizationService, $scope, $element, $myElementInkRipple) {
+     function organizationsController($state, userService,triLayout, $rootScope, $mdSidenav, triBreadcrumbsService, organizationService, $scope, $element, $myElementInkRipple) {
          var vm = this;
          if (!localStorage.getItem('userInfo')) {
              $state.go('authentication.login');
@@ -47,6 +47,7 @@
 
          function navigateToProjects(org, id) {
 
+            userService.setRole([org.role]);
 
              if (_.isEmpty(org.plan)) {
                  localStorage.setItem("accountExpired",true);
@@ -57,7 +58,8 @@
                  localStorage.setItem("accountExpired",false);
 
                  $state.go('triangular.organizations.detail.projects', {
-                     id: id
+                     id: id,
+                     role:org.role
                  });
              }
          }
