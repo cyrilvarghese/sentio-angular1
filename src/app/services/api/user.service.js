@@ -257,9 +257,7 @@
                 data: paramObj
             }
             $http(req).then(function(response) {
-                currentUser = response.data.user_id;
-                localStorage.setItem('userInfo', JSON.stringify(response.data));
-                localStorage.setItem('apiToken', response.data.auth_key);
+               
                 dfd.resolve();
                     toastService.show(response.data.message);
 
