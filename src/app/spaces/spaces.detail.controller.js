@@ -10,6 +10,7 @@
           var vm = this;
           vm.isOpen = false;
           vm.showErr = 0;
+          vm.fileCount = 0;
           vm.files = [];
           if ($stateParams.spaceId) {
               vm.id = parseInt($stateParams.spaceId);
@@ -36,10 +37,10 @@
 
                   }
                   return value;
-              })
-              vm.files = _.filter(vm.files, function(item) {
+              });
+              vm.fileCount = _.filter(vm.files, function(item) {
                   return !item.deleted;
-              })
+              }).length || 0;
 
           }
 
@@ -63,12 +64,18 @@
           ////////////////
           function addToArr(selectedFiles) {
               vm.files.push.apply(vm.files, selectedFiles);
+               vm.fileCount = _.filter(vm.files, function(item) {
+                  return !item.deleted;
+              }).length || 0;
 
           }
 
           function createSpace() {
               vm.showErr = 0;
               vm.disableWizardSteps = true;
+              vm.files = _.filter(vm.files, function(item) {
+                  return !item.deleted;
+              })
 
               var paramObj = {
                   projectId: $stateParams.projectId,
