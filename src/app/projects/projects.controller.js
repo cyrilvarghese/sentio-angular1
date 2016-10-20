@@ -46,7 +46,13 @@
         triBreadcrumbsService.reset();
 
         triBreadcrumbsService.addCrumb({ name: 'Projects' });
+       function navigateToPlanChange() {
+            $state.go('triangular.organizations.detail.billing.change');
+        }
 
+        function navigateToBilling() {
+            $state.go('triangular.organizations.detail.billing');
+        }
 
         function navigateToProject(id, project) {
             if (id === 0 && vm.projects.length + 1 > parseInt(vm.plan.num_projects)) {

@@ -444,7 +444,8 @@
         function openMemberDialog($event) {
 
             if (vm.members.length + 1 > parseInt(vm.plan.num_members)) {
-                utilService.limitExceededDialog("members");
+                utilService.customConfirmDialog('Plan limit exceeded!', 'You have exceeded the allowed number of members, upgrade your plan or contact the organization admin.', false, "Upgrade", "cancel", navigateToPlanChange, null);
+                
                 return;
             }
             $mdDialog.show({
