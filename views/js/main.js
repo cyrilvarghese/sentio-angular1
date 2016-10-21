@@ -120,101 +120,109 @@ $(function() {
    Language switcher
    ========================================================================== */
 
-	 $(".dropdown-menu li a").click(function(){
+    $(".dropdown-menu li a").click(function() {
 
-  		$(this).parents(".dropdown").find('.btn').html(  $(this).html() + ' <span class="caret"></span>' );
+        $(this).parents(".dropdown").find('.btn').html($(this).html() + ' <span class="caret"></span>');
 
-		});
+    });
 
 
-/* ==========================================================================
-   Smooth scroll
-   ========================================================================== */
-$('a[href*=#]:not([href=#])').on('click', function() {
-    if (location.pathname.replace(/^\//, '') === this.pathname.replace(/^\//, '') && location.hostname === this.hostname) {
-        var target = $(this.hash);
-        target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-        if (target.length) {
-            $('html,body').animate({
+    /* ==========================================================================
+       Smooth scroll
+       ========================================================================== */
+    $('a[href*=#]:not([href=#])').on('click', function() {
+        if (location.pathname.replace(/^\//, '') === this.pathname.replace(/^\//, '') && location.hostname === this.hostname) {
+            var target = $(this.hash);
+            target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+            if (target.length) {
+                $('html,body').animate({
 
-                scrollTop: (target.offset().top - 40)
-            }, 1000);
-            return false;
+                    scrollTop: (target.offset().top - 40)
+                }, 1000);
+                return false;
+            }
         }
-    }
-});
+    });
 
 
-/* ==========================================================================
-   Collapse nav bar
-   ========================================================================== */
+    /* ==========================================================================
+       Collapse nav bar
+       ========================================================================== */
 
-$(".navbar-nav li a").on('click', function() {
-    $(".navbar-collapse").collapse('hide');
-});
-
-
-
-/* ==========================================================================
-   Contact form
-   ========================================================================== */
-
-
-var formFields = $('.contact-form form input, .contact-form form textarea');
+    $(".navbar-nav li a").on('click', function() {
+        $(".navbar-collapse").collapse('hide');
+    });
 
 
 
-$(formFields).on('focus', function() {
-    $(this).removeClass('input-error');
-});
-$('.contact-form form').submit(function(e) {
-    e.preventDefault();
-    $(formFields).removeClass('input-error');
-    var postdata = $('.contact-form form').serialize();
-    $.ajax({
-        type: 'POST',
-        url: 'php/contact.php',
-        data: postdata,
-        dataType: 'json',
-        success: function(json) {
+    /* ==========================================================================
+       Contact form
+       ========================================================================== */
 
-            if (json.nameMessage !== '') {
-                $('.contact-form form .contact-name').addClass('input-error');
+
+    var formFields = $('.contact-form form input, .contact-form form textarea');
+
+
+
+    $(formFields).on('focus', function() {
+        $(this).removeClass('input-error');
+    });
+    $('.contact-form form').submit(function(e) {
+        $('.contact-form form').serializeArray().forEach(function(item) {
+            if (item.value === "") {
+                $('[name=' + item.name + ']').addClass('input-error');
+                $('[name=' + item.name + ']').attr("placeholder", "enter valid " + item.name);
+                return;
             }
-            if (json.emailMessage !== '') {
-                $('.contact-form form .contact-email').addClass('input-error');
-            }
-            if (json.messageMessage !== '') {
-                $('.contact-form form textarea').addClass('input-error');
-            }
-            if (json.antispamMessage !== '') {
-                $('.contact-form form .contact-antispam').addClass('input-error');
-            }
-            if (json.nameMessage === '' && json.emailMessage === '' && json.messageMessage === '' && json.antispamMessage === '') {
+        })
+
+        e.preventDefault();
+        $.get('http://52.43.239.79/csrf', function(data) {
+            performPost(data);
+
+        })
+
+
+
+    });
+
+    function performPost(csrf) {
+        $(formFields).removeClass('input-error');
+        var apiKey = $('#api-key').val();
+        var postdata = $('.contact-form form').serialize();
+
+        $.ajax({
+            type: 'POST',
+            beforeSend: function(request) {
+                request.setRequestHeader("api-key", apiKey);
+                request.setRequestHeader("X-CSRF-TOKEN", csrf);
+            },
+            url: 'http://52.43.239.79/api/v1/sentio/contactUs',
+            data: postdata,
+            dataType: 'json',
+            success: function(json) {
                 $('.contact-form').fadeOut('3000', "linear", function() {
                     $('.contact-form-success').slideToggle();
 
                 });
+
             }
-        }
+        });
+    }
+
+
+    /* ==========================================================================
+       Chat button
+       ========================================================================== */
+
+
+    $('.sub-form').waypoint(function() {
+        $('.chat-btn').addClass('fixed');
+
+    }, {
+        offset: '60%'
+
     });
-});
-
-
-
-
-/* ==========================================================================
-   Chat button
-   ========================================================================== */
-
-
-$('.sub-form').waypoint(function() {
-$('.chat-btn').addClass('fixed');
-
-}, {
-offset: '60%'
-
-});
 
 
 

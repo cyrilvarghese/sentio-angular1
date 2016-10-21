@@ -65,7 +65,7 @@
       <div class="col-md-12">
         <h1 lang="en"> Present your designs in Virtual Reality</h1>
         <h2 lang="en">Amaze your clients by sharing virtual reality experiences of your designs</h2>
-        <div class="play-btn"> <a href="https://vimeo.com/109054393" class="play litebox-hero"><img src="img/play-btn.png" alt="play"></a> </div>
+        <div class="play-btn">  </div>
         <div class="cta-btn"> <a href="/signup" class="btn" lang="en">SIGN UP</a>
         
         </div>
@@ -315,8 +315,8 @@
         
         <ul class="social">
           <li><a href="https://twitter.com/sentiovr" target="_blank"><i class="fa fa-twitter"></i></a></li>
-          <li><a href="https://twitter.com/sentiovr" target="_blank"><i class="fa fa-facebook"></i></a></li>
-          <li><a href="https://twitter.com/sentiovr" target="_blank"><i class="fa fa-youtube-play"></i></a></li>
+          <li><a href="https://www.facebook.com/solutionario" target="_blank"><i class="fa fa-facebook"></i></a></li>
+          <li><a href="https://www.linkedin.com/company/solutionario" target="_blank"><i class="fa fa-linkedin"></i></a></li>
         </ul>
         
         <!--social end--> 
@@ -324,7 +324,7 @@
       </div>
     </div>
     <!--chat-btn--> 
-    <a href="" class="chat-btn" data-toggle="modal" data-target="#modal-contact-form"></a> 
+    <a href="" class="chat-btn fixed" data-toggle="modal" data-target="#modal-contact-form"></a> 
     <!--chat-btn end--> 
     
   </div>
@@ -337,29 +337,33 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <div class="modal-body"> 
+      <div class="modal-body" style="padding:15px 35px; !important;"> 
         
         <!--contact form-->
         
         <div class="contact-form text-center">
-          <header class="section-header"> <img src="img/support-icon.svg" alt="support icon">
+          <header class="section-header" style="margin-bottom: 20px!important"> <img src="img/support-icon.svg" alt="support icon">
             <h2>Contact us</h2>
             <h3>Have any questions? Send us a message.</h3>
           </header>
-          <form class="cta-form" action="php/contact.php" method="post">
+          <form class="cta-form" >
             <div class="form-group">
-              <input  type="text" name="name" class="contact-name form-control input-lg" placeholder="Name *" id="contact-name">
+              <input  type="text" name="name" class="contact-name form-control input-sm" placeholder="Name *" id="contact-name">
             </div>
             <div class="form-group">
-              <input  type="text"  name="email" class="contact-email form-control input-lg" placeholder="Email address *" id="contact-email">
+              <input  type="number" name="number" class="contact-name form-control input-sm" placeholder="Phone *" id="contact-name">
             </div>
             <div class="form-group">
-              <textarea name="message" class="contact-message form-control input-lg" rows="4" placeholder="Message *" id="contact-message"></textarea>
+              <input  type="email"  name="email" class="contact-email form-control input-sm" placeholder="Email address *" id="contact-email">
             </div>
             <div class="form-group">
-              <input type="text" name="antispam" placeholder="Antispam question: 7 + 5 = ?" class="contact-antispam form-control input-lg" id="contact-antispam">
+             <input  type="hidden" id="api-key" name="api-key" value="7nZOLvhjP21/XqzuQCb0uylmBnbAtcPMil+6momlp5E=">
             </div>
-            <button type="submit" class="btn">SEND MESSAGE</button>
+            <div class="form-group">
+              <textarea name="message" class="contact-message form-control input-sm" rows="4" placeholder="Message *" id="contact-message"></textarea>
+            </div>
+            
+            <button type="submit"  class="message-btn btn">SEND MESSAGE</button>
           </form>
         </div>
         
