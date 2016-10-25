@@ -170,7 +170,7 @@ $(function() {
     });
     $('.contact-form form').submit(function(e) {
         $('.contact-form form').serializeArray().forEach(function(item) {
-            if (item.value === "") {
+            if (item.value === ""&&item.name!=="number") {
                 $('[name=' + item.name + ']').addClass('input-error');
                 $('[name=' + item.name + ']').attr("placeholder", "enter valid " + item.name);
                 return;
@@ -203,7 +203,7 @@ $(function() {
             dataType: 'json',
             success: function(json) {
                 $('.contact-form').fadeOut('3000', "linear", function() {
-                    $('.contact-form-success').slideToggle();
+                    $('.contact-form-success').slideUp();
 
                 });
 
