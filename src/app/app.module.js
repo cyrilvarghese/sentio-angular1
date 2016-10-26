@@ -35,7 +35,8 @@
     // set a constant for the API we are connecting to
     .constant('API_CONFIG', {
         'url': 'http://triangular-api.oxygenna.com/',
-        'baseUrl': 'http://54.214.114.133/',
+        // 'baseUrl': 'http://54.214.114.133/',
+        'baseUrl': 'http://52.43.239.79/',
         'authenticationUrl': 'api/v1/user/',
         'organizationsUrl': 'api/v1/org/',
         'sharedUrl':'api/v1/sentio/',

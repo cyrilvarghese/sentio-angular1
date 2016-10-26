@@ -21,7 +21,7 @@
         $stateProvider
             .state('triangular.organizations.detail.billing', {
                 url: '/billing?subscriptionCreated&cardUpdated&accountExpired',
-                templateUrl: 'app/billing/billing-disabled.tmpl.html',
+                templateUrl: 'app/billing/billing.tmpl.html',
                 controller: 'billingController',
                 controllerAs: 'vm',
                 // layout-column class added to make footer move to
@@ -37,7 +37,7 @@
 
             }).state('triangular.organizations.detail.billing.change', {
                 url: '/change-plan?currentPlanId=',
-                templateUrl: 'app/billing/billing-disabled.tmpl.html',
+                templateUrl: 'app/billing/change-plan.tmpl.html',
                 controller: 'changePlanController',
                 controllerAs: 'vm',
 
