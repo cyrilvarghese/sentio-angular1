@@ -43,7 +43,7 @@
                     <div>
                     
                         <form action="{{'http://52.43.239.79/api/v1/user/card_update?api_token='+vm.token+'&org_id='+vm.orgId|trusted}}" method="POST" method="POST">
-                            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_ipI2IcwYbdYDTALTVJ5Th2v6" data-image="assets/images/logo.png" data-name="Sentio VR" data-panel-label="Update Card Details" data-label="Update Card Details" data-allow-remember-me=false data-locale="auto">
+                            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_ipI2IcwYbdYDTALTVJ5Th2v6" data-email="{{vm.userEmail}}" data-image="assets/images/logo.png" data-name="Sentio VR" data-panel-label="Update Card Details" data-label="Update Card Details" data-allow-remember-me=false data-locale="auto">
                             </script>
                         </form>
                     </div>

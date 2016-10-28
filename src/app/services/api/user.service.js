@@ -6,7 +6,7 @@
         .factory('userService', userService);
 
     /* @ngInject */
-    function userService($q, $http, $state,RoleStore, Upload, utilService, toastService, API_CONFIG) {
+    function userService($q, $http, $state, RoleStore, Upload, utilService, toastService, API_CONFIG) {
         var userInfo = {
             name: 'guest',
             username: '-'
@@ -98,7 +98,13 @@
                 currentUser.roles.push(currentUser.role);
                 localStorage.setItem('userInfo', JSON.stringify(response.data));
                 localStorage.setItem('apiToken', response.data.auth_key);
-
+                window.Intercom('boot', {
+                    app_id: 'qwn6c23v',
+                    email: response.data.user_id/email,
+                    user_id:response.data.user_id,
+                    created_at: null,
+                    custom_launcher_selector: ""
+                });
                 dfd.resolve();
             }, utilService.handleError);
 
@@ -229,7 +235,7 @@
                 }).then(function(response) {
                     toastService.show(response.data.message);
                     localStorage.setItem('userInfo', JSON.stringify(response.data));
-                    $state.go($state.current, {}, {reload:true});
+                    $state.go($state.current, {}, { reload: true });
                     dfd.resolve(response);
                     // console.log('Success? ' + response.config.data.file.name + 'uploaded. responseonse: ' + response.data);
                 }, function(response) {
@@ -257,9 +263,9 @@
                 data: paramObj
             }
             $http(req).then(function(response) {
-               
+
                 dfd.resolve();
-                    toastService.show(response.data.message);
+                toastService.show(response.data.message);
 
             }, function(response) {
                 dfd.reject();

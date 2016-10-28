@@ -49,6 +49,7 @@
                     });
                     triLayout.setOption('sideMenuSize', 'off');
                 }
+                window.Intercom('update');
 
             });
     }

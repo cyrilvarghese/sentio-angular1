@@ -13,7 +13,7 @@
         vm.currentPlanId = organizationService.getCurrentOrganization().plan.plan_id || 0;
         vm.paymentAllowed = userService.getCurrentUser().verified === 1;
         vm.userId = userService.getCurrentUser().user_id;
-
+        vm.userEmail=userService.getCurrentUser().email;
         vm.orgId = $stateParams.id;
         vm.accountExpired = $stateParams.accountExpired ? parseInt($stateParams.accountExpired, 10) : 0;
         vm.token = localStorage.getItem('apiToken') || 0;
