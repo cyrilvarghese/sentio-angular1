@@ -105,6 +105,8 @@
         function logOut() {
             localStorage.clear();
             $state.go('authentication.login');
+            Intercom('shutdown');
+            console.log('seesion closed intercom');
         }
         $scope.$on('newMailNotification', function() {
             vm.emailNew = true;

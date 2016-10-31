@@ -100,9 +100,8 @@
                 localStorage.setItem('apiToken', response.data.auth_key);
                 window.Intercom('boot', {
                     app_id: 'qwn6c23v',
-                    email: response.data.user_id/email,
-                    user_id:response.data.user_id,
-                    created_at: null,
+                    email: response.data.email,
+                    user_id: response.data.user_id,
                     custom_launcher_selector: ""
                 });
                 dfd.resolve();
@@ -125,6 +124,12 @@
                 localStorage.setItem('userInfo', JSON.stringify(response.data));
                 localStorage.setItem('apiToken', response.data.auth_key);
                 dfd.resolve();
+                window.Intercom('boot', {
+                    app_id: 'qwn6c23v',
+                    email: response.data.email,
+                    user_id: response.data.user_id,
+                    custom_launcher_selector: ""
+                });
             }, utilService.handleError);
 
             return dfd.promise;
