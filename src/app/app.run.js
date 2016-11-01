@@ -34,8 +34,15 @@
                 if (!localStorage.getItem('userInfo')) {
                     event.preventDefault(); // stop current execution
                     $state.go('authentication.login'); // go to login
+                } else {
+                    var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+                    window.Intercom('boot', {
+                        app_id: 'qwn6c23v',
+                        email: userInfo.email,
+                        user_id: userInfo.user_id,
+                        custom_launcher_selector: ""
+                    });
                 }
-                 
             });
         $rootScope.$on('$stateChangeSuccess',
             function(event, toState, toParams, fromState, fromParams, options) {

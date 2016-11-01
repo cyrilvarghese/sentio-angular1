@@ -7,7 +7,7 @@
 
     <md-content class="padded-content-page" ng-show="!vm.showLoader" >
         <div class="md-padding" layout-gt-sm="row" layout-align="center start" layout-sm="column">
-            <tri-widget class="md-padding" style="height: 470px;overflow: auto" layout-margin flex="40" flex-xs="100" palette-background="blue:800" title="{{value.org_name}}" title-position="top" content-layout-align="start center" content-layout="column">
+            <tri-widget class="md-padding" style="height: 470px;overflow: auto" layout-margin flex="40" flex-xs="100" title="{{value.org_name}}" title-position="top" content-layout-align="start center" content-layout="column">
                 <h2>Plan Details</h2>
                 <md-divider></md-divider>
                 <div flex="100" layout="row" layout-align="space-between center" class="full-width">
@@ -57,7 +57,7 @@
                      ng-if="vm.plan.plan_name!=='trial'&&vm.accountExpired!==1" ng-click="vm.removePlan(vm.plan)"> Cancel Plan</md-button>
                 </div>
             </tri-widget>
-            <tri-widget layout-margin flex="45" flex-xs="100" palette-background="blue:800" title-position="top" content-layout-align="start center" content-layout="column">
+            <tri-widget layout-margin flex="45" flex-xs="100"  title-position="top" content-layout-align="start center" content-layout="column">
                 <h2>Invoices</h2>
                 <md-divider></md-divider>
                 <md-list flex="100" class="full-width md-padding" style="    max-height: 400px;
@@ -66,12 +66,12 @@
                     <md-list-item class="md-3-line" ng-repeat="(key, invoice) in vm.invoices track by $index">
                         <div class="md-list-item-text" layout-xs="column" layout="row" flex="100" layout-align="start center">
                             <div flex="80">
-                                <h3 class="margin-10" style="color: #fff !important"> {{invoice.inv_id}}</h3>
-                                <h4 class="margin-10" style="color: #fff !important">Invoice generated on {{invoice.inv_date}}</h4>
-                                <h4 class="margin-10" style="color: #fff !important">Invoice generated for {{invoice.inv_total}}</h4>
+                                <h3 class="margin-10" > {{invoice.inv_id}}</h3>
+                                <h4 class="margin-10" >Invoice generated on {{invoice.inv_date}}</h4>
+                                <h4 class="margin-10" >Invoice generated for {{invoice.inv_total}}</h4>
                             </div>
                             <div flex="20">
-                                <md-button class="md-icon-button md-default" ng-href="http://{{invoice.download_link}}">
+                                <md-button class="md-icon-button" ng-href="http://{{invoice.download_link}}">
                                     <md-icon class="zmdi zmdi-download"></md-icon>
                                     <md-tooltip md-direction="right">Download </md-tooltip>
                                 </md-button>
