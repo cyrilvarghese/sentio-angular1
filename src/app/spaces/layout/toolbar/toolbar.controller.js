@@ -6,7 +6,7 @@
         .controller('spacesToolbarController', spacesToolbarController);
 
     /* @ngInject */
-    function spacesToolbarController($rootScope, $stateParams, $mdMedia, $filter, Upload, $mdUtil, $mdSidenav, $state, triBreadcrumbsService, triLayout) {
+    function spacesToolbarController($rootScope, $stateParams,organizationService,navigationService,  $mdMedia, $filter, Upload, $mdUtil, $mdSidenav, $state, triBreadcrumbsService, triLayout) {
         var vm = this;
         // vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
         vm.filterEmailList = filterEmailList;
@@ -17,6 +17,8 @@
         vm.toolbarMenu = [];
         vm.logOut = logOut;
         vm.goTo = goTo;
+        init();
+        
         var userInfo = JSON.parse(localStorage.getItem('userInfo'));
         $rootScope.$on('updateBreadcrumbs', function(event, args) {
             vm.breadcrumbs = args;
@@ -53,6 +55,23 @@
 
         function hideMenuButton() {
             return triLayout.layout.sideMenuSize !== 'hidden' && $mdMedia('gt-sm');
+        }
+        $rootScope.$on('updateOrg', function(event, args) {
+            vm.selectedOrg = args;
+        });
+        init();
+        vm.changeOrg = changeOrg;
+
+        function init() {
+            organizationService.getOrgListUnparsed().then(function(data) {
+                vm.orgList = data;
+
+            });
+        }
+
+        function changeOrg(org) {
+             navigationService.navigateToProjects(org, org.org_id);
+
         }
 
         /**

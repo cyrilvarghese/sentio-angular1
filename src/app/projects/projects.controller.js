@@ -6,7 +6,7 @@
         .controller('projectsController', projectsController);
 
     /* @ngInject */
-    function projectsController($mdSidenav, $mdDialog, userService, $state, $timeout, utilService, $stateParams, organizationService, triBreadcrumbsService, projectService, toastService) {
+    function projectsController($mdSidenav, $mdDialog,$rootScope, userService, $state, $timeout, utilService, $stateParams, organizationService, triBreadcrumbsService, projectService, toastService) {
 
         var vm = this;
         vm.deleteProject = deleteProject;
@@ -25,9 +25,8 @@
         init();
 
         function init() {
-            if (vm.role)
-               { userService.setRole([vm.role]);}
-             
+            if (vm.role) { userService.setRole([vm.role]); }
+
             var paramObj = {
                 'api_token': localStorage.getItem('apiToken'),
                 id: $stateParams.id
@@ -35,6 +34,7 @@
             organizationService.getOrg(paramObj).then(function(data) {
                 vm.selectedOrg = data;
                 organizationService.setCurrentOrganization(vm.selectedOrg);
+                $rootScope.$broadcast('updateOrg', vm.selectedOrg);
 
                 vm.plan = data.plan;
                 vm.members = data.members;
@@ -46,7 +46,8 @@
         triBreadcrumbsService.reset();
 
         triBreadcrumbsService.addCrumb({ name: 'Projects' });
-       function navigateToPlanChange() {
+
+        function navigateToPlanChange() {
             $state.go('triangular.organizations.detail.billing.change');
         }
 

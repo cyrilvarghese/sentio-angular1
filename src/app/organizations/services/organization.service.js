@@ -12,6 +12,7 @@
             getCurrentOrganization: getCurrentOrganization,
             setCurrentOrganization: setCurrentOrganization,
             getOrgList: getOrgList,
+            getOrgListUnparsed: getOrgListUnparsed,
             getOrg: getOrg,
             getOrgStats: getOrgStats,
             createOrganization: createOrganization,
@@ -45,6 +46,20 @@
                     return org.role;
                 })
                 dfd.resolve(parsedData);
+            }, utilService.handleError);
+
+            return dfd.promise;
+        }
+         function getOrgListUnparsed() {
+            var dfd = $q.defer();
+            var req = {
+                method: 'GET',
+                url: API_CONFIG.baseUrl + API_CONFIG.authenticationUrl + 'org_list?' + $.param({ 'api_token': localStorage.getItem('apiToken') }),
+                headers: utilService.getHeaders()
+            }
+            $http(req).then(function(response) {
+               
+                dfd.resolve(response.data.org_list);
             }, utilService.handleError);
 
             return dfd.promise;

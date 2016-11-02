@@ -32,7 +32,8 @@
         // vm.queryMembers = queryMembers;
         // vm.inviteMember = inviteMember;
         vm.addAction = addAction;
-        vm.plan = organizationService.getCurrentOrganization().plan;
+        vm.currentOrg = organizationService.getCurrentOrganization();
+        vm.plan = vm.currentOrg.plan;
         triBreadcrumbsService.reset();
         triBreadcrumbsService.addCrumb({ name: 'Spaces' });
         init();
@@ -121,7 +122,7 @@
                     });
                     vm.selectedMembers = [];
                     var breadCrumbs = [{
-                        name: 'Projects',
+                        name: vm.currentOrg.name,
                         state: 'triangular.organizations.detail.projects'
                     }, {
                         name:vm.selectedProject.name,

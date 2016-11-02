@@ -6,7 +6,7 @@
         .controller('projectsToolbarController', projectsToolbarController);
 
     /* @ngInject */
-    function projectsToolbarController($rootScope, $stateParams, projectService, $mdMedia, $filter, Upload, $mdUtil, $mdSidenav, $state, triBreadcrumbsService, triLayout) {
+    function projectsToolbarController($rootScope,organizationService,navigationService, $stateParams, projectService, $mdMedia, $filter, Upload, $mdUtil, $mdSidenav, $state, triBreadcrumbsService, triLayout) {
         var vm = this;
         vm.breadcrumbs = ['Projects'];
 
@@ -25,6 +25,23 @@
         $rootScope.$on('updateBreadcrumbs', function(event, args) {
             vm.breadcrumbs = args;
         });
+        $rootScope.$on('updateOrg', function(event, args) {
+            vm.selectedOrg = args;
+        });
+        init();
+        vm.changeOrg = changeOrg;
+
+        function init() {
+            organizationService.getOrgListUnparsed().then(function(data) {
+                vm.orgList = data;
+
+            });
+        }
+
+        function changeOrg(org) {
+             navigationService.navigateToProjects(org, org.org_id);
+
+        }
 
         function hideMenuButton() {
             return triLayout.layout.sideMenuSize !== 'hidden' && $mdMedia('gt-sm');

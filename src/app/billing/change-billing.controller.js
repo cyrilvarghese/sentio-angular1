@@ -29,7 +29,7 @@
         }
 
         function init() {
-            vm.btnName = "Change";
+            vm.btnName = "Confirm";
             if (vm.accountExpired === 1) {
                 vm.btnName = "Renew selected"
             }

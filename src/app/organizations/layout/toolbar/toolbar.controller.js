@@ -6,7 +6,7 @@
         .controller('organizationsDetailToolbarController', organizationsDetailToolbarController);
 
     /* @ngInject */
-    function organizationsDetailToolbarController($rootScope, $stateParams, projectService, $mdMedia, $filter, Upload, $mdUtil, $mdSidenav, $state, triBreadcrumbsService, triLayout) {
+    function organizationsDetailToolbarController($rootScope, $stateParams, organizationService,navigationService, projectService, $mdMedia, $filter, Upload, $mdUtil, $mdSidenav, $state, triBreadcrumbsService, triLayout) {
         var vm = this;
         vm.breadcrumbs = ['Projects'];
 
@@ -19,15 +19,45 @@
             displayName: userInfo.name,
             username: userInfo.email,
             avatar: userInfo.image,
-           roles: userInfo.roles
+            roles: userInfo.roles
         }
-         $rootScope.$on('updateBreadcrumbs', function(event,args) {
+       $rootScope.$on('updateOrg', function(event, args) {
+            vm.selectedOrg = args;
+        });
+        init();
+        vm.changeOrg = changeOrg;
+
+        function init() {
+            organizationService.getOrgListUnparsed().then(function(data) {
+                vm.orgList = data;
+
+            });
+        }
+
+        function changeOrg(org) {
+             navigationService.navigateToProjects(org, org.org_id);
+
+        }
+
+        $rootScope.$on('updateBreadcrumbs', function(event, args) {
             vm.breadcrumbs = args;
         });
         vm.toolbarMenu = [];
-
         function hideMenuButton() {
             return triLayout.layout.sideMenuSize !== 'hidden' && $mdMedia('gt-sm');
+        }
+        init();
+        vm.changeOrg = changeOrg;
+
+        function init() {
+            organizationService.getOrgListUnparsed().then(function(data) {
+                vm.orgList = data;
+
+            });
+        }
+
+        function changeOrg(id) {
+            console.log(id);
         }
 
         function logOut() {

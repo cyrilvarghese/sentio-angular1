@@ -6,7 +6,7 @@
          .controller('organizationsController', organizationsController);
 
      /* @ngInject */
-     function organizationsController($state, userService,triLayout, $rootScope, $mdSidenav, triBreadcrumbsService, organizationService, $scope, $element, $myElementInkRipple) {
+     function organizationsController($state, userService, triLayout, $rootScope,navigationService, $mdSidenav, triBreadcrumbsService, organizationService, $scope, $element, $myElementInkRipple) {
          var vm = this;
          if (!localStorage.getItem('userInfo')) {
              $state.go('authentication.login');
@@ -46,22 +46,7 @@
          }
 
          function navigateToProjects(org, id) {
-
-            userService.setRole([org.role]);
-
-             if (_.isEmpty(org.plan)) {
-                 localStorage.setItem("accountExpired",true);
-                 $state.go('triangular.organizations.detail.billing', {
-                     id: id
-                 });
-             } else {
-                 localStorage.setItem("accountExpired",false);
-
-                 $state.go('triangular.organizations.detail.projects', {
-                     id: id,
-                     role:org.role
-                 });
-             }
+             navigationService.navigateToProjects(org, id);
          }
 
          function selectMember(ev) {
