@@ -90,14 +90,14 @@
                                             </div>
                                         </div>
                                         <md-divider class=" padding-top-20 "></md-divider>
-                                        <div class="md-padding" ng-if="vm.currentPlan.plan_name==='trial' ||vm.accountExpired===1 ">
+                                        <div class="md-padding" ng-if="vm.currentPlanName==='trial' ||vm.accountExpired===1 ">
                                             <form class="md-padding" action="{{ 'http://52.43.239.79/api/v1/user/subscription?api_token='+vm.token+ '&org_id='+vm.orgId|trusted}}" method="POST">
                                                 <input type="hidden" id="plan" name="plan_id" value="{{vm.selectedPlan.id}} ">
                                                 <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_ipI2IcwYbdYDTALTVJ5Th2v6" data-amount="{{vm.selectedPlan.price_cents}}" data-email="{{ vm.userEmail}}" data-name="SentioVR" data-description="Widget" data-image="assets/images/logo.png" data-name data-locale="auto" data-zip-code="true ">
                                                 </script>
                                             </form>
                                         </div>
-                                        <div class="md-padding"  ng-if="vm.currentPlan.plan_name!=='trial' &&vm.accountExpired!==1 "> 
+                                        <div class="md-padding"  ng-if="vm.currentPlanName!=='trial' &&vm.accountExpired!==1 "> 
                                             <md-button class="md-primary md-raised" ng-click="vm.changePlan(vm.selectedPlan) ">{{vm.btnName}} Plan</md-button>
 
                                         </div>
