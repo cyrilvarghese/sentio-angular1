@@ -11,7 +11,7 @@
 
         // vm.currentPlan = organizationService.getCurrentOrganization().plan;
         vm.currentPlanId = organizationService.getCurrentOrganization().plan.plan_id || 0;
-        vm.currentPlanName = organizationService.getCurrentOrganization().plan.name || "trial";
+        vm.currentPlanName = organizationService.getCurrentOrganization().plan.plan_name || "trial";
         vm.paymentAllowed = userService.getCurrentUser().verified === 1;
         vm.userId = userService.getCurrentUser().user_id;
         vm.userEmail=userService.getCurrentUser().email;
