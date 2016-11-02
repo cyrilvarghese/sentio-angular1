@@ -203,7 +203,7 @@ $(function() {
             dataType: 'json',
             success: function(json) {
                 $('.contact-form').fadeOut('3000', "linear", function() {
-                    $('.contact-form-success').slideUp();
+                    $('.contact-form-success').slideDown();
 
                 });
 
