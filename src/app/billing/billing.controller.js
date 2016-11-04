@@ -6,8 +6,13 @@
         .controller('billingController', billingController);
 
     /* @ngInject */
-    function billingController($mdSidenav, $state, $timeout, utilService, userService, $stateParams, $mdDialog, billingService, $q, organizationService, triBreadcrumbsService, projectService, toastService) {
+    function billingController($mdSidenav, $state, $timeout, utilService, API_CONFIG,userService, $stateParams, $mdDialog, billingService, $q, organizationService, triBreadcrumbsService, projectService, toastService) {
         var vm = this;
+        vm.config = API_CONFIG;
+        vm.baseUrl = API_CONFIG.baseUrl;
+        vm.stripeKey = API_CONFIG.stripeKey;
+        vm.stripeURL = API_CONFIG.stripeURL;
+
         vm.btnName = "Change"; /*initially set to change plan/set to renew plan for expired*/
         vm.projects = $stateParams.projects;
         init();

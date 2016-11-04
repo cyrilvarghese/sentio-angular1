@@ -178,7 +178,7 @@ $(function() {
         })
 
         e.preventDefault();
-        $.get('http://52.43.239.79/csrf', function(data) {
+        $.get('http://54.214.114.133/csrf', function(data) {/*always prod*/
             performPost(data);
 
         })
@@ -198,7 +198,7 @@ $(function() {
                 request.setRequestHeader("api-key", apiKey);
                 request.setRequestHeader("X-CSRF-TOKEN", csrf);
             },
-            url: 'http://52.43.239.79/api/v1/sentio/contactUs',
+            url: 'http://54.214.114.133/api/v1/sentio/contactUs',/*always prod*/
             data: postdata,
             dataType: 'json',
             success: function(json) {

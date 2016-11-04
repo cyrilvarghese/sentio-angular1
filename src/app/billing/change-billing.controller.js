@@ -6,10 +6,13 @@
         .controller('changePlanController', changePlanController);
 
     /* @ngInject */
-    function changePlanController($mdSidenav, $rootScope, $state, utilService, userService, $timeout, $stateParams, billingService, $scope, triLoaderService, organizationService, triBreadcrumbsService, projectService, toastService) {
+    function changePlanController($mdSidenav, $rootScope, $state, utilService, userService, API_CONFIG,$timeout, $stateParams, billingService, $scope, triLoaderService, organizationService, triBreadcrumbsService, projectService, toastService) {
         var vm = this;
 
         // vm.currentPlan = organizationService.getCurrentOrganization().plan;
+        vm.baseUrl = API_CONFIG.baseUrl;
+        vm.stripeKey = API_CONFIG.stripeKey;
+        vm.stripeURL = API_CONFIG.stripeURL;
         vm.currentPlanId = organizationService.getCurrentOrganization().plan.plan_id || 0;
         vm.currentPlanName = organizationService.getCurrentOrganization().plan.plan_name || "trial";
         vm.paymentAllowed = userService.getCurrentUser().verified === 1;

@@ -46,20 +46,8 @@
         function hideMenuButton() {
             return triLayout.layout.sideMenuSize !== 'hidden' && $mdMedia('gt-sm');
         }
-        init();
-        vm.changeOrg = changeOrg;
-
-        function init() {
-            organizationService.getOrgListUnparsed().then(function(data) {
-                vm.orgList = data;
-
-            });
-        }
-
-        function changeOrg(id) {
-            console.log(id);
-        }
-
+         
+      
         function logOut() {
             localStorage.clear();
             $state.go('authentication.login');

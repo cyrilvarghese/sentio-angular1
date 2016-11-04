@@ -99,7 +99,7 @@
                 localStorage.setItem('userInfo', JSON.stringify(response.data));
                 localStorage.setItem('apiToken', response.data.auth_key);
                 window.Intercom('boot', {
-                    app_id: 'qwn6c23v',
+                    app_id: API_CONFIG.intercomAppId,
                     email: response.data.email,
                     user_id: response.data.user_id,
                     custom_launcher_selector: ""
@@ -125,7 +125,7 @@
                 localStorage.setItem('apiToken', response.data.auth_key);
                 dfd.resolve();
                 window.Intercom('boot', {
-                    app_id: 'qwn6c23v',
+                    app_id: API_CONFIG.intercomAppId,
                     email: response.data.email,
                     user_id: response.data.user_id,
                     custom_launcher_selector: ""

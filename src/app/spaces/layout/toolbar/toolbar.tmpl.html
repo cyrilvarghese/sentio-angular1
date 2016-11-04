@@ -23,7 +23,7 @@
         <md-menu-content width="4">
             
             <md-menu-item ng-repeat="(key, org) in vm.orgList">
-                <md-button ng-click="vm.changeOrg(org.org_id)" aria-label="side navigation">
+                <md-button ng-click="vm.changeOrg(org)" aria-label="side navigation">
                     <md-icon md-font-icon="zmdi zmdi-exchange"></md-icon>
                     <span translate="{{org.org_name}}"></span>
                 </md-button>

@@ -11,24 +11,24 @@ gulp.paths = {
 
 require('require-dir')('./gulp');
 
-gulp.task('build', ['clean'], function() {
+gulp.task('build', ['clean','configure'], function() {
     gulp.start('buildapp');
 });
 
 
-gulp.task('build', ['clean'], function() {
+gulp.task('build:prod', ['clean','configure:prod'], function() {
     gulp.start('buildapp');
 });
 
-gulp.task('configure:prod', function() {
-
-    gulp.src('configfile.json')
-        .pipe(gulpNgConfig('app.config'))
-        .pipe(gulp.dest('.'))
-});
 gulp.task('configure', function() {
 
-    gulp.src('configfileProd.json')
+    gulp.src('devconfig/configfile.json')
         .pipe(gulpNgConfig('app.config'))
-        .pipe(gulp.dest('.'))
+        .pipe(gulp.dest('./src/app'))
+});
+gulp.task('configure:prod', function() {
+
+    gulp.src('prodconfig/configfile.json')
+        .pipe(gulpNgConfig('app.config'))
+        .pipe(gulp.dest('./src/app'))
 });
