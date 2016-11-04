@@ -13,7 +13,7 @@
         "changePlan": "api/v1/user/plan_update?",
         "stripeURL": "https://checkout.stripe.com/checkout.js",
         "stripeKey": "pk_test_ipI2IcwYbdYDTALTVJ5Th2v6",
-        "intercomAppId": "af7ygs9h",
+        "intercomAppId": "w1qvzn2n",
         "apiKey": "7nZOLvhjP21/XqzuQCb0uylmBnbAtcPMil+6momlp5E="
     }
 }
