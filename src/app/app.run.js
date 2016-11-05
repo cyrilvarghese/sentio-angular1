@@ -6,13 +6,20 @@
         .run(runFunction);
 
     /* @ngInject */
-    function runFunction($rootScope, $state, triLayout, toastService,API_CONFIG) {
+    function runFunction($rootScope, $state, triLayout, toastService, API_CONFIG) {
 
         // default redirect if access is denied
         function redirectError() {
             $state.go('500');
         }
+        var userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
+        window.Intercom('boot', {
+            app_id: API_CONFIG.intercomAppId,
+            email: userInfo.email,
+            user_id: userInfo.user_id,
+            custom_launcher_selector: ""
+        });
         // watches
 
         // redirect all errors to permissions to 500
@@ -35,13 +42,7 @@
                     event.preventDefault(); // stop current execution
                     $state.go('authentication.login'); // go to login
                 } else {
-                    var userInfo = JSON.parse(localStorage.getItem('userInfo'));
-                    window.Intercom('boot', {
-                        app_id: API_CONFIG.intercomAppId,
-                        email: userInfo.email,
-                        user_id: userInfo.user_id,
-                        custom_launcher_selector: ""
-                    });
+
                 }
             });
         $rootScope.$on('$stateChangeSuccess',
