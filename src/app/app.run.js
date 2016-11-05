@@ -12,14 +12,16 @@
         function redirectError() {
             $state.go('500');
         }
-        var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+        if (localStorage.getItem('userInfo')) {
+            var userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
-        window.Intercom('boot', {
-            app_id: API_CONFIG.intercomAppId,
-            email: userInfo.email,
-            user_id: userInfo.user_id,
-            custom_launcher_selector: ""
-        });
+            window.Intercom('boot', {
+                app_id: API_CONFIG.intercomAppId,
+                email: userInfo.email,
+                user_id: userInfo.user_id,
+                custom_launcher_selector: ""
+            });
+        }
         // watches
 
         // redirect all errors to permissions to 500
