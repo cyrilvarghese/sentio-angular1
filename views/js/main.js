@@ -1,6 +1,6 @@
 $(function() {
     "use strict";
-  
+
     /* ==========================================================================
    Sub Form   
    ========================================================================== */
@@ -13,6 +13,18 @@ $(function() {
             //http://xxx.xxx.list-manage.com/subscribe/post?u=xxx&id=xxx
     });
 
+    function getCookie(c_name) {
+        if (document.cookie.length > 0) {
+            c_start = document.cookie.indexOf(c_name + "=");
+            if (c_start != -1) {
+                c_start = c_start + c_name.length + 1;
+                c_end = document.cookie.indexOf(";", c_start);
+                if (c_end == -1) c_end = document.cookie.length;
+                return unescape(document.cookie.substring(c_start, c_end));
+            }
+        }
+        return "";
+    }
 
     $.ajaxChimp.translations.cm = {
         'submit': 'Submitting...',
@@ -92,7 +104,7 @@ $(function() {
    ========================================================================== */
 
     $(window).load(function() {
-        
+
         var featureImg = function() {
             $(".features div[class='row'] .col-md-7").each(function() {
                 var newHeight = 0,
@@ -170,7 +182,7 @@ $(function() {
     });
     $('.contact-form form').submit(function(e) {
         $('.contact-form form').serializeArray().forEach(function(item) {
-            if (item.value === ""&&item.name!=="number") {
+            if (item.value === "" && item.name !== "number") {
                 $('[name=' + item.name + ']').addClass('input-error');
                 $('[name=' + item.name + ']').attr("placeholder", "enter valid " + item.name);
                 return;
@@ -178,7 +190,7 @@ $(function() {
         })
 
         e.preventDefault();
-        $.get('http://54.214.114.133/csrf', function(data) {/*always prod*/
+        $.get('http://54.214.114.133/csrf', function(data) { /*always prod*/
             performPost(data);
 
         })
@@ -197,8 +209,11 @@ $(function() {
             beforeSend: function(request) {
                 request.setRequestHeader("api-key", apiKey);
                 request.setRequestHeader("X-CSRF-TOKEN", csrf);
+                request.setRequestHeader("withCredentials", true);
+                  request.withCredentials = true;
             },
-            url: 'http://54.214.114.133/api/v1/sentio/contactUs',/*always prod*/
+            url: 'http://54.214.114.133/api/v1/sentio/contactUs',
+            /*always prod*/
             data: postdata,
             dataType: 'json',
             success: function(json) {
